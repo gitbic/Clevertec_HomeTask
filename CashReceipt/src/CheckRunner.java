@@ -4,10 +4,11 @@ import clevertec.beans.DiscountCard;
 import clevertec.beans.MainOrder;
 import clevertec.beans.Product;
 
+import java.io.IOException;
 import java.util.*;
 
 public class CheckRunner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Arguments arguments = new Arguments();
         arguments.parseArguments(args);
@@ -47,7 +48,7 @@ public class CheckRunner {
         if (myCard == null) {
             myCard = new DiscountCard("", 0);
             if (!num.equals("")) {
-                System.out.println("Error: card 'number=" + num + "' doesnt exist.");
+                System.err.println("Card 'number=" + num + "' doesnt exist.");
             }
         }
 
@@ -56,7 +57,7 @@ public class CheckRunner {
         for (Map.Entry<Integer, Integer> position : arguments.getOrder().entrySet()) {
             int id = position.getKey();
             if (!productMap.containsKey(id)) {
-                System.out.println("Error: product 'id=" + id + "' doesnt exist.");
+                System.err.println("Product 'id=" + id + "' doesnt exist.");
                 continue;
             }
             Product product = productMap.get(id);
@@ -66,6 +67,9 @@ public class CheckRunner {
         // print check to console and file
         System.out.println(mainOrder.getCheck());
         fileIO.write(arguments.getPathFileCheckOutput(), mainOrder.getCheck());
+
+        System.out.println(mainOrder);
+
     }
 }
 

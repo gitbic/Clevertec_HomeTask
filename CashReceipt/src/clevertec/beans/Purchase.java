@@ -1,10 +1,10 @@
 package clevertec.beans;
 
+import clevertec.Constants;
 import clevertec.Utility;
-import clevertec.enums.TableMenu;
 
 import java.math.BigDecimal;
-import java.util.Formatter;
+
 
 public class Purchase {
     private final Product product;
@@ -27,22 +27,9 @@ public class Purchase {
         return product.getPrice().multiply(BigDecimal.valueOf(number));
     }
 
-    public String toCheck() {
-        Formatter f = new Formatter();
-        f.format(TableMenu.QTY.getFormatForCell(), number);
-        f.format(product.toCheck());
-        f.format(TableMenu.TOTAL.getFormatForCell(), Utility.priceToString(getCost()));
-        return f.toString();
-    }
-
-    protected String fieldToString() {
-        return "Purchase{"
-                + product
-                + ", number=" + number;
-    }
-
     @Override
     public String toString() {
-        return fieldToString() + ", cost=" + Utility.priceToString(getCost());
+        return number + Constants.CSV_DELIMITER + product
+                + Constants.CSV_DELIMITER + Utility.priceToString(getCost());
     }
 }

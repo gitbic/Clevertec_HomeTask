@@ -36,4 +36,14 @@ public enum TableMenu {
         }
         return totalWidth;
     }
+
+    public static String getFormattedString(String csvString) {
+        String[] elements = csvString.split(Constants.CSV_DELIMITER);
+        Formatter f = new Formatter();
+
+        for (int i = 0; i < elements.length; i++) {
+            f.format(values()[i].getFormatForCell(), elements[i]);
+        }
+        return f.toString();
+    }
 }

@@ -41,20 +41,8 @@ public final class Product {
         this.discountForQuantity = discountForQuantity;
     }
 
-    public String toCheck() {
-        Formatter f = new Formatter();
-        f.format(TableMenu.DESCRIPTION.getFormatForCell(), name);
-        f.format(TableMenu.PRICE.getFormatForCell(), Utility.priceToString(price));
-        return f.toString();
-    }
-
     @Override
     public String toString() {
-        return "Product{"
-                + "id=" + id
-                + ", name='" + name + "'"
-                + ", price=" + Utility.priceToString(price)
-                + (discountForQuantity ? ", discount for quantity" : "")
-                + '}';
+        return name + Constants.CSV_DELIMITER + Utility.priceToString(price);
     }
 }
