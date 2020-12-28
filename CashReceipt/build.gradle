@@ -18,4 +18,5 @@ sourceSets {
 dependencies {
     compile 'junit:junit:4.12'
     compile 'org.apache.pdfbox:pdfbox:2.0.22'
+    compile 'com.itextpdf:itextpdf:5.5.13.2'
 }

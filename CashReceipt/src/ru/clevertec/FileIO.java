@@ -1,4 +1,4 @@
-package clevertec;
+package ru.clevertec;
 
 import java.io.*;
 import java.util.Scanner;

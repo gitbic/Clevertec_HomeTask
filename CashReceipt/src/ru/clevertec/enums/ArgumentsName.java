@@ -1,8 +1,9 @@
-package clevertec.enums;
+package ru.clevertec.enums;
 
 public enum ArgumentsName {
     PROD,
     CHECK,
+    PDF,
     CARD,
     BUY,
     DSC;

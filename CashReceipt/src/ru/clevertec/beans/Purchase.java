@@ -1,7 +1,7 @@
-package clevertec.beans;
+package ru.clevertec.beans;
 
-import clevertec.Constants;
-import clevertec.Utility;
+import ru.clevertec.Constants;
+import ru.clevertec.Utility;
 
 import java.math.BigDecimal;
 

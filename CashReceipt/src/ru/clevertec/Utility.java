@@ -1,4 +1,4 @@
-package clevertec;
+package ru.clevertec;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,4 +1,4 @@
-package clevertec.beans;
+package ru.clevertec.beans;
 
 public final class DiscountCard {
     private final String number;

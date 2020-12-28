@@ -1,8 +1,8 @@
-package clevertec;
+package ru.clevertec;
 
-import clevertec.beans.Product;
-import clevertec.beans.Purchase;
-import clevertec.beans.PurchaseDiscountQuantity;
+import ru.clevertec.beans.Product;
+import ru.clevertec.beans.Purchase;
+import ru.clevertec.beans.PurchaseDiscountQuantity;
 
 public final class Factory {
 

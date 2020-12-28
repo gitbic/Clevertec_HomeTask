@@ -1,12 +1,9 @@
-package clevertec.beans;
+package ru.clevertec.beans;
 
-import clevertec.Constants;
-import clevertec.Utility;
-import clevertec.enums.TableMenu;
+import ru.clevertec.Constants;
+import ru.clevertec.Utility;
 
 import java.math.BigDecimal;
-import java.util.Formatter;
-import java.util.Scanner;
 
 public final class Product {
     private final int id;

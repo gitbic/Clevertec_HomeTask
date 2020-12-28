@@ -1,8 +1,8 @@
-import clevertec.*;
-import clevertec.beans.Arguments;
-import clevertec.beans.DiscountCard;
-import clevertec.beans.MainOrder;
-import clevertec.beans.Product;
+import ru.clevertec.*;
+import ru.clevertec.beans.Arguments;
+import ru.clevertec.beans.DiscountCard;
+import ru.clevertec.beans.MainOrder;
+import ru.clevertec.beans.Product;
 
 import java.io.IOException;
 import java.util.*;
@@ -66,9 +66,15 @@ public class CheckRunner {
 
         // print check to console and file
         System.out.println(mainOrder.getCheck());
-        fileIO.write(arguments.getPathFileCheckOutput(), mainOrder.getCheck());
+        fileIO.write(arguments.getPathFileCheckTXTOutput(), mainOrder.getCheck());
 
-        System.out.println(mainOrder);
+//        System.out.println(mainOrder);
+
+//        mainOrder.createPDFCheck(arguments.getPathFileCheckPDFOutput());
+
+//        FirstPdf.print(mainOrder.getCheck());
+
+        mainOrder.createPDFCheck(arguments.getPathFileCheckPDFOutput());
 
     }
 }

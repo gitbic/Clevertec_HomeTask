@@ -1,7 +1,7 @@
-package clevertec.beans;
+package ru.clevertec.beans;
 
-import clevertec.Constants;
-import clevertec.enums.ArgumentsName;
+import ru.clevertec.Constants;
+import ru.clevertec.enums.ArgumentsName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,14 +10,16 @@ import java.util.regex.Pattern;
 
 public final class Arguments {
     private String pathFileProductInput;
-    private String pathFileCheckOutput;
+    private String pathFileCheckTXTOutput;
+    private String pathFileCheckPDFOutput;
     private String pathFileCardInput;
     private Map<Integer, Integer> order;
     private String cardNumber;
 
     {
         pathFileProductInput = Constants.DEFAULT_PATH_FILE_PRODUCT_INPUT;
-        pathFileCheckOutput = Constants.DEFAULT_PATH_FILE_CHECK_OUTPUT;
+        pathFileCheckTXTOutput = Constants.DEFAULT_PATH_FILE_CHECK_TXT_OUTPUT;
+        pathFileCheckPDFOutput = Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT;
         pathFileCardInput = Constants.DEFAULT_PATH_FILE_CARD_INPUT;
         order = new HashMap<>();
         cardNumber = "";
@@ -34,7 +36,10 @@ public final class Arguments {
                     pathFileProductInput = args[++i];
                     break;
                 case CHECK:
-                    pathFileCheckOutput = args[++i];
+                    pathFileCheckTXTOutput = args[++i];
+                    break;
+                case PDF:
+                    pathFileCheckPDFOutput = args[i++];
                     break;
                 case CARD:
                     pathFileCardInput = args[++i];
@@ -65,8 +70,12 @@ public final class Arguments {
         return pathFileProductInput;
     }
 
-    public String getPathFileCheckOutput() {
-        return pathFileCheckOutput;
+    public String getPathFileCheckTXTOutput() {
+        return pathFileCheckTXTOutput;
+    }
+
+    public String getPathFileCheckPDFOutput() {
+        return pathFileCheckPDFOutput;
     }
 
     public String getPathFileCardInput() {
