@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 public final class Arguments {
     private String pathFileProductInput;
     private String pathFileCheckTXTOutput;
-    private String pathFileCheckPDFOutput;
     private String pathFileCardInput;
     private Map<Integer, Integer> order;
     private String cardNumber;
@@ -19,7 +18,6 @@ public final class Arguments {
     {
         pathFileProductInput = Constants.DEFAULT_PATH_FILE_PRODUCT_INPUT;
         pathFileCheckTXTOutput = Constants.DEFAULT_PATH_FILE_CHECK_TXT_OUTPUT;
-        pathFileCheckPDFOutput = Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT;
         pathFileCardInput = Constants.DEFAULT_PATH_FILE_CARD_INPUT;
         order = new HashMap<>();
         cardNumber = "";
@@ -37,9 +35,6 @@ public final class Arguments {
                     break;
                 case CHECK:
                     pathFileCheckTXTOutput = args[++i];
-                    break;
-                case PDF:
-                    pathFileCheckPDFOutput = args[i++];
                     break;
                 case CARD:
                     pathFileCardInput = args[++i];
@@ -72,10 +67,6 @@ public final class Arguments {
 
     public String getPathFileCheckTXTOutput() {
         return pathFileCheckTXTOutput;
-    }
-
-    public String getPathFileCheckPDFOutput() {
-        return pathFileCheckPDFOutput;
     }
 
     public String getPathFileCardInput() {

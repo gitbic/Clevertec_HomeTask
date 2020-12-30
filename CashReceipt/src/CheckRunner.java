@@ -1,18 +1,18 @@
-import ru.clevertec.*;
-import ru.clevertec.beans.Arguments;
-import ru.clevertec.beans.DiscountCard;
-import ru.clevertec.beans.MainOrder;
-import ru.clevertec.beans.Product;
+import ru.clevertec.Constants;
+import ru.clevertec.beans.*;
+import ru.clevertec.factories.CashReceiptFactory;
+import ru.clevertec.factories.PurchaseFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckRunner {
     public static void main(String[] args) throws IOException {
 
         Arguments arguments = new Arguments();
         arguments.parseArguments(args);
-        Factory factory = new Factory();
+        PurchaseFactory factory = new PurchaseFactory();
         FileIO fileIO = new FileIO();
 
         // create map products: key(id), value(Product)
@@ -64,17 +64,14 @@ public class CheckRunner {
             mainOrder.addPurchaseToList((factory.createPurchase(product, position.getValue())));
         }
 
-        // print check to console and file
-        System.out.println(mainOrder.getCheck());
-        fileIO.write(arguments.getPathFileCheckTXTOutput(), mainOrder.getCheck());
+        // print check to console, file.txt and file.pdf
+        String cashReceiptTxt = mainOrder.createCheck(CashReceiptFactory.TXT);
+        fileIO.write(arguments.getPathFileCheckTXTOutput(), cashReceiptTxt);
+        System.out.println(cashReceiptTxt);
 
-//        System.out.println(mainOrder);
+        String result = mainOrder.createCheck(CashReceiptFactory.PDF);
+        System.out.println(result);
 
-//        mainOrder.createPDFCheck(arguments.getPathFileCheckPDFOutput());
-
-//        FirstPdf.print(mainOrder.getCheck());
-
-        mainOrder.createPDFCheck(arguments.getPathFileCheckPDFOutput());
 
     }
 }

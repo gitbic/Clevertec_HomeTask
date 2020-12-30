@@ -5,7 +5,7 @@ import ru.clevertec.Constants;
 public enum TableTail {
     TOTAL,
     DISCOUNT,
-    TO_PAY;
+    PAYMENT;
 
 
     public static String getTailFormatString() {

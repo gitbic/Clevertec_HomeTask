@@ -9,4 +9,4 @@ QTY  DESCRIPTION    PRICE     TOTAL     DISCOUNT
 ==================================================
 TOTAL                         $134.38             
 DISCOUNT                      2.12%               
-TO_PAY                        $131.53             
+PAYMENT                       $131.53             

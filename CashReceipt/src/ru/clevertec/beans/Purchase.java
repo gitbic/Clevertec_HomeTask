@@ -1,7 +1,6 @@
 package ru.clevertec.beans;
 
 import ru.clevertec.Constants;
-import ru.clevertec.Utility;
 
 import java.math.BigDecimal;
 
