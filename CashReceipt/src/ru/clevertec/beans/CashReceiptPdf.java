@@ -3,14 +3,15 @@ package ru.clevertec.beans;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import ru.clevertec.Constants;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
 import ru.clevertec.interfaces.CashReceipt;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class CashReceiptPdf implements CashReceipt {
@@ -67,8 +68,13 @@ public class CashReceiptPdf implements CashReceipt {
     public String getCheck(List<Purchase> purchases, String[] tailArgs) {
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT));
             document.open();
+
+            document.setMargins(0,0,200,0);
+            document.newPage();
+
+            useTemplate(writer, Constants.PDF_TEMPLATE);
 
             document.add(getCheckHead());
             document.add(pdfTableSeparator());
@@ -83,6 +89,15 @@ public class CashReceiptPdf implements CashReceipt {
 
         return "PDF document successfully created: " + Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT;
     }
+
+    private void useTemplate(PdfWriter writer, String templateFileName) throws IOException {
+        FileInputStream template = new FileInputStream(templateFileName);
+        PdfReader reader = new PdfReader(template);
+        PdfImportedPage page = writer.getImportedPage(reader, 1);
+        PdfContentByte cb = writer.getDirectContent();
+        cb.addTemplate(page, 0, 0);
+    }
+
 
     private PdfPTable getTable5Columns() throws DocumentException {
         PdfPTable table = new PdfPTable(5);

@@ -7,6 +7,7 @@ public final class Constants {
     public static final String DEFAULT_PATH_FILE_CHECK_TXT_OUTPUT = "file/check.txt";
     public static final String DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT = "file/check.pdf";
     public static final String DEFAULT_PATH_FILE_CARD_INPUT = "file/card.csv";
+    public static final String PDF_TEMPLATE = "resources/templates.pdf";
     public static final double PRICE_FOR_DISCOUNT = 4;
     public static final int QUANTITY_FOR_DISCOUNT = 5;
     public static final double DISCOUNT_PERCENT = 10;
