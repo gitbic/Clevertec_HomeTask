@@ -1,7 +1,9 @@
-
 plugins {
     id 'java'
+    id 'ru.clevertec.file-downloader'
 }
+
+source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -9,6 +11,7 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
+
 sourceSets {
     main {
         java {
@@ -16,14 +19,38 @@ sourceSets {
         }
     }
 }
+
 dependencies {
-    compile 'junit:junit:4.12'
     compile 'com.itextpdf:itextpdf:5.5.13.2'
 }
 
-task downloadPdfTemplate(type: FileDownloader) {
-    sourceUrl = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
-    target = new File('resources/templates.pdf')
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.files.collect { "$it.name" }.join(' '),
+                'Main-Class': 'CheckRunner')
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
-build.dependsOn downloadPdfTemplate
+
+String pdfFileName = new File(source.getTarget()).getName()
+
+task copyResourceFiles(type: Copy) {
+    from ('resources') {
+        include pdfFileName
+        include '*.csv'
+    }
+    into 'build/libs/resources'
+}
+
+task runApp {
+    copyResourceFiles.dependsOn downloadPdf
+    build.dependsOn copyResourceFiles
+}
+
+
+build.dependsOn runApp

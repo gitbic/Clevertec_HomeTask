@@ -64,17 +64,13 @@ public class CheckRunner {
             mainOrder.addPurchaseToList((factory.createPurchase(product, position.getValue())));
         }
 
-        // print check to console, file.txt and file.pdf
+        // print check to console, check.txt and check.pdf
         String cashReceiptTxt = mainOrder.createCheck(CashReceiptFactory.TXT);
         fileIO.write(arguments.getPathFileCheckTXTOutput(), cashReceiptTxt);
         System.out.println(cashReceiptTxt);
 
         String result = mainOrder.createCheck(CashReceiptFactory.PDF);
         System.out.println(result);
-
-
-
-
     }
 }
 

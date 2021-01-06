@@ -1,0 +1,17 @@
+Compile project
+gradlew build
+
+jar compiled and resource files copied to
+build\libs\
+
+Use console for run application
+java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 3421 -check resources/check.txt -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 38-1 8-10 9-9 14-2 23-8"
+java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 3422 -check resources/check.txt -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23"
+java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 1234
+java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 3421 -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23 17-8 6-5 45-8 35-12"
+
+Cash receipt files will be created in the "resources" directory
+check.txt
+check.pdf
+
+Full instruction are written in file README.MD

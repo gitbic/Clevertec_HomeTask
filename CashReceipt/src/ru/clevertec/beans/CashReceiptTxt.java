@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CashReceiptTxt implements CashReceipt {
 
+    private final static String MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
 
     private String getCheckHead() {
         Formatter f = new Formatter();
@@ -49,9 +50,9 @@ public class CashReceiptTxt implements CashReceipt {
     @Override
     public String getCheck(List<Purchase> purchases, String[] tailArgs) {
         return getCheckHead()
-                + Constants.MENU_DELIMITER
+                + MENU_DELIMITER
                 + getCheckBody(purchases)
-                + Constants.MENU_DELIMITER
+                + MENU_DELIMITER
                 + getCheckTail(tailArgs);
     }
 }

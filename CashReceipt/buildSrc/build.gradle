@@ -1,0 +1,30 @@
+plugins {
+    id 'java-gradle-plugin'
+    id "com.gradle.plugin-publish" version "0.12.0"
+}
+
+group 'ru.clevertec'
+version '1.0-SNAPSHOT'
+
+gradlePlugin {
+    plugins {
+        downloadPlugin {
+            id = 'ru.clevertec.file-downloader'
+//            implementationClass = 'ru.clevertec.FileDownloaderP' // groovy
+            implementationClass = 'ru.clevertec.FileDownloaderPlugin' // java
+        }
+    }
+}
+
+pluginBundle {
+    website = 'http://www.clevertec.ru/'
+    vcsUrl = 'https://github.com/gitbic/gradle_download_template_plugin'
+    description = 'download file from url to destination file'
+    tags = ['downlod', 'file']
+
+    plugins {
+        downloadPlugin {
+            displayName = 'ru.clevertec.file-downloader.plugin'
+        }
+    }
+}
