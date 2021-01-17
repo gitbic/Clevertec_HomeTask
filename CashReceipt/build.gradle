@@ -27,10 +27,20 @@ sourceSets {
             srcDirs = ['src']
         }
     }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
 }
 
 dependencies {
     compile 'com.itextpdf:itextpdf:5.5.13.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 }
 
 jar {
