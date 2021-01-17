@@ -1,10 +1,10 @@
 package ru.clevertec.beans;
 
+import ru.clevertec.customlibs.linkedlist.NewLinkedList;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.interfaces.CashReceipt;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public final class MainOrder {
@@ -12,11 +12,11 @@ public final class MainOrder {
     private final DiscountCard discountCard;
 
     public MainOrder(DiscountCard discountCard) {
-        this.purchases = new ArrayList<>();
+        this.purchases = new NewLinkedList<>();
         this.discountCard = discountCard;
     }
 
-    public List<Purchase> getPurchases()  {
+    public List<Purchase> getPurchases() {
         return purchases;
     }
 
@@ -38,9 +38,11 @@ public final class MainOrder {
 
     public BigDecimal getTotalCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
-        for (Purchase purchase : purchases) {
-            totalCost = totalCost.add(purchase.getCost());
+
+        for (int i = 0; i < purchases.size(); i++) {
+            totalCost = totalCost.add(purchases.get(i).getCost());
         }
+
         return totalCost;
     }
 

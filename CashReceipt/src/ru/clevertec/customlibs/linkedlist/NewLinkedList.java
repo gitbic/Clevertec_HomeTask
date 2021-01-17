@@ -1,6 +1,8 @@
 package ru.clevertec.customlibs.linkedlist;
 
-public class NewLinkedList<E> {
+import java.util.*;
+
+public class NewLinkedList<E> extends AbstractSequentialList<E> implements List<E> {
     private int size;
     private Node<E> firstNode;
     private Node<E> lastNode;
@@ -9,6 +11,7 @@ public class NewLinkedList<E> {
         init();
     }
 
+    @Override
     public boolean add(E thisElement) {
         Node<E> previousNode = lastNode;
         Node<E> nextNode = null;
@@ -26,6 +29,7 @@ public class NewLinkedList<E> {
         return true;
     }
 
+    @Override
     public void add(int index, E thisElement) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
@@ -57,6 +61,7 @@ public class NewLinkedList<E> {
         }
     }
 
+    @Override
     public E get(int index) {
         if (size == 0 || index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -65,7 +70,7 @@ public class NewLinkedList<E> {
         return findNodeByIndex(index).getElement();
     }
 
-
+    @Override
     public E remove(int index) {
         if (size == 0 || index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -101,6 +106,7 @@ public class NewLinkedList<E> {
         return node.getElement();
     }
 
+    @Override
     public E set(int index, E element) {
         if (size == 0 || index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -120,10 +126,12 @@ public class NewLinkedList<E> {
         return elementForDelete;
     }
 
+    @Override
     public int size() {
         return this.size;
     }
 
+    @Override
     public void clear() {
         init();
     }
@@ -167,6 +175,11 @@ public class NewLinkedList<E> {
         firstNode = null;
         lastNode = null;
         size = 0;
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index) {
+        return null;
     }
 
 }

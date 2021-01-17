@@ -1,6 +1,6 @@
 package ru.clevertec.factories;
 
-import ru.clevertec.Constants;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Purchase;
 import ru.clevertec.beans.PurchaseDiscountQuantity;

@@ -1,4 +1,4 @@
-import ru.clevertec.Constants;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.beans.*;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.factories.PurchaseFactory;

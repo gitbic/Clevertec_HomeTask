@@ -4,7 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
-import ru.clevertec.Constants;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
 import ru.clevertec.interfaces.CashReceipt;
@@ -28,8 +28,8 @@ public class CashReceiptPdf implements CashReceipt {
     private PdfPTable getCheckBody(List<Purchase> purchases) throws DocumentException {
         PdfPTable table = getTable5Columns();
 
-        for (Purchase purchase : purchases) {
-            String[] csvStrings = purchase.toString().split(Constants.CSV_DELIMITER);
+        for (int i = 0; i < purchases.size(); i++) {
+            String[] csvStrings = purchases.get(i).toString().split(Constants.CSV_DELIMITER);
             for (String csvString : csvStrings) {
                 table.addCell(csvString);
             }
@@ -71,7 +71,7 @@ public class CashReceiptPdf implements CashReceipt {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT));
             document.open();
 
-            document.setMargins(0,0,200,0);
+            document.setMargins(0, 0, 200, 0);
             document.newPage();
 
             useTemplate(writer, Constants.PDF_TEMPLATE);

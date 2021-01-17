@@ -1,6 +1,6 @@
 package ru.clevertec.enums;
 
-import ru.clevertec.Constants;
+import ru.clevertec.constants.Constants;
 
 public enum TableTail {
     TOTAL,

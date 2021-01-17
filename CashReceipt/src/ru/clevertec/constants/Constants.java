@@ -1,4 +1,4 @@
-package ru.clevertec;
+package ru.clevertec.constants;
 
 public final class Constants {
     public static final String RESOURCES_PATH = "resources/";

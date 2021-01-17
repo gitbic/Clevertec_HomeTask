@@ -1,6 +1,6 @@
 package ru.clevertec.beans;
 
-import ru.clevertec.Constants;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.ArgumentsName;
 
 import java.util.HashMap;
