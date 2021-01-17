@@ -16,7 +16,7 @@ public final class MainOrder {
         this.discountCard = discountCard;
     }
 
-    public List<Purchase> getPurchases() {
+    public List<Purchase> getPurchases()  {
         return purchases;
     }
 
