@@ -1,18 +1,8 @@
-buildscript {
-    repositories {
-        mavenLocal()
-    }
-    dependencies {
-        classpath 'ru.clevertec:gradle_plugin_downloadPdf_standalone:1.0-SNAPSHOT'
-    }
-}
-
 plugins {
     id 'java'
-//    id 'ru.clevertec.file-downloader'
+    id "ru.clevertec.file-downloader" version "1.0-SNAPSHOT"
+//    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
-
-//source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -45,24 +35,19 @@ dependencies {
 
 jar {
     manifest {
-        attributes(
-                'Class-Path': configurations.compile.files.collect { "$it.name" }.join(' '),
-                'Main-Class': 'CheckRunner')
+        attributes 'Main-Class': 'CheckRunner'
     }
-
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
-apply plugin: 'application'
-apply plugin: 'ru.clevertec.file-downloader'
 source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
 
 String pdfFileName = new File(source.getTarget()).getName()
 
 task copyResourceFiles(type: Copy) {
-    from ('resources') {
+    from('resources') {
         include pdfFileName
         include '*.csv'
     }
