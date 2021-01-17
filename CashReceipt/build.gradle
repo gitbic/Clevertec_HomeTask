@@ -1,9 +1,18 @@
-plugins {
-    id 'java'
-    id 'ru.clevertec.file-downloader'
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'ru.clevertec:gradle_plugin_downloadPdf_standalone:1.0-SNAPSHOT'
+    }
 }
 
-source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
+plugins {
+    id 'java'
+//    id 'ru.clevertec.file-downloader'
+}
+
+//source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -36,6 +45,9 @@ jar {
     }
 }
 
+apply plugin: 'application'
+apply plugin: 'ru.clevertec.file-downloader'
+source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
 
 String pdfFileName = new File(source.getTarget()).getName()
 
@@ -51,6 +63,5 @@ task runApp {
     copyResourceFiles.dependsOn downloadPdf
     build.dependsOn copyResourceFiles
 }
-
 
 build.dependsOn runApp

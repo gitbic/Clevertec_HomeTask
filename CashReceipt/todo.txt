@@ -1,0 +1,4 @@
+gradle build собрать fat jar плагином
+gradle build подключить плагин опубликованный download pdf template
+при удачном подключении удалить buildSrc с тем же плагином
+gradle build создавать создавать папку resources если ее нет, перед скачиванием pdf template
