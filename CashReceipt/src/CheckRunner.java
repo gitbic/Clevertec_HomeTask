@@ -1,23 +1,27 @@
 import ru.clevertec.constants.Constants;
 import ru.clevertec.beans.*;
+import ru.clevertec.enums.Arguments;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.factories.PurchaseFactory;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CheckRunner {
     public static void main(String[] args) throws IOException {
 
-        Arguments arguments = new Arguments();
-        arguments.parseArguments(args);
+        Arguments.initialize(args);
+
+//        Arguments2 arguments = new Arguments2();
+//        arguments.parseArguments(args);
         PurchaseFactory factory = new PurchaseFactory();
         FileIO fileIO = new FileIO();
 
         // create map products: key(id), value(Product)
         String[] lines = fileIO
-                .read(arguments.getPathFileProductInput())
+                .read(Arguments.PRODUCT_INPUT_PATH_FILE.getValue())
                 .split(System.lineSeparator());
 
         Map<Integer, Product> productMap = new HashMap<>();
@@ -31,7 +35,7 @@ public class CheckRunner {
 
         // create map of discount card: key(number), value(DiscountCard);
         lines = fileIO
-                .read(arguments.getPathFileCardInput())
+                .read(Arguments.CARD_INPUT_PATH_FILE.getValue())
                 .split(System.lineSeparator());
 
         Map<String, DiscountCard> cardMap = new HashMap<>();
@@ -43,7 +47,7 @@ public class CheckRunner {
         }
 
         // get discount card for order
-        String num = arguments.getCardNumber();
+        String num = Arguments.CARD_NUMBER.getValue();
         DiscountCard myCard = cardMap.get(num);
         if (myCard == null) {
             myCard = new DiscountCard("", 0);
@@ -54,7 +58,7 @@ public class CheckRunner {
 
         // create main order for all purchases
         MainOrder mainOrder = new MainOrder(myCard);
-        for (Map.Entry<Integer, Integer> position : arguments.getOrder().entrySet()) {
+        for (Map.Entry<Integer, Integer> position : Arguments.readOrder().entrySet()) {
             int id = position.getKey();
             if (!productMap.containsKey(id)) {
                 System.err.println("Product 'id=" + id + "' doesnt exist.");
@@ -66,11 +70,13 @@ public class CheckRunner {
 
         // print check to console, check.txt and check.pdf
         String cashReceiptTxt = mainOrder.createCheck(CashReceiptFactory.TXT);
-        fileIO.write(arguments.getPathFileCheckTXTOutput(), cashReceiptTxt);
+        fileIO.write(Arguments.CHECK_TXT_OUTPUT_PATH_FILE.getValue(), cashReceiptTxt);
         System.out.println(cashReceiptTxt);
 
         String result = mainOrder.createCheck(CashReceiptFactory.PDF);
         System.out.println(result);
+
+
     }
 }
 

@@ -1,5 +1,7 @@
 package ru.clevertec.beans;
 
+import ru.clevertec.constants.ErrorMsg;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -12,8 +14,7 @@ public final class FileIO {
                 sb.append(scanner.nextLine()).append(System.lineSeparator());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File " + filePath + " does not exist."
-                    + "\nThe program will be finished.");
+            System.out.println(String.format(ErrorMsg.FORMAT_STRING_FILE_NOT_FOUND, filePath));
             System.exit(0);
         }
         return sb.toString();
@@ -23,7 +24,7 @@ public final class FileIO {
         try (FileWriter fw = new FileWriter(filePath)) {
             fw.write(text);
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e);
         }
     }
 }

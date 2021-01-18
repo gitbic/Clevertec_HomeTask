@@ -37,7 +37,7 @@ public class CashReceiptPdf implements CashReceipt {
             }
 
             if (csvStrings.length == 4) {
-                table.addCell(Constants.EMPTY_STRING);
+                table.addCell(Constants.STRING_ONE_SPACE);
             }
         }
         return targetType.cast(table);
@@ -60,15 +60,36 @@ public class CashReceiptPdf implements CashReceipt {
 
     @Override
     public String getCheck(List<Purchase> purchases, String[] tailArgs) {
+
+
+
         try {
             Document document = new Document();
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT));
+
+            PdfWriter writer = PdfWriter.getInstance(document,
+                    new FileOutputStream(Constants.DEFAULT_CHECK_PDF_OUTPUT_PATH_FILE));
             document.open();
 
-            document.setMargins(0, 0, 200, 0);
-            document.newPage();
+            document.setMargins(Constants.PDF_DOC_MARGIN_LEFT,
+                    Constants.PDF_DOC_MARGIN_RIGHT,
+                    Constants.PDF_DOC_MARGIN_TOP,
+                    Constants.PDF_DOC_MARGIN_BOTTOM);
 
-            useTemplate(writer, Constants.PDF_TEMPLATE);
+            document.newPage();
+            useTemplate(writer, Constants.PDF_TEMPLATE_PATH_FILE);
+
+            document = fillDocument(purchases, tailArgs, document);
+
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "PDF document successfully created: " + Constants.DEFAULT_CHECK_PDF_OUTPUT_PATH_FILE;
+    }
+
+    public Document fillDocument(List<Purchase> purchases, String[] tailArgs, Document document) {
+        try {
 
             document.add(getCheckHead(PdfPTable.class));
             document.add(pdfTableSeparator());
@@ -76,20 +97,19 @@ public class CashReceiptPdf implements CashReceipt {
             document.add(pdfTableSeparator());
             document.add(getCheckTail(tailArgs, PdfPTable.class));
 
-            document.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return "PDF document successfully created: " + Constants.DEFAULT_PAH_FILE_CHECK_PDF_OUTPUT;
+        return document;
     }
+
 
     private void useTemplate(PdfWriter writer, String templateFileName) throws IOException {
         FileInputStream template = new FileInputStream(templateFileName);
         PdfReader reader = new PdfReader(template);
-        PdfImportedPage page = writer.getImportedPage(reader, 1);
+        PdfImportedPage page = writer.getImportedPage(reader, Constants.PDF_TEMPLATE_PAGE_NUMBER);
         PdfContentByte cb = writer.getDirectContent();
-        cb.addTemplate(page, 0, 0);
+        cb.addTemplate(page, Constants.PDF_TEMPLATE_PAGE_COORD_X, Constants.PDF_TEMPLATE_PAGE_COORD_Y);
     }
 
 
@@ -107,10 +127,10 @@ public class CashReceiptPdf implements CashReceipt {
 
 
     private PdfPTable pdfTableSeparator() {
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(TableMenu.values().length);
         table.getDefaultCell().setBorder(Rectangle.ALIGN_JUSTIFIED);
         for (int i = 0; i < TableMenu.values().length; i++) {
-            table.addCell(Constants.EMPTY_STRING);
+            table.addCell(Constants.STRING_ONE_SPACE);
         }
         return table;
     }
