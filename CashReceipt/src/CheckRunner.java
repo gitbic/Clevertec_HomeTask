@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckRunner {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, IllegalAccessException {
 
         Arguments.initialize(args);
 
@@ -75,6 +75,11 @@ public class CheckRunner {
         String result = mainOrder.createCheck(CashReceiptFactory.PDF);
         System.out.println(result);
 
+//        JSong jSong = new JSong();
+//        jSong.setPrettyString(true);
+//        jSong.setProcessedObject(purchase);
+//        String jSonString = jSong.serialize();
+//        System.out.println(jSonString);
 
     }
 }

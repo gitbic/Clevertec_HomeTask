@@ -27,10 +27,16 @@ sourceSets {
 test {
     useJUnitPlatform()
 }
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile 'com.itextpdf:itextpdf:5.5.13.2'
     testCompile 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    compile name: 'jsonSerialize-1.0-SNAPSHOT'
 }
 
 jar {
@@ -41,6 +47,8 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+
 
 source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
 
