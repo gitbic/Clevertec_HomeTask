@@ -1,15 +1,18 @@
 package ru.clevertec.dynproxy;
 
 import ru.clevertec.beans.JSong;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.interfaces.IMainOrder;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.time.temporal.ChronoUnit;
+import java.util.logging.Logger;
 
 public class MainOrderInvocationHandler implements InvocationHandler {
     private IMainOrder mainOrder;
 
-//    private static final Logger LOGGER
+    private static final Logger LOGGER = Logger.getLogger(MainOrderInvocationHandler.class.getName());
 
     public MainOrderInvocationHandler(IMainOrder mainOrder) {
         this.mainOrder = mainOrder;
@@ -18,37 +21,35 @@ public class MainOrderInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         JSong jSong = new JSong();
-//        jSong.setPrettyString(true);
-//        jSong.setProcessedObject(method);
-//        String jSonString = jSong.serialize();
-//        System.out.println(jSonString);
 
         String methodName = method.getName();
-        Class<?> declaringClass = method.getDeclaringClass();
+        String className = method.getDeclaringClass().getName();
         Object resultOfMethodInvocation = method.invoke(mainOrder, args);
 
-
-        String arguments = "";
+        String inputArguments = Constants.NO_ARGUMENTS;
         if (args != null) {
             jSong.setProcessedObject(args);
-            arguments = jSong.serialize();
+            inputArguments = jSong.serialize();
         }
 
-        System.out.println(arguments);
+        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
+                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                className,
+                methodName,
+                inputArguments));
 
-        String returningResult = "";
+        String returningResult = Constants.NO_RESULTS;
         if (resultOfMethodInvocation != null) {
-            System.out.println(methodName);
             jSong.setProcessedObject(resultOfMethodInvocation);
             returningResult = jSong.serialize();
         }
 
-        System.out.println(returningResult);
+        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
+                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                className,
+                methodName,
+                returningResult));
 
-
-//        System.out.println("+++Proxy star+++ " + method.getName());
         return resultOfMethodInvocation;
-
     }
-
 }

@@ -23,5 +23,8 @@ public final class Constants {
     public static final int PDF_TEMPLATE_PAGE_NUMBER = 1;
     public static final int PDF_TEMPLATE_PAGE_COORD_X = 0;
     public static final int PDF_TEMPLATE_PAGE_COORD_Y = 0;
+    public static final String NO_ARGUMENTS = "no arguments";
+    public static final String NO_RESULTS = "no results";
+    public static final String FSTRING_LOG_MSG = "%s: %s - %s - %s";
 
 }
