@@ -14,4 +14,5 @@ public final class Constants {
     public static final String FORMAT_CELL = "%%-%ds";
     public static final String FORMAT_NEW_LINE = "%n";
     public static final String EMPTY_STRING = " ";
+    public static final int TABLE_TAIL_COLUMN_NUMBER = 2;
 }

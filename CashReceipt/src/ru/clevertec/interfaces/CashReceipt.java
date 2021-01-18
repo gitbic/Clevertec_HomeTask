@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface CashReceipt {
 
-    <T> T getCheckHead(Class<T> targetType) throws DocumentException;
+    <T> T getCheckHead(Class<T> targetType);
 
-    <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) throws DocumentException;
+    <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType);
 
-    <T> T getCheckTail(String[] tailArgs, Class<T> targetType) throws DocumentException;
+    <T> T getCheckTail(String[] tailArgs, Class<T> targetType);
 
     String getCheck(List<Purchase> purchases, String[] tailArgs);
 

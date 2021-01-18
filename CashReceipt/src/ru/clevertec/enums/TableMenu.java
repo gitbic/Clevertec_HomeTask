@@ -32,4 +32,14 @@ public enum TableMenu {
         }
         return totalWidth;
     }
+
+    public static float[] getCellWidth() {
+
+        float[] cellsWidth = new float[values().length];
+        for (int i = 0; i < cellsWidth.length; i++) {
+            cellsWidth[i] = values()[i].getWidthCell();
+        }
+        return cellsWidth;
+    }
+
 }

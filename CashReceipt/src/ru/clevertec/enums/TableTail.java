@@ -16,4 +16,14 @@ public enum TableTail {
                 + String.format(Constants.FORMAT_CELL, secondCellWidth)
                 + Constants.FORMAT_NEW_LINE;
     }
+
+    public static float[] getCellWidth() {
+
+        int secondCellWidth = TableMenu.DISCOUNT.getWidthCell() + TableMenu.TOTAL.getWidthCell();
+        float[] cellsWidth = new float[]{
+                TableMenu.getTotalWidth() - secondCellWidth,
+                secondCellWidth
+        };
+        return cellsWidth;
+    }
 }

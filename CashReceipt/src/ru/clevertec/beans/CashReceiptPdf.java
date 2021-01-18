@@ -17,8 +17,8 @@ import java.util.List;
 public class CashReceiptPdf implements CashReceipt {
 
     @Override
-    public <T> T getCheckHead(Class<T> targetType) throws DocumentException {
-        PdfPTable table = getTable5Columns();
+    public <T> T getCheckHead(Class<T> targetType) {
+        PdfPTable table = getPdfTable(TableMenu.getCellWidth());
 
         for (TableMenu value : TableMenu.values()) {
             table.addCell(value.toString());
@@ -27,8 +27,8 @@ public class CashReceiptPdf implements CashReceipt {
     }
 
     @Override
-    public <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) throws DocumentException {
-        PdfPTable table = getTable5Columns();
+    public <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) {
+        PdfPTable table = getPdfTable(TableMenu.getCellWidth());
 
         for (int i = 0; i < purchases.size(); i++) {
             String[] csvStrings = purchases.get(i).toString().split(Constants.CSV_DELIMITER);
@@ -45,17 +45,8 @@ public class CashReceiptPdf implements CashReceipt {
 
 
     @Override
-    public <T> T getCheckTail(String[] tailArgs, Class<T> targetType) throws DocumentException {
-        PdfPTable table = new PdfPTable(2);
-        table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-        // set width for cells
-        int secondCellWidth = TableMenu.DISCOUNT.getWidthCell() + TableMenu.TOTAL.getWidthCell();
-        float[] cellsWidth = new float[]{
-                TableMenu.getTotalWidth() - secondCellWidth,
-                secondCellWidth
-        };
-        table.setTotalWidth(cellsWidth);
+    public <T> T getCheckTail(String[] tailArgs, Class<T> targetType) {
+        PdfPTable table = getPdfTable(TableTail.getCellWidth());
 
         table.addCell(TableTail.TOTAL.toString());
         table.addCell(tailArgs[TableTail.TOTAL.ordinal()]);
@@ -102,18 +93,18 @@ public class CashReceiptPdf implements CashReceipt {
     }
 
 
-    private PdfPTable getTable5Columns() throws DocumentException {
-        PdfPTable table = new PdfPTable(5);
+    private PdfPTable getPdfTable(float[] cellsWidth) {
+        PdfPTable table = new PdfPTable(cellsWidth.length);
         table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 
-        // set width for cells
-        float[] cellsWidth = new float[TableMenu.values().length];
-        for (int i = 0; i < cellsWidth.length; i++) {
-            cellsWidth[i] = TableMenu.values()[i].getWidthCell();
+        try {
+            table.setTotalWidth(cellsWidth);
+        } catch (DocumentException e) {
+            System.out.println(e);
         }
-        table.setTotalWidth(cellsWidth);
         return table;
     }
+
 
     private PdfPTable pdfTableSeparator() {
         PdfPTable table = new PdfPTable(5);
