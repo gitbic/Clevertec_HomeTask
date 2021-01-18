@@ -12,17 +12,18 @@ public class CashReceiptTxt implements CashReceipt {
 
     private final static String MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
 
-    private String getCheckHead() {
+    @Override
+    public <T> T getCheckHead(Class<T> targetType) {
         Formatter f = new Formatter();
         for (TableMenu value : TableMenu.values()) {
             f.format(value.getFormatForCell(), value);
         }
         f.format(System.lineSeparator());
-        return f.toString();
+        return targetType.cast(f.toString());
     }
 
-
-    private String getCheckBody(List<Purchase> purchases) {
+    @Override
+    public <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) {
         Formatter f = new Formatter();
 
         for (int k = 0; k < purchases.size(); k++) {
@@ -34,25 +35,25 @@ public class CashReceiptTxt implements CashReceipt {
 
             f.format(Constants.FORMAT_NEW_LINE);
         }
-        return f.toString();
+        return targetType.cast(f.toString());
     }
 
-
-    private String getCheckTail(String[] tailArgs) {
+    @Override
+    public <T> T getCheckTail(String[] tailArgs, Class<T> targetType) {
         String tailString = TableTail.getTailFormatString();
         Formatter f = new Formatter();
         f.format(tailString, TableTail.TOTAL, tailArgs[TableTail.TOTAL.ordinal()]);
         f.format(tailString, TableTail.DISCOUNT, tailArgs[TableTail.DISCOUNT.ordinal()]);
         f.format(tailString, TableTail.PAYMENT, tailArgs[TableTail.PAYMENT.ordinal()]);
-        return f.toString();
+        return targetType.cast(f.toString());
     }
 
     @Override
     public String getCheck(List<Purchase> purchases, String[] tailArgs) {
-        return getCheckHead()
+        return getCheckHead(String.class)
                 + MENU_DELIMITER
-                + getCheckBody(purchases)
+                + getCheckBody(purchases, String.class)
                 + MENU_DELIMITER
-                + getCheckTail(tailArgs);
+                + getCheckTail(tailArgs, String.class);
     }
 }

@@ -16,16 +16,18 @@ import java.util.List;
 
 public class CashReceiptPdf implements CashReceipt {
 
-    private PdfPTable getCheckHead() throws DocumentException {
+    @Override
+    public <T> T getCheckHead(Class<T> targetType) throws DocumentException {
         PdfPTable table = getTable5Columns();
 
         for (TableMenu value : TableMenu.values()) {
             table.addCell(value.toString());
         }
-        return table;
+        return targetType.cast(table);
     }
 
-    private PdfPTable getCheckBody(List<Purchase> purchases) throws DocumentException {
+    @Override
+    public <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) throws DocumentException {
         PdfPTable table = getTable5Columns();
 
         for (int i = 0; i < purchases.size(); i++) {
@@ -38,11 +40,12 @@ public class CashReceiptPdf implements CashReceipt {
                 table.addCell(Constants.EMPTY_STRING);
             }
         }
-        return table;
+        return targetType.cast(table);
     }
 
 
-    private PdfPTable getCheckTail(String[] tailArgs) throws DocumentException {
+    @Override
+    public <T> T getCheckTail(String[] tailArgs, Class<T> targetType) throws DocumentException {
         PdfPTable table = new PdfPTable(2);
         table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 
@@ -61,7 +64,7 @@ public class CashReceiptPdf implements CashReceipt {
         table.addCell(TableTail.PAYMENT.toString());
         table.addCell(tailArgs[TableTail.PAYMENT.ordinal()]);
 
-        return table;
+        return targetType.cast(table);
     }
 
     @Override
@@ -76,11 +79,11 @@ public class CashReceiptPdf implements CashReceipt {
 
             useTemplate(writer, Constants.PDF_TEMPLATE);
 
-            document.add(getCheckHead());
+            document.add(getCheckHead(PdfPTable.class));
             document.add(pdfTableSeparator());
-            document.add(getCheckBody(purchases));
+            document.add(getCheckBody(purchases, PdfPTable.class));
             document.add(pdfTableSeparator());
-            document.add(getCheckTail(tailArgs));
+            document.add(getCheckTail(tailArgs, PdfPTable.class));
 
             document.close();
         } catch (Exception e) {
