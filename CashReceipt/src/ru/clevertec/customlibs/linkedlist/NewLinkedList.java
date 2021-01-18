@@ -1,8 +1,11 @@
 package ru.clevertec.customlibs.linkedlist;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-public class NewLinkedList<E> extends AbstractSequentialList<E> implements List<E> {
+public class NewLinkedList<E> implements List<E> {
     private int size;
     private Node<E> firstNode;
     private Node<E> lastNode;
@@ -177,8 +180,139 @@ public class NewLinkedList<E> extends AbstractSequentialList<E> implements List<
         size = 0;
     }
 
+    //----------
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return listIterator();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return null;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public ListIterator<E> listIterator() {
+
+        return new ListIterator<E>() {
+            Node<E> currentNode = firstNode;
+
+            @Override
+            public boolean hasNext() {
+                if (size > 0 && currentNode != null) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public E next() {
+                Node<E> node = currentNode;
+                currentNode = currentNode.getNextNode();
+                return node.getElement();
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            @Override
+            public E previous() {
+                return null;
+            }
+
+            @Override
+            public int nextIndex() {
+                return 0;
+            }
+
+            @Override
+            public int previousIndex() {
+                return 0;
+            }
+
+            @Override
+            public void remove() {
+
+            }
+
+            @Override
+            public void set(E e) {
+
+            }
+
+            @Override
+            public void add(E e) {
+
+            }
+        };
+    }
+
     @Override
     public ListIterator<E> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<E> subList(int fromIndex, int toIndex) {
         return null;
     }
 

@@ -7,13 +7,14 @@ import ru.clevertec.enums.Arguments;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.interfaces.CashReceipt;
+import ru.clevertec.interfaces.IMainOrder;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainOrderController {
 
-    MainOrder mainOrder;
+    IMainOrder mainOrder;
     FileIO fileIO;
     Map<Integer, Product> productMap;
     Map<String, DiscountCard> cardMap;
@@ -26,7 +27,7 @@ public class MainOrderController {
         myCard = null;
     }
 
-    public MainOrderController(MainOrder mainOrder) {
+    public MainOrderController(IMainOrder mainOrder) {
         this.mainOrder = mainOrder;
     }
 

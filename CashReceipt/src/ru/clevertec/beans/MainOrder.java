@@ -30,6 +30,7 @@ public final class MainOrder implements IMainOrder {
 
     @Override
     public List<Purchase> getPurchases() {
+//        System.out.println(purchases);
         return purchases;
     }
 
