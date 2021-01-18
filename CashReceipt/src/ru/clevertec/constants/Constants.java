@@ -9,7 +9,8 @@ public final class Constants {
     public static final String PDF_TEMPLATE_PATH_FILE = RESOURCES_PATH + "templates.pdf";
     public static final double PRICE_FOR_DISCOUNT = 4;
     public static final int QUANTITY_FOR_DISCOUNT = 5;
-    public static final double DISCOUNT_PERCENT = 10;
+    public static final double DEFAULT_DISCOUNT_PERCENT = 10;
+    public static final int ZERO_DISCOUNT_PERCENT = 0;
     public static final String CSV_DELIMITER = ";";
     public static final String FORMAT_CELL = "%%-%ds";
     public static final String FORMAT_NEW_LINE = "%n";
@@ -22,4 +23,5 @@ public final class Constants {
     public static final int PDF_TEMPLATE_PAGE_NUMBER = 1;
     public static final int PDF_TEMPLATE_PAGE_COORD_X = 0;
     public static final int PDF_TEMPLATE_PAGE_COORD_Y = 0;
+
 }

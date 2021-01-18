@@ -1,42 +1,39 @@
 package ru.clevertec.beans;
 
 import ru.clevertec.customlibs.linkedlist.NewLinkedList;
-import ru.clevertec.factories.CashReceiptFactory;
-import ru.clevertec.interfaces.CashReceipt;
+import ru.clevertec.interfaces.IMainOrder;
 
-import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.List;
 
-public final class MainOrder {
+public final class MainOrder implements IMainOrder {
     private final List<Purchase> purchases;
-    private final DiscountCard discountCard;
 
-    public MainOrder(DiscountCard discountCard) {
+    public MainOrder() {
         this.purchases = new NewLinkedList<>();
-        this.discountCard = discountCard;
     }
 
-    public List<Purchase> getPurchases() {
-        return purchases;
-    }
-
-    public DiscountCard getDiscountCard() {
-        return discountCard;
-    }
-
-    public Purchase getPurchaseFromList(int i) {
-        return purchases.get(i);
-    }
-
-    public void removePurchaseFromList(int i) {
-        purchases.remove(i);
-    }
-
+    @Override
     public void addPurchaseToList(Purchase purchase) {
         purchases.add(purchase);
     }
 
+    @Override
+    public Purchase getPurchaseFromList(int i) {
+        return purchases.get(i);
+    }
+
+    @Override
+    public void removePurchaseFromList(int i) {
+        purchases.remove(i);
+    }
+
+    @Override
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    @Override
     public BigDecimal getTotalCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
 
@@ -47,7 +44,8 @@ public final class MainOrder {
         return totalCost;
     }
 
-    public BigDecimal getDiscountCost() {
+    @Override
+    public BigDecimal getDiscountCost(DiscountCard discountCard) {
         BigDecimal discount = BigDecimal.ZERO;
         if (discountCard != null) {
             discount = getTotalCost().multiply(BigDecimal.valueOf(discountCard.getDiscount() / 100));
@@ -56,22 +54,12 @@ public final class MainOrder {
         return discount;
     }
 
-    public BigDecimal getFinalCost() {
-        return getTotalCost().subtract(getDiscountCost());
+    @Override
+    public BigDecimal getFinalCost(DiscountCard discountCard) {
+        return getTotalCost().subtract(getDiscountCost(discountCard));
     }
 
-    public String createCheck(CashReceiptFactory cashReceiptFactory) {
-        String[] tailArgs = new String[]{
-                Utility.priceToString(getTotalCost()),
-                Utility.percentToString(discountCard.getDiscount()),
-                Utility.priceToString(getFinalCost())
-        };
-
-        CashReceipt cashReceipt = cashReceiptFactory.createNewInstance();
-
-        return cashReceipt.getCheck(purchases, tailArgs);
-    }
-
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Purchase purchase : purchases) {

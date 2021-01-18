@@ -14,7 +14,7 @@ public final class FileIO {
                 sb.append(scanner.nextLine()).append(System.lineSeparator());
             }
         } catch (FileNotFoundException e) {
-            System.out.println(String.format(ErrorMsg.FSTRING_FILE_NOT_FOUND, filePath));
+            System.err.println(String.format(ErrorMsg.FSTRING_FILE_NOT_FOUND, filePath));
             System.exit(0);
         }
         return sb.toString();
