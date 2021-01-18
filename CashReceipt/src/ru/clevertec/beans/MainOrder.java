@@ -1,9 +1,11 @@
 package ru.clevertec.beans;
 
 import ru.clevertec.customlibs.linkedlist.NewLinkedList;
+import ru.clevertec.dynproxy.CashReceiptInvocationHandler;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.interfaces.CashReceipt;
 
+import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -67,7 +69,18 @@ public final class MainOrder {
         };
 
         CashReceipt cashReceipt = cashReceiptFactory.createNewInstance();
-        return cashReceipt.getCheck(purchases, tailArgs);
+
+        //----------Proxy--------------
+        ClassLoader classLoader = cashReceipt.getClass().getClassLoader();
+        Class<?>[] interfaces = cashReceipt.getClass().getInterfaces();
+        CashReceipt proxyCashReceipt = (CashReceipt) Proxy.newProxyInstance(
+                classLoader, interfaces, new CashReceiptInvocationHandler(cashReceipt));
+
+
+        //-----------------------------
+
+        return proxyCashReceipt.getCheck(purchases, tailArgs);
+//        return cashReceipt.getCheck(purchases, tailArgs);
     }
 
     public String toString() {
