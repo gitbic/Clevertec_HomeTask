@@ -1,13 +1,14 @@
 package ru.clevertec.beans;
 
 
+import ru.clevertec.annotations.ControlledObject;
 import ru.clevertec.customlibs.linkedlist.NewLinkedList;
 import ru.clevertec.interfaces.IMainOrder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-
+@ControlledObject
 public final class MainOrder implements IMainOrder {
     private final List<Purchase> purchases;
 

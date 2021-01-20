@@ -39,17 +39,17 @@ public class MainOrderInvocationHandler implements InvocationHandler {
             returningResult = jSong.serialize();
         }
 
-        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
-                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
-                className,
-                methodName,
-                Constants.STR_ARGUMENTS + inputArguments));
-
-        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
-                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
-                className,
-                methodName,
-                Constants.STR_RESULT + returningResult));
+//        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
+//                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+//                className,
+//                methodName,
+//                Constants.STR_ARGUMENTS + inputArguments));
+//
+//        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
+//                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+//                className,
+//                methodName,
+//                Constants.STR_RESULT + returningResult));
 
         return resultOfMethodInvocation;
     }

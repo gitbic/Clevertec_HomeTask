@@ -1,10 +1,11 @@
-
-import ru.clevertec.beans.CashReceiptPdf;
+import ru.clevertec.annotations.ControlledObject;
+import ru.clevertec.annotations.StartObject;
+import ru.clevertec.annotations.StopObject;
+import ru.clevertec.annotations.CostMetric;
 import ru.clevertec.beans.MainOrder;
 import ru.clevertec.controllers.MainOrderController;
 import ru.clevertec.dynproxy.MainOrderInvocationHandler;
 import ru.clevertec.enums.Arguments;
-import ru.clevertec.interfaces.CashReceipt;
 import ru.clevertec.interfaces.IMainOrder;
 
 import java.lang.reflect.Method;
@@ -33,7 +34,32 @@ public class CheckRunner {
         mainOrderController.printCheck();
 
 
+        //-----------Annotation---------------
 
+        Class<?> clazz = mainOrder.getClass();
+
+
+
+        if (!clazz.isAnnotationPresent(ControlledObject.class)) {
+            System.err.println("no annotation");
+        } else {
+            System.out.println("class annotated ; name  -  " + clazz.getAnnotation(ControlledObject.class));
+        }
+        boolean hasStart = false;
+        boolean hasStop = false;
+        Method[] method = clazz.getMethods();
+        for (Method md : method) {
+            if (md.isAnnotationPresent(StartObject.class)) {
+                hasStart = true;
+            }
+            if (md.isAnnotationPresent(StopObject.class)) {
+                hasStop = true;
+            }
+            if (hasStart && hasStop) {
+                break;
+            }
+        }
+        System.out.println("Start annotaton  - " + hasStart + ";  Stop annotation  - " + hasStop);
     }
 
 }
