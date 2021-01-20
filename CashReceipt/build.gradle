@@ -34,6 +34,7 @@ repositories {
 }
 
 dependencies {
+    compile 'org.aspectj:aspectjweaver:1.9.6'
     compile 'com.itextpdf:itextpdf:5.5.13.2'
     testCompile 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
     compile name: 'jsonSerialize-1.0-SNAPSHOT'

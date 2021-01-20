@@ -21,6 +21,7 @@ public class MainOrderInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         JSong jSong = new JSong();
+//        jSong.setPrettyString(true);
 
         String methodName = method.getName();
         String className = method.getDeclaringClass().getName();
@@ -32,12 +33,6 @@ public class MainOrderInvocationHandler implements InvocationHandler {
             inputArguments = jSong.serialize();
         }
 
-        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
-                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
-                className,
-                methodName,
-                inputArguments));
-
         String returningResult = Constants.NO_RESULTS;
         if (resultOfMethodInvocation != null) {
             jSong.setProcessedObject(resultOfMethodInvocation);
@@ -48,8 +43,15 @@ public class MainOrderInvocationHandler implements InvocationHandler {
                 java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
                 className,
                 methodName,
-                returningResult));
+                Constants.STR_ARGUMENTS + inputArguments));
+
+        LOGGER.info(String.format(Constants.FSTRING_LOG_MSG,
+                java.time.LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                className,
+                methodName,
+                Constants.STR_RESULT + returningResult));
 
         return resultOfMethodInvocation;
     }
+
 }

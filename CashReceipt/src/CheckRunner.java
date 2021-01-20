@@ -1,3 +1,4 @@
+
 import ru.clevertec.beans.CashReceiptPdf;
 import ru.clevertec.beans.MainOrder;
 import ru.clevertec.controllers.MainOrderController;
@@ -6,9 +7,11 @@ import ru.clevertec.enums.Arguments;
 import ru.clevertec.interfaces.CashReceipt;
 import ru.clevertec.interfaces.IMainOrder;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class CheckRunner {
+
     public static void main(String[] args) {
 
         Arguments.initialize(args);
@@ -28,7 +31,13 @@ public class CheckRunner {
         mainOrderController.getDiscountCardForOrder();
         mainOrderController.createMainOrder();
         mainOrderController.printCheck();
+
+
+
     }
+
 }
+
+
 
 

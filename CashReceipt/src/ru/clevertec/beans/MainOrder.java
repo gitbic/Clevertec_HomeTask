@@ -1,10 +1,12 @@
 package ru.clevertec.beans;
 
+
 import ru.clevertec.customlibs.linkedlist.NewLinkedList;
 import ru.clevertec.interfaces.IMainOrder;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 
 public final class MainOrder implements IMainOrder {
     private final List<Purchase> purchases;
@@ -30,7 +32,6 @@ public final class MainOrder implements IMainOrder {
 
     @Override
     public List<Purchase> getPurchases() {
-//        System.out.println(purchases);
         return purchases;
     }
 
