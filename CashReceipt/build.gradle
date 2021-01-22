@@ -1,44 +1,35 @@
 plugins {
     id 'java'
     id "ru.clevertec.file-downloader" version "1.0-SNAPSHOT"
-//    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
-group 'org.example'
+configurations{
+    javaagent
+}
+
+group 'ru.clevertec'
 version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
-    }
-    test {
-        java {
-            srcDirs = ['test']
-        }
-    }
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
 }
 
 test {
     useJUnitPlatform()
 }
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
 
 dependencies {
-    compile 'org.aspectj:aspectjweaver:1.9.6'
     compile 'com.itextpdf:itextpdf:5.5.13.2'
     testCompile 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
-    compile name: 'jsonSerialize-1.0-SNAPSHOT'
+    compile 'ru.clevertec:json-serializer:1.0'
+
+    compile 'ru.clevertec:log-aspect:1.0'
+    javaagent 'org.aspectj:aspectjtools:1.9.6'
 }
+
 
 jar {
     manifest {
@@ -50,11 +41,8 @@ jar {
 }
 
 
-
-source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
-
+// -----------Copy resources to ./buld/libs-----------
 String pdfFileName = new File(source.getTarget()).getName()
-
 task copyResourceFiles(type: Copy) {
     from('resources') {
         include pdfFileName
@@ -63,9 +51,12 @@ task copyResourceFiles(type: Copy) {
     into 'build/libs/resources'
 }
 
+
 task runApp {
-    copyResourceFiles.dependsOn downloadPdf
-    build.dependsOn copyResourceFiles
+    source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
+    dependsOn downloadPdf
+    dependsOn copyResourceFiles
+    copyResourceFiles.mustRunAfter(downloadPdf)
 }
 
 build.dependsOn runApp
