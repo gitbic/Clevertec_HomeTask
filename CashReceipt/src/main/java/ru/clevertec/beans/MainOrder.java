@@ -16,31 +16,32 @@ public final class MainOrder implements IMainOrder {
         this.purchases = new NewLinkedList<>();
     }
 
-    @LogThisMethod
+
+    @LogThisMethod()
     @Override
     public void addPurchaseToList(Purchase purchase) {
         purchases.add(purchase);
     }
 
-
+    @LogThisMethod()
     @Override
     public Purchase getPurchaseFromList(int i) {
         return purchases.get(i);
     }
 
-
+    @LogThisMethod()
     @Override
     public void removePurchaseFromList(int i) {
         purchases.remove(i);
     }
 
-    @LogThisMethod(loggingLevel = LoggingLevel.INFO)
+    @LogThisMethod(loggingLevel = LoggingLevel.WARN)
     @Override
     public List<Purchase> getPurchases() {
         return purchases;
     }
 
-
+    @LogThisMethod(loggingLevel = LoggingLevel.DEBUG)
     @Override
     public BigDecimal getTotalCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
@@ -52,6 +53,7 @@ public final class MainOrder implements IMainOrder {
         return totalCost;
     }
 
+    @LogThisMethod(loggingLevel = LoggingLevel.DEBUG)
     @Override
     public BigDecimal getDiscountCost(DiscountCard discountCard) {
         BigDecimal discount = BigDecimal.ZERO;
@@ -62,6 +64,7 @@ public final class MainOrder implements IMainOrder {
         return discount;
     }
 
+    @LogThisMethod(loggingLevel = LoggingLevel.DEBUG)
     @Override
     public BigDecimal getFinalCost(DiscountCard discountCard) {
         return getTotalCost().subtract(getDiscountCost(discountCard));

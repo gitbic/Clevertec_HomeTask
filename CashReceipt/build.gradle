@@ -51,7 +51,6 @@ task copyResourceFiles(type: Copy) {
     into 'build/libs/resources'
 }
 
-
 task runApp {
     source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
     dependsOn downloadPdf

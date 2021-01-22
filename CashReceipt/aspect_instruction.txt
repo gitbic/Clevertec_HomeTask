@@ -1,0 +1,1 @@
+java -javaagent:"C:\Users\Pavlik\.gradle\caches\modules-2\files-2.1\org.aspectj\aspectjweaver\1.9.6\ee3b73aa16df35179255f17354d9dfd8e7822835\aspectjweaver-1.9.6.jar" -jar ./build/libs/CashReceipt-1.0-SNAPSHOT.jar -dsc 3421 -check resources/check.txt -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 38-1 8-10 9-9 14-2 23-8"
