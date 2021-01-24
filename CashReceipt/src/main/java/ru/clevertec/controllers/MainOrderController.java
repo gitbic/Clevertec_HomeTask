@@ -1,7 +1,10 @@
 package ru.clevertec.controllers;
 
 
-import ru.clevertec.beans.*;
+import ru.clevertec.beans.DiscountCard;
+import ru.clevertec.beans.FileIO;
+import ru.clevertec.beans.Product;
+import ru.clevertec.beans.Utility;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.constants.ErrorMsg;
 import ru.clevertec.enums.Arguments;
@@ -22,14 +25,15 @@ public class MainOrderController {
     DiscountCard myCard;
 
     {
+        mainOrder = Constants.MAIN_ORDER_FACTORY.createMainOrder();
         fileIO = new FileIO();
         productMap = new HashMap<>();
         cardMap = new HashMap<>();
         myCard = null;
     }
 
-    public MainOrderController(IMainOrder mainOrder) {
-        this.mainOrder = mainOrder;
+    public MainOrderController() {
+
     }
 
     public void readProductsFromFile() {
