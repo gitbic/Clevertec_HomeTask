@@ -5,12 +5,22 @@ import ru.clevertec.constants.JdbcConstants;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class DBController {
-    private final String dbName = "cash_receipt";
-    private final String url = "jdbc:postgresql://localhost:5432/" + dbName;
-    private final String user = "postgres";
-    private final String password = "";
+
+    private final String dbName;
+    private final String url;
+    private final String user;
+    private final String password;
+
+    {
+        ResourceBundle rb = ResourceBundle.getBundle(JdbcConstants.POSTGRESQL_CONNECTION_PROPERTIES);
+        dbName = rb.getString("dbName");
+        url = rb.getString("url") + dbName;
+        user = rb.getString("user");
+        password = rb.getString("password");
+    }
 
     public Connection getConnection() throws SQLException {
 
@@ -23,7 +33,6 @@ public class DBController {
             e.printStackTrace();
         }
 
-//        System.out.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_ESTABLISHED, dbName));
         return connection;
 
     }
