@@ -1,9 +1,6 @@
 package ru.clevertec.constants;
 
-import ru.clevertec.factories.MainOrderFactory;
-
 public final class Constants {
-    public static final MainOrderFactory MAIN_ORDER_FACTORY = MainOrderFactory.NO_PROXY;
     public static final String RESOURCES_PATH = "resources/";
     public static final String DEFAULT_PRODUCT_INPUT_PATH_FILE = RESOURCES_PATH + "prod.csv";
     public static final String DEFAULT_CHECK_TXT_OUTPUT_PATH_FILE = RESOURCES_PATH + "check.txt";
@@ -31,6 +28,4 @@ public final class Constants {
     public static final String FSTRING_LOG_MSG = "%s: %s - %s - %s";
     public static final String STR_ARGUMENTS = "arguments: ";
     public static final String STR_RESULT = "result: ";
-
-
 }

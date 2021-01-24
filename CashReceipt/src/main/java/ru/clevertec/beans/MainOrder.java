@@ -1,7 +1,7 @@
 package ru.clevertec.beans;
 
+import ru.clevertec.NewLinkedList;
 import ru.clevertec.annotations.LogThisMethod;
-import ru.clevertec.customlibs.linkedlist.NewLinkedList;
 import ru.clevertec.enums.LoggingLevel;
 import ru.clevertec.interfaces.IMainOrder;
 

@@ -1,4 +1,4 @@
-package ru.clevertec.controllers;
+package ru.clevertec.services;
 
 
 import ru.clevertec.beans.DiscountCard;
@@ -16,7 +16,7 @@ import ru.clevertec.interfaces.IMainOrder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainOrderController {
+public class MainOrderService {
 
     IMainOrder mainOrder;
     FileIO fileIO;
@@ -25,15 +25,14 @@ public class MainOrderController {
     DiscountCard myCard;
 
     {
-        mainOrder = Constants.MAIN_ORDER_FACTORY.createMainOrder();
         fileIO = new FileIO();
         productMap = new HashMap<>();
         cardMap = new HashMap<>();
         myCard = null;
     }
 
-    public MainOrderController() {
-
+    public MainOrderService(IMainOrder mainOrder) {
+        this.mainOrder = mainOrder;
     }
 
     public void readProductsFromFile() {
@@ -63,7 +62,7 @@ public class MainOrderController {
         }
     }
 
-    public void getDiscountCardForOrder() {
+    public void findDiscountCardForOrder() {
         String cardNumber = Arguments.CARD_NUMBER.getValue();
         myCard = cardMap.get(cardNumber);
         if (myCard == null) {
@@ -104,5 +103,13 @@ public class MainOrderController {
 
         String result = createCheck(CashReceiptFactory.PDF);
         System.out.println(result);
+    }
+
+    public Map<Integer, Product> getProductMap() {
+        return productMap;
+    }
+
+    public Map<String, DiscountCard> getCardMap() {
+        return cardMap;
     }
 }

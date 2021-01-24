@@ -13,7 +13,6 @@ public class DBController {
     private final String password = "";
 
     public Connection getConnection() throws SQLException {
-        checkDriverRegistered();
 
         Connection connection = null;
 
@@ -24,7 +23,7 @@ public class DBController {
             e.printStackTrace();
         }
 
-        System.out.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_ESTABLISHED, dbName));
+//        System.out.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_ESTABLISHED, dbName));
         return connection;
 
     }
