@@ -25,14 +25,14 @@ public class MainOrderService {
     DiscountCard myCard;
 
     {
+        mainOrder = Constants.MAIN_ORDER_FACTORY.createMainOrder();
         fileIO = new FileIO();
         productMap = new HashMap<>();
         cardMap = new HashMap<>();
         myCard = null;
     }
 
-    public MainOrderService(IMainOrder mainOrder) {
-        this.mainOrder = mainOrder;
+    public MainOrderService() {
     }
 
     public void readProductsFromFile() {

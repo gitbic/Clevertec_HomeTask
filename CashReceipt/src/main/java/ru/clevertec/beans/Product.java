@@ -17,6 +17,13 @@ public final class Product {
         discountForQuantity = value >= Constants.PRICE_FOR_DISCOUNT;
     }
 
+    public Product(int id, String name, BigDecimal price, boolean discountForQuantity) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.discountForQuantity = discountForQuantity;
+    }
+
     public int getId() {
         return id;
     }
@@ -33,6 +40,7 @@ public final class Product {
         return discountForQuantity;
     }
 
+
     public void setDiscountForQuantity(boolean discountForQuantity) {
         this.discountForQuantity = discountForQuantity;
     }
@@ -40,5 +48,15 @@ public final class Product {
     @Override
     public String toString() {
         return name + Constants.CSV_DELIMITER + Utility.priceToString(price);
+    }
+
+
+    public String printToString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + Utility.priceToString(price) +
+                ", discountForQuantity=" + discountForQuantity +
+                '}';
     }
 }
