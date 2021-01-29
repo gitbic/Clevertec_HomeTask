@@ -16,7 +16,6 @@ public final class MainOrder implements IMainOrder {
         this.purchases = new NewLinkedList<>();
     }
 
-
     @LogThisMethod()
     @Override
     public void addPurchaseToList(Purchase purchase) {
