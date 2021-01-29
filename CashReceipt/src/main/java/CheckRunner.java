@@ -1,9 +1,6 @@
-import ru.clevertec.beans.DiscountCard;
-import ru.clevertec.beans.Product;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.services.DBService;
 import ru.clevertec.services.MainOrderService;
-import ru.clevertec.services.SqlQueries;
 
 public class CheckRunner {
 
@@ -12,49 +9,15 @@ public class CheckRunner {
 
         Arguments.initialize(args);
 
-        MainOrderService mainOrderService = new MainOrderService();
-        mainOrderService.readProductsFromFile();
-        mainOrderService.readCreditCardFromFile();
+        DBService dbService = new DBService();
+        dbService.initializeTables();
+        dbService.fillCardTableFromFile();
+        dbService.fillProductsTableFromFile();
+
+        MainOrderService mainOrderService = new MainOrderService(dbService);
         mainOrderService.findDiscountCardForOrder();
         mainOrderService.createMainOrder();
         mainOrderService.printCheck();
-
-
-//         test aspect to different domen
-//        new TestClass().printTestProduct(new Product(22, "testProduct", 2.2));
-
-
-        System.out.println("\n--------Lets see jdbc--------");
-        DBService dbService = new DBService();
-
-        dbService.dropTable(SqlQueries.DISCOUNT_CARDS_TABLE_NAME);
-        dbService.dropTable(SqlQueries.PRODUCTS_TABLE_NAME);
-
-        dbService.createTable(SqlQueries.CREATE_TABLE_DISCOUNT_CARDS);
-        dbService.createTable(SqlQueries.CREATE_TABLE_PRODUCTS);
-
-        int i = 0;
-        for (Product product : mainOrderService.getProductMap().values()) {
-            dbService.insertProductIntoTable(product);
-            i++;
-        }
-        System.out.println("Added products to table: " + i);
-
-        i = 0;
-        for (DiscountCard discountCard : mainOrderService.getCardMap().values()) {
-            dbService.insertCardIntoTable(discountCard);
-            i++;
-        }
-        System.out.println("Added cards to table: " + i);
-
-        System.out.println("Updated product for discount by price: " +
-                dbService.markProductToDiscount(2.7));
-
-        System.out.println("Deleted product by id: " +
-                dbService.deleteProductById(35));
-
-        System.out.println("Get product from database:\n" +
-                dbService.getProductById(23).printToString());
 
     }
 }

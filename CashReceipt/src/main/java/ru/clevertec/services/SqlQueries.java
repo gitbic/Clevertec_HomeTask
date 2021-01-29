@@ -15,8 +15,7 @@ public class SqlQueries {
             "CREATE TABLE products (" +
                     "id             integer PRIMARY KEY NOT NULL," +
                     "name           varchar(100) NOT NULL," +
-                    "cost           double precision NOT NULL," +
-                    "is_discount    boolean" +
+                    "cost           double precision NOT NULL" +
                     ")";
 
 }
