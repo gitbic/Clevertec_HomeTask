@@ -16,8 +16,8 @@ import java.sql.*;
 public class DBService {
     DBController dbController;
 
-    public DBService() {
-        dbController = new DBController();
+    public DBService(DBController dbController) {
+        this.dbController = dbController;
     }
 
     public void initializeTables() {

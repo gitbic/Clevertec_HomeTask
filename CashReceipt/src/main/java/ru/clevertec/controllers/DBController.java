@@ -14,8 +14,8 @@ public class DBController {
     private final String user;
     private final String password;
 
-    {
-        ResourceBundle rb = ResourceBundle.getBundle(JdbcConstants.POSTGRESQL_CONNECTION_PROPERTIES);
+    public DBController(String connectionPropertiesFile) {
+        ResourceBundle rb = ResourceBundle.getBundle(connectionPropertiesFile);
         dbName = rb.getString("dbName");
         url = rb.getString("url") + dbName;
         user = rb.getString("user");
