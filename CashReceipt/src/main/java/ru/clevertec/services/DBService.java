@@ -45,9 +45,12 @@ public class DBService {
 
         for (String line : lines) {
             String[] elements = line.split(Constants.CSV_DELIMITER);
+            boolean isDiscountProduct = elements[3].equals(Constants.MARK_FOR_DISCOUNT_PRODUCT);
+
             insertProductIntoTable(Integer.parseInt(elements[0]),
                     elements[1],
-                    Double.parseDouble(elements[2]));
+                    Double.parseDouble(elements[2]),
+                    isDiscountProduct);
         }
     }
 
@@ -69,7 +72,8 @@ public class DBService {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
                 double price = resultSet.getDouble(3);
-                product = new Product(id, name, price);
+                boolean isDiscount = resultSet.getBoolean(4);
+                product = new Product(id, name, price, isDiscount);
             }
 
             return product;
@@ -129,20 +133,23 @@ public class DBService {
     public boolean insertProductIntoTable(Product product) {
         return insertProductIntoTable(product.getId(),
                 product.getName(),
-                product.getPrice().doubleValue());
+                product.getPrice().doubleValue(),
+                product.isDiscountForQuantity());
     }
 
-    public boolean insertProductIntoTable(int id, String name, Double price) {
+    public boolean insertProductIntoTable(int id, String name, Double price, boolean isDiscountProduct) {
+
         try (Connection connection = dbController.getConnection()) {
 
             String preparedQuery = "INSERT INTO " +
-                    "products (id, name, cost) " +
-                    "values (?, ?, ?)";
+                    "products (id, name, price, is_discount) " +
+                    "values (?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setInt(1, id);
             statement.setString(2, name);
             statement.setDouble(3, price);
+            statement.setBoolean(4, isDiscountProduct);
 
             int changes = statement.executeUpdate();
             return changes == 1;

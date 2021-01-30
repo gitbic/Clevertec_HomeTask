@@ -1,12 +1,12 @@
 QTY  DESCRIPTION    PRICE     TOTAL     DISCOUNT  
 ==================================================
 8    Kiwi           $5.52     $39.74    10.00%    
-8    Grape          $2.88     $23.04    
+8    Grape          $2.88     $20.74    10.00%    
 10   Orange         $0.99     $9.90     
-9    Mandarin       $6.25     $50.63    10.00%    
+9    Mandarin       $6.25     $56.25    
 3    Raspberry      $2.71     $8.13     
 2    Banana         $1.47     $2.94     
 ==================================================
-TOTAL                         $134.38             
+TOTAL                         $137.70             
 DISCOUNT                      2.12%               
-PAYMENT                       $131.53             
+PAYMENT                       $134.78             

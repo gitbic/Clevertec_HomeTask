@@ -32,4 +32,5 @@ public final class Constants {
     public static final String FSTRING_LOG_MSG = "%s: %s - %s - %s";
     public static final String STR_ARGUMENTS = "arguments: ";
     public static final String STR_RESULT = "result: ";
+    public static final String MARK_FOR_DISCOUNT_PRODUCT = "disc";
 }
