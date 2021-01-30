@@ -2,6 +2,7 @@ package ru.clevertec.constants;
 
 public final class Constants {
     public static final String MAIL_PROPERTIES = "send_mail";
+    public static final String POSTGRESQL_CONNECTION_PROPERTIES = "postgresql";
 
     public static final String RESOURCES_PATH = "resources/";
     public static final String DEFAULT_PRODUCT_INPUT_FILE_PATH = RESOURCES_PATH + "prod.csv";

@@ -1,4 +1,6 @@
-package ru.clevertec.enums;
+package ru.clevertec.mailer;
+
+import ru.clevertec.enums.Arguments;
 
 public enum CashReceiptSource {
     TXT(Arguments.CHECK_TXT_OUTPUT_PATH_FILE.getValue()),

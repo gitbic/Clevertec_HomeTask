@@ -1,6 +1,7 @@
-import ru.clevertec.constants.JdbcConstants;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.controllers.DBController;
 import ru.clevertec.enums.Arguments;
+import ru.clevertec.mailer.MailService;
 import ru.clevertec.services.DBService;
 import ru.clevertec.services.MainOrderService;
 
@@ -10,7 +11,7 @@ public class CheckRunner {
 
         Arguments.initialize(args);
 
-        DBController dbController = new DBController(JdbcConstants.POSTGRESQL_CONNECTION_PROPERTIES);
+        DBController dbController = new DBController(Constants.POSTGRESQL_CONNECTION_PROPERTIES);
         DBService dbService = new DBService(dbController);
         dbService.initializeTables();
         dbService.fillCardTableFromFile();
@@ -21,6 +22,10 @@ public class CheckRunner {
         mainOrderService.createMainOrder();
         mainOrderService.printCheck();
 
+        MailService mailService = new MailService();
+        mailService.createEmail();
+        mailService.prepareServer();
+        mailService.sendMail();
 
     }
 }

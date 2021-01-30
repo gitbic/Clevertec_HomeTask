@@ -7,7 +7,7 @@ import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Utility;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.constants.ErrorMsg;
-import ru.clevertec.constants.MainConstants;
+import ru.clevertec.constants.ControlConstants;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.factories.PurchaseFactory;
@@ -18,13 +18,13 @@ import java.util.Map;
 
 public class MainOrderService {
 
-    DBService dbService;
-    IMainOrder mainOrder;
-    FileIO fileIO;
-    DiscountCard myCard;
+    private final DBService dbService;
+    private final IMainOrder mainOrder;
+    private final FileIO fileIO;
+    private DiscountCard myCard;
 
     {
-        mainOrder = MainConstants.MAIN_ORDER_FACTORY.createMainOrder();
+        mainOrder = ControlConstants.MAIN_ORDER_FACTORY.createMainOrder();
         fileIO = new FileIO();
         myCard = null;
     }

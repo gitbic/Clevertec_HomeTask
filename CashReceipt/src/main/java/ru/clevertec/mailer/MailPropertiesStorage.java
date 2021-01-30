@@ -4,9 +4,8 @@ import ru.clevertec.constants.Constants;
 
 import java.util.ResourceBundle;
 
-public class MailProperties {
-
-    public static final ResourceBundle properties = ResourceBundle.getBundle(Constants.MAIL_PROPERTIES);
+public class MailPropertiesStorage {
+    public static ResourceBundle properties = ResourceBundle.getBundle(Constants.MAIL_PROPERTIES);
 
     public static final String SMTP_HOST = properties.getString("smtp.host");
     public static final int SMTP_PORT = Integer.parseInt(properties.getString("smtp.port"));

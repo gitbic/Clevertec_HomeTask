@@ -14,8 +14,8 @@ public class DBController {
     private final String user;
     private final String password;
 
-    public DBController(String connectionPropertiesFile) {
-        ResourceBundle properties = ResourceBundle.getBundle(connectionPropertiesFile);
+    public DBController(String connectionPropertiesFileName) {
+        ResourceBundle properties = ResourceBundle.getBundle(connectionPropertiesFileName);
         dbName = properties.getString("dbName");
         url = properties.getString("url") + dbName;
         user = properties.getString("user");
