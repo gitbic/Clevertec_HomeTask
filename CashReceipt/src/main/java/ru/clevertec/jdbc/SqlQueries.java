@@ -1,4 +1,4 @@
-package ru.clevertec.services;
+package ru.clevertec.jdbc;
 
 public class SqlQueries {
 

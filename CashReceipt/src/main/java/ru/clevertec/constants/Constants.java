@@ -1,8 +1,8 @@
 package ru.clevertec.constants;
 
 public final class Constants {
-    public static final String MAIL_PROPERTIES = "send_mail";
-    public static final String POSTGRESQL_CONNECTION_PROPERTIES = "postgresql";
+    public static final String MAIL_PROPERTIES = "properties/send_mail";
+    public static final String POSTGRESQL_CONNECTION_PROPERTIES = "properties/postgresql";
 
     public static final String RESOURCES_PATH = "resources/";
     public static final String DEFAULT_PRODUCT_INPUT_FILE_PATH = RESOURCES_PATH + "prod.csv";
@@ -14,7 +14,11 @@ public final class Constants {
     public static final int QUANTITY_FOR_DISCOUNT = 5;
     public static final double DEFAULT_DISCOUNT_PERCENT = 10;
     public static final int ZERO_DISCOUNT_PERCENT = 0;
+
     public static final String CSV_DELIMITER = ";";
+    public static final String JDBC_URL_DELIMITER = ":";
+    public static final String SLASH = "/";
+
     public static final String FORMAT_CELL = "%%-%ds";
     public static final String FORMAT_NEW_LINE = "%n";
     public static final String STRING_ONE_SPACE = " ";

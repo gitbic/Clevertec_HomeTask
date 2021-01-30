@@ -1,40 +1,26 @@
-package ru.clevertec.controllers;
-
-import ru.clevertec.constants.JdbcConstants;
+package ru.clevertec.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class DBController {
-
-    private final String dbName;
-    private final String url;
-    private final String user;
-    private final String password;
-
-    public DBController(String connectionPropertiesFileName) {
-        ResourceBundle properties = ResourceBundle.getBundle(connectionPropertiesFileName);
-        dbName = properties.getString("dbName");
-        url = properties.getString("url") + dbName;
-        user = properties.getString("user");
-        password = properties.getString("password");
-    }
 
     public Connection getConnection() throws SQLException {
 
         Connection connection = null;
 
         try {
-            connection = DriverManager.getConnection(url, user, password);
+            connection = DriverManager.getConnection(PostgresqlPropertiesStorage.DB_URL,
+                    PostgresqlPropertiesStorage.DB_USERNAME,
+                    PostgresqlPropertiesStorage.DB_PASSWORD);
         } catch (SQLException e) {
-            System.err.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_FAILED, dbName));
+            System.err.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_FAILED,
+                    PostgresqlPropertiesStorage.DB_NAME));
             e.printStackTrace();
         }
 
         return connection;
-
     }
 
     private void checkDriverRegistered() {

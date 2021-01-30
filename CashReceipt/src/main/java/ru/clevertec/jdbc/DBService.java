@@ -1,4 +1,4 @@
-package ru.clevertec.services;
+package ru.clevertec.jdbc;
 
 import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
@@ -6,8 +6,6 @@ import ru.clevertec.beans.Product;
 import ru.clevertec.builders.product.Builder;
 import ru.clevertec.builders.product.ProductBuilder;
 import ru.clevertec.constants.Constants;
-import ru.clevertec.constants.JdbcConstants;
-import ru.clevertec.controllers.DBController;
 import ru.clevertec.enums.Arguments;
 
 import java.math.BigDecimal;
