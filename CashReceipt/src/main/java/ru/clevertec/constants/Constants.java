@@ -9,7 +9,6 @@ public final class Constants {
     public static final String DEFAULT_CARD_INPUT_PATH_FILE = RESOURCES_PATH + "card.csv";
     public static final String PDF_TEMPLATE_PATH_FILE = RESOURCES_PATH + "templates.pdf";
 
-    public static final double PRICE_FOR_DISCOUNT = 4;
     public static final int QUANTITY_FOR_DISCOUNT = 5;
     public static final double DEFAULT_DISCOUNT_PERCENT = 10;
     public static final int ZERO_DISCOUNT_PERCENT = 0;

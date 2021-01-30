@@ -8,6 +8,7 @@ import ru.clevertec.constants.JdbcConstants;
 import ru.clevertec.controllers.DBController;
 import ru.clevertec.enums.Arguments;
 
+import java.math.BigDecimal;
 import java.sql.*;
 
 public class DBService {
@@ -49,10 +50,11 @@ public class DBService {
 
             insertProductIntoTable(Integer.parseInt(elements[0]),
                     elements[1],
-                    Double.parseDouble(elements[2]),
+                    new BigDecimal(elements[2]),
                     isDiscountProduct);
         }
     }
+
 
     public Product getProductById(int studentId) {
         try (Connection connection = dbController.getConnection()) {
@@ -71,7 +73,7 @@ public class DBService {
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
-                double price = resultSet.getDouble(3);
+                BigDecimal price = resultSet.getBigDecimal(3);
                 boolean isDiscount = resultSet.getBoolean(4);
                 product = new Product(id, name, price, isDiscount);
             }
@@ -133,11 +135,11 @@ public class DBService {
     public boolean insertProductIntoTable(Product product) {
         return insertProductIntoTable(product.getId(),
                 product.getName(),
-                product.getPrice().doubleValue(),
+                product.getPrice(),
                 product.isDiscountForQuantity());
     }
 
-    public boolean insertProductIntoTable(int id, String name, Double price, boolean isDiscountProduct) {
+    public boolean insertProductIntoTable(int id, String name, BigDecimal price, boolean isDiscountProduct) {
 
         try (Connection connection = dbController.getConnection()) {
 
@@ -148,7 +150,7 @@ public class DBService {
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setInt(1, id);
             statement.setString(2, name);
-            statement.setDouble(3, price);
+            statement.setBigDecimal(3, price);
             statement.setBoolean(4, isDiscountProduct);
 
             int changes = statement.executeUpdate();

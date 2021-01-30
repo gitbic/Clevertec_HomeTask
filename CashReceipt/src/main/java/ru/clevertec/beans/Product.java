@@ -8,13 +8,13 @@ public final class Product {
     private final int id;
     private final String name;
     private final BigDecimal price;
-    private boolean discountForQuantity;
+    private boolean isDiscountForQuantity;
 
-    public Product(int id, String name, double value, boolean discountForQuantity) {
+    public Product(int id, String name, BigDecimal price, boolean isDiscountForQuantity) {
         this.id = id;
         this.name = name;
-        this.price = BigDecimal.valueOf(value);
-        this.discountForQuantity = discountForQuantity;
+        this.price = price;
+        this.isDiscountForQuantity = isDiscountForQuantity;
     }
 
     public int getId() {
@@ -30,12 +30,12 @@ public final class Product {
     }
 
     public boolean isDiscountForQuantity() {
-        return discountForQuantity;
+        return isDiscountForQuantity;
     }
 
 
     public void setDiscountForQuantity(boolean discountForQuantity) {
-        this.discountForQuantity = discountForQuantity;
+        this.isDiscountForQuantity = discountForQuantity;
     }
 
     @Override
@@ -49,7 +49,7 @@ public final class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + Utility.priceToString(price) +
-                ", discountForQuantity=" + discountForQuantity +
+                ", isDiscountForQuantity=" + isDiscountForQuantity +
                 '}';
     }
 }
