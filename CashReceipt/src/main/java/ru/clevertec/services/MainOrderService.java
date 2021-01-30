@@ -47,15 +47,17 @@ public class MainOrderService {
 
     public void createMainOrder() {
         for (Map.Entry<Integer, Integer> position : Arguments.readOrder().entrySet()) {
-            int id = position.getKey();
-            Product product = dbService.getProductById(id);
+            int productId = position.getKey();
+            int productNumber = position.getValue();
+
+            Product product = dbService.getProductById(productId);
 
             if (product == null) {
-                System.err.println(String.format(ErrorMsg.FSTRING_PRODUCT_NOT_FOUND, id));
+                System.err.println(String.format(ErrorMsg.FSTRING_PRODUCT_NOT_FOUND, productId));
                 continue;
             }
 
-            mainOrder.addPurchaseToList((PurchaseFactory.createPurchase(product, position.getValue())));
+            mainOrder.addPurchaseToList((PurchaseFactory.createPurchase(product, productNumber)));
         }
     }
 

@@ -3,6 +3,8 @@ package ru.clevertec.services;
 import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
 import ru.clevertec.beans.Product;
+import ru.clevertec.builders.product.Builder;
+import ru.clevertec.builders.product.ProductBuilder;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.constants.JdbcConstants;
 import ru.clevertec.controllers.DBController;
@@ -71,11 +73,14 @@ public class DBService {
             Product product = null;
 
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                BigDecimal price = resultSet.getBigDecimal(3);
-                boolean isDiscount = resultSet.getBoolean(4);
-                product = new Product(id, name, price, isDiscount);
+                Builder productBuilder = new ProductBuilder();
+
+                productBuilder.setId(resultSet.getInt(1));
+                productBuilder.setName(resultSet.getString(2));
+                productBuilder.setPrice(resultSet.getBigDecimal(3));
+                productBuilder.setDiscountForQuantity(resultSet.getBoolean(4));
+
+                product = productBuilder.getProduct();
             }
 
             return product;
