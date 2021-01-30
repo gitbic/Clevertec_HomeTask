@@ -1,10 +1,12 @@
-package ru.clevertec.runners;
+package ru.clevertec.mailer;
+
+import ru.clevertec.constants.Constants;
 
 import java.util.ResourceBundle;
 
 public class MailProperties {
-    public static final String MAIL_PROPERTIES = "send_mail";
-    public static final ResourceBundle properties = ResourceBundle.getBundle(MAIL_PROPERTIES);
+
+    public static final ResourceBundle properties = ResourceBundle.getBundle(Constants.MAIL_PROPERTIES);
 
     public static final String SMTP_HOST = properties.getString("smtp.host");
     public static final int SMTP_PORT = Integer.parseInt(properties.getString("smtp.port"));
@@ -16,5 +18,4 @@ public class MailProperties {
     public static final String MAIL_BODY = properties.getString("mail.body");
     public static final String MAIL_ATTACHMENT_TITLE = properties.getString("mail.attachment.title");
     public static final String MAIL_ATTACHMENT_SOURCE = properties.getString("mail.attachment.source");
-
 }
