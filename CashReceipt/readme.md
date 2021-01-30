@@ -30,19 +30,19 @@
 
 Примеры запуска: 
 
-java CheckRunner -dsc 3421 -check resources/check.txt -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 38-1 8-10 9-9 14-2 23-8"
+java ru.clevertec.runners.CheckRunner -dsc 3421 -check resources/check.txt -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 38-1 8-10 9-9 14-2 23-8"
 
 java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 3421 -check resources/check.txt -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 38-1 8-10 9-9 14-2 23-8"
 
-java CheckRunner -dsc 3422 -check resources/check.txt -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23"
+java ru.clevertec.runners.CheckRunner -dsc 3422 -check resources/check.txt -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23"
 
 java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 3422 -check resources/check.txt -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23"
 
-java CheckRunner -dsc 1234
+java ru.clevertec.runners.CheckRunner -dsc 1234
 
 java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 1234
 
-java CheckRunner -dsc 3421 -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23 17-8 6-5 45-8 35-12"
+java ru.clevertec.runners.CheckRunner -dsc 3421 -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23 17-8 6-5 45-8 35-12"
 
 java -jar CashReceipt-1.0-SNAPSHOT.jar -dsc 3421 -prod resources/prod.csv -card resources/card.csv -buy "27-3 36-8 39-1 8-10 9-9 14-2 23-8 14-7 3-23 17-8 6-5 45-8 35-12"
 

@@ -67,7 +67,7 @@ public class CashReceiptPdf implements CashReceipt {
             Document document = new Document();
 
             PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream(Constants.DEFAULT_CHECK_PDF_OUTPUT_PATH_FILE));
+                    new FileOutputStream(Constants.DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH));
             document.open();
 
             document.setMargins(Constants.PDF_DOC_MARGIN_LEFT,
@@ -85,7 +85,7 @@ public class CashReceiptPdf implements CashReceipt {
             e.printStackTrace();
         }
 
-        return "PDF document successfully created: " + Constants.DEFAULT_CHECK_PDF_OUTPUT_PATH_FILE;
+        return "PDF document successfully created: " + Constants.DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH;
     }
 
     public Document fillDocument(List<Purchase> purchases, String[] tailArgs, Document document) {

@@ -15,11 +15,11 @@ public class DBController {
     private final String password;
 
     public DBController(String connectionPropertiesFile) {
-        ResourceBundle rb = ResourceBundle.getBundle(connectionPropertiesFile);
-        dbName = rb.getString("dbName");
-        url = rb.getString("url") + dbName;
-        user = rb.getString("user");
-        password = rb.getString("password");
+        ResourceBundle properties = ResourceBundle.getBundle(connectionPropertiesFile);
+        dbName = properties.getString("dbName");
+        url = properties.getString("url") + dbName;
+        user = properties.getString("user");
+        password = properties.getString("password");
     }
 
     public Connection getConnection() throws SQLException {
