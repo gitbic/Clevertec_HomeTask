@@ -1,4 +1,4 @@
-package ru.clevertec.mailer;
+package ru.clevertec.services.mailer;
 
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;

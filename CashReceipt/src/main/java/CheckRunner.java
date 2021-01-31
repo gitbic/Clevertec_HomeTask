@@ -1,8 +1,8 @@
 import ru.clevertec.checkmanage.CashReceiptManager;
 import ru.clevertec.enums.Arguments;
-import ru.clevertec.jdbc.DBController;
-import ru.clevertec.jdbc.DBService;
-import ru.clevertec.mailer.MailService;
+import ru.clevertec.services.jdbc.DBController;
+import ru.clevertec.services.jdbc.DBService;
+import ru.clevertec.services.mailer.MailService;
 import ru.clevertec.observer.entities.State;
 import ru.clevertec.observer.listeners.EmailListener;
 import ru.clevertec.observer.listeners.EventListener;

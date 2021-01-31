@@ -1,4 +1,4 @@
-package ru.clevertec.mailer;
+package ru.clevertec.services.mailer;
 
 import ru.clevertec.enums.Arguments;
 

@@ -1,6 +1,6 @@
 package ru.clevertec.observer.entities;
 
-import ru.clevertec.mailer.CashReceiptType;
+import ru.clevertec.services.mailer.CashReceiptType;
 
 public enum  State {
     PDF_CHECK_PRINTED(CashReceiptType.PDF),

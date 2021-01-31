@@ -11,7 +11,7 @@ import ru.clevertec.constants.ErrorMsg;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.interfaces.IMainOrder;
-import ru.clevertec.jdbc.DBService;
+import ru.clevertec.services.jdbc.DBService;
 
 import java.util.Map;
 

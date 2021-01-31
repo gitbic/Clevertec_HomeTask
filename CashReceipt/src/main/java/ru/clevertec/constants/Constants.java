@@ -23,6 +23,9 @@ public final class Constants {
     public static final String FORMAT_NEW_LINE = "%n";
     public static final String STRING_ONE_SPACE = " ";
     public static final String EMPTY_STRING = " ";
+    public static final String FSTRING_NUMBER_DECIMAL = "%.2f%%";
+    public static final int NUMBER_DECIMAL = 2;
+    public static final String SIGN_DOLLAR = "$";
 
     public static final int PDF_DOC_MARGIN_LEFT = 0;
     public static final int PDF_DOC_MARGIN_RIGHT = 0;

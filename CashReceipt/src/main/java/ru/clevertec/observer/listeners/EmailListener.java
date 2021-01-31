@@ -1,6 +1,6 @@
 package ru.clevertec.observer.listeners;
 
-import ru.clevertec.mailer.IMailService;
+import ru.clevertec.services.mailer.IMailService;
 import ru.clevertec.observer.entities.State;
 
 public class EmailListener implements EventListener{

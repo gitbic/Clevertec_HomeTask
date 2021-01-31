@@ -1,4 +1,4 @@
-package ru.clevertec.mailer;
+package ru.clevertec.services.mailer;
 
 public interface IMailService {
     void createEmail(CashReceiptType cashReceiptType);

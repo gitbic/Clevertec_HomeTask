@@ -1,4 +1,4 @@
-package ru.clevertec.jdbc;
+package ru.clevertec.services.jdbc;
 
 public class JdbcConstants {
     public static final String POSTGRESQL_DRIVER_NAME = "org.postgresql.Driver";
