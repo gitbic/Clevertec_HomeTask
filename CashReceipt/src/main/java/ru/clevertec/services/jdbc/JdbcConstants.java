@@ -1,7 +1,6 @@
-package ru.clevertec.constants;
+package ru.clevertec.services.jdbc;
 
 public class JdbcConstants {
-    public static final String POSTGRESQL_CONNECTION_PROPERTIES = "postgresql";
     public static final String POSTGRESQL_DRIVER_NAME = "org.postgresql.Driver";
     public static final String POSTGRESQL_DRIVER_FOUND = "PostgreSQL driver registered.";
     public static final String POSTGRESQL_DRIVER_NOT_FOUND = "PostgreSQL driver is not found.";

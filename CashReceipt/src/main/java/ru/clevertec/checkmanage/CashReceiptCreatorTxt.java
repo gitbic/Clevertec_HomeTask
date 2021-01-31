@@ -1,31 +1,41 @@
-package ru.clevertec.beans;
+package ru.clevertec.checkmanage;
 
-import com.itextpdf.text.DocumentException;
+import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
-import ru.clevertec.interfaces.CashReceipt;
 
-import java.lang.reflect.Proxy;
+import java.io.ByteArrayOutputStream;
 import java.util.Formatter;
 import java.util.List;
 
-public class CashReceiptTxt implements CashReceipt {
+public class CashReceiptCreatorTxt implements CashReceiptCreator {
 
     private final static String MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
 
     @Override
-    public <T> T getCheckHead(Class<T> targetType) {
+    public ByteArrayOutputStream createCheck(List<Purchase> purchases, String[] tailArgs) {
+        String str = getCheckHead()
+                + MENU_DELIMITER
+                + getCheckBody(purchases)
+                + MENU_DELIMITER
+                + getCheckTail(tailArgs);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byteArrayOutputStream.writeBytes(str.getBytes());
+        return byteArrayOutputStream;
+    }
+
+    private String getCheckHead() {
         Formatter f = new Formatter();
         for (TableMenu value : TableMenu.values()) {
             f.format(value.getFormatForCell(), value);
         }
         f.format(System.lineSeparator());
-        return targetType.cast(f.toString());
+        return f.toString();
     }
 
-    @Override
-    public <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) {
+    private String getCheckBody(List<Purchase> purchases) {
         Formatter f = new Formatter();
 
         for (int k = 0; k < purchases.size(); k++) {
@@ -37,25 +47,15 @@ public class CashReceiptTxt implements CashReceipt {
 
             f.format(Constants.FORMAT_NEW_LINE);
         }
-        return targetType.cast(f.toString());
+        return f.toString();
     }
 
-    @Override
-    public <T> T getCheckTail(String[] tailArgs, Class<T> targetType) {
+    private String getCheckTail(String[] tailArgs) {
         String tailString = TableTail.getTailFormatString();
         Formatter f = new Formatter();
         f.format(tailString, TableTail.TOTAL, tailArgs[TableTail.TOTAL.ordinal()]);
         f.format(tailString, TableTail.DISCOUNT, tailArgs[TableTail.DISCOUNT.ordinal()]);
         f.format(tailString, TableTail.PAYMENT, tailArgs[TableTail.PAYMENT.ordinal()]);
-        return targetType.cast(f.toString());
-    }
-
-    @Override
-    public String getCheck(List<Purchase> purchases, String[] tailArgs){
-        return getCheckHead(String.class)
-                + MENU_DELIMITER
-                + getCheckBody(purchases, String.class)
-                + MENU_DELIMITER
-                + getCheckTail(tailArgs, String.class);
+        return f.toString();
     }
 }

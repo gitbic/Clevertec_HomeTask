@@ -1,4 +1,4 @@
-package ru.clevertec.services;
+package ru.clevertec.services.jdbc;
 
 public class SqlQueries {
 
@@ -15,7 +15,8 @@ public class SqlQueries {
             "CREATE TABLE products (" +
                     "id             integer PRIMARY KEY NOT NULL," +
                     "name           varchar(100) NOT NULL," +
-                    "cost           double precision NOT NULL" +
+                    "price          decimal NOT NULL," +
+                    "is_discount    boolean NOT NULL" +
                     ")";
 
 }
