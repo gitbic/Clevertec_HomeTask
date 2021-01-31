@@ -6,10 +6,15 @@ import java.math.BigDecimal;
 
 public final class PurchaseDiscountQuantity extends Purchase {
 
+    // !!! reflection inheritance not parent class field
+    private final Product product;
+    private final int number;
     private static double DISCOUNT_PERCENT = Constants.DEFAULT_DISCOUNT_PERCENT;
 
     public PurchaseDiscountQuantity(Product product, int number) {
         super(product, number);
+        this.product = product;
+        this.number = number;
     }
 
     @Override
