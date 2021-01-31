@@ -32,7 +32,6 @@ public final class Constants {
     public static final int PDF_TEMPLATE_PAGE_COORD_X = 0;
     public static final int PDF_TEMPLATE_PAGE_COORD_Y = 0;
     public static final int PDF_NUMBER_OF_COLUMN_PURCHASE_WITHOUT_DISCOUNT = 4;
-    public static final String PDF_CHECK_SUCCESSFULLY_CREATED = "PDF document successfully created: ";
 
     public static final String NO_ARGUMENTS = "no arguments";
     public static final String NO_RESULTS = "no results";
@@ -40,4 +39,8 @@ public final class Constants {
     public static final String STR_ARGUMENTS = "arguments: ";
     public static final String STR_RESULT = "result: ";
     public static final String MARK_FOR_DISCOUNT_PRODUCT = "disc";
+
+    public static final String CHECK_WAS_PRINTED_IN_PDF_FILE = "Check was printed in pdf file";
+    public static final String CHECK_WAS_PRINTED_IN_TXT_FILE = "Check was printed in txt file";
+    public static final String CHECK_WAS_PRINTED_IN_CONSOLE = "Check was printed in pdf console";
 }

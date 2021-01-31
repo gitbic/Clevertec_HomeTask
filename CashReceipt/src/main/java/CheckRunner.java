@@ -20,10 +20,9 @@ public class CheckRunner {
         dbService.fillCardTableFromFile();
         dbService.fillProductsTableFromFile();
 
-//        check.getPublisher().subscribe(State.CHECK_WAS_PRINTED_IN_TXT, consoler);
         EventListener listener = new EmailListener(new MailService());
-        CashReceiptManager.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
-        CashReceiptManager.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
+        CashReceiptManager.TXT.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
+        CashReceiptManager.PDF.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
 
         MainOrderService mainOrderService = new MainOrderService(dbService);
         mainOrderService.findDiscountCardForOrder();
