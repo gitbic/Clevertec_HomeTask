@@ -16,8 +16,6 @@ public final class Constants {
     public static final int ZERO_DISCOUNT_PERCENT = 0;
 
     public static final String CSV_DELIMITER = ";";
-    public static final String JDBC_URL_DELIMITER = ":";
-    public static final String SLASH = "/";
 
     public static final String FORMAT_CELL = "%%-%ds";
     public static final String FORMAT_NEW_LINE = "%n";

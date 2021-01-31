@@ -35,6 +35,15 @@ public class DBService {
 
     private static final int PARAMETER_INDEX_FIRST = 1;
 
+    public static final String GET_PRODUCT_BY_ID_QUERY = "SELECT * FROM products WHERE id = ?";
+    public static final String GET_CARD_BY_NUMBER_QUERY = "SELECT * FROM discount_cards WHERE card_number = ?";
+    public static final String DELETE_PRODUCT_BY_ID_QUERY = "DELETE FROM products WHERE id = ?";
+    public static final String INSERT_PRODUCT_INTO_TABLE_QUERY =
+            "INSERT INTO products (id, name, price, is_discount) values (?, ?, ?, ?)";
+    public static final String INSERT_CARD_INTO_TABLE_QUERY =
+            "INSERT INTO discount_cards (card_number, discount) values (?, ?)";
+    public static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS ";
+
     public void initializeTables() {
         dropTable(SqlQueries.DISCOUNT_CARDS_TABLE_NAME);
         dropTable(SqlQueries.PRODUCTS_TABLE_NAME);
@@ -73,15 +82,10 @@ public class DBService {
         }
     }
 
-
     public Product getProductById(int studentId) {
-        try (Connection connection = dbController.getConnection()) {
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PRODUCT_BY_ID_QUERY)) {
 
-            String preparedQuery = "SELECT * " +
-                    "FROM products " +
-                    "WHERE id = ?";
-
-            PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setInt(PARAMETER_INDEX_FIRST, studentId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -108,13 +112,9 @@ public class DBService {
     }
 
     public DiscountCard getCardByNumber(String cardNumber) {
-        try (Connection connection = dbController.getConnection()) {
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_CARD_BY_NUMBER_QUERY)) {
 
-            String preparedQuery = "SELECT * " +
-                    "FROM discount_cards " +
-                    "WHERE card_number = ?";
-
-            PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setString(PARAMETER_INDEX_FIRST, cardNumber);
 
             ResultSet resultSet = statement.executeQuery();
@@ -135,13 +135,11 @@ public class DBService {
         }
     }
 
+
     public boolean deleteProductById(int id) {
-        try (Connection connection = dbController.getConnection()) {
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_PRODUCT_BY_ID_QUERY)) {
 
-            String preparedQuery = "DELETE FROM products " +
-                    "WHERE id = ?";
-
-            PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setInt(PARAMETER_INDEX_FIRST, id);
 
             int changes = statement.executeUpdate();
@@ -160,15 +158,12 @@ public class DBService {
                 product.isDiscountForQuantity());
     }
 
+
     public boolean insertProductIntoTable(int id, String name, BigDecimal price, boolean isDiscountProduct) {
 
-        try (Connection connection = dbController.getConnection()) {
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT_PRODUCT_INTO_TABLE_QUERY)) {
 
-            String preparedQuery = "INSERT INTO " +
-                    "products (id, name, price, is_discount) " +
-                    "values (?, ?, ?, ?)";
-
-            PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setInt(PRODUCT_TABLE_POSITION_ID, id);
             statement.setString(PRODUCT_TABLE_POSITION_NAME, name);
             statement.setBigDecimal(PRODUCT_TABLE_POSITION_PRICE, price);
@@ -188,13 +183,9 @@ public class DBService {
     }
 
     public boolean insertCardIntoTable(String cardNumber, double discount) {
-        try (Connection connection = dbController.getConnection()) {
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT_CARD_INTO_TABLE_QUERY)) {
 
-            String preparedQuery = "INSERT INTO " +
-                    "discount_cards (card_number, discount) " +
-                    "values (?, ?)";
-
-            PreparedStatement statement = connection.prepareStatement(preparedQuery);
             statement.setString(CARD_TABLE_POSITION_NUMBER, cardNumber);
             statement.setDouble(CARD_TABLE_POSITION_DISCOUNT, discount);
 
@@ -210,7 +201,7 @@ public class DBService {
     public void dropTable(String tableName) {
         try (Connection connection = dbController.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DROP TABLE IF EXISTS " + tableName);
+            statement.executeUpdate(DROP_TABLE_QUERY + tableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
