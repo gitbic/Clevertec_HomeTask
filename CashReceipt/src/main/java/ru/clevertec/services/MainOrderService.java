@@ -5,17 +5,17 @@ import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
 import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Utility;
+import ru.clevertec.beans.checkprinters.CashReceiptCreator;
+import ru.clevertec.beans.checkprinters.CashReceiptFactory;
 import ru.clevertec.constants.Constants;
-import ru.clevertec.constants.ErrorMsg;
 import ru.clevertec.constants.ControlConstants;
+import ru.clevertec.constants.ErrorMsg;
 import ru.clevertec.enums.Arguments;
-import ru.clevertec.enums.CashReceiptType;
-import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.factories.PurchaseFactory;
-import ru.clevertec.interfaces.CashReceiptCreator;
 import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.jdbc.DBService;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 public class MainOrderService {
@@ -63,23 +63,20 @@ public class MainOrderService {
         }
     }
 
-    private String createCheck(CashReceiptFactory cashReceiptFactory) {
-        String[] tailArgs = new String[]{
+    public void printCheck(CashReceiptFactory cashReceiptFactory) {
+
+        CashReceiptCreator cashReceiptCreator = cashReceiptFactory.createNewInstance();
+        ByteArrayOutputStream byteArrayOS = cashReceiptCreator.createCheck(mainOrder.getPurchases(), getTailArgs());
+        cashReceiptCreator.printCheck(byteArrayOS);
+
+
+    }
+
+    private String[] getTailArgs() {
+        return new String[]{
                 Utility.priceToString(mainOrder.getTotalCost()),
                 Utility.percentToString(myCard.getDiscount()),
                 Utility.priceToString(mainOrder.getFinalCost(myCard))
         };
-
-        CashReceiptCreator cashReceiptCreator = cashReceiptFactory.createNewInstance();
-        return cashReceiptCreator.getCheck(mainOrder.getPurchases(), tailArgs);
-    }
-
-    public void printCheck(CashReceiptType cashReceiptType) {
-        String cashReceiptTxt = createCheck(CashReceiptFactory.TXT);
-        fileIO.write(Arguments.CHECK_TXT_OUTPUT_PATH_FILE.getValue(), cashReceiptTxt);
-        System.out.println(cashReceiptTxt);
-
-        String result = createCheck(CashReceiptFactory.PDF);
-        System.out.println(result);
     }
 }

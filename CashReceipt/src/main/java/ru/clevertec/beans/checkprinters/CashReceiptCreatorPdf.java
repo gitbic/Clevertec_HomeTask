@@ -1,15 +1,16 @@
-package ru.clevertec.beans;
+package ru.clevertec.beans.checkprinters;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
+import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
-import ru.clevertec.interfaces.CashReceiptCreator;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,17 +19,58 @@ import java.util.List;
 public class CashReceiptCreatorPdf implements CashReceiptCreator {
 
     @Override
-    public <T> T getCheckHead(Class<T> targetType) {
+    public void printCheck(ByteArrayOutputStream byteArrayOutputStream) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(Arguments.CHECK_PDF_OUTPUT_PATH_FILE.getValue());
+            byteArrayOutputStream.writeTo(fileOutputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ByteArrayOutputStream createCheck(List<Purchase> purchases, String[] tailArgs)  {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            Document document = new Document();
+
+
+            PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+
+//            new FileOutputStream(Arguments.CHECK_PDF_OUTPUT_PATH_FILE.getValue()));
+            document.open();
+
+            document.setMargins(Constants.PDF_DOC_MARGIN_LEFT,
+                    Constants.PDF_DOC_MARGIN_RIGHT,
+                    Constants.PDF_DOC_MARGIN_TOP,
+                    Constants.PDF_DOC_MARGIN_BOTTOM);
+
+            document.newPage();
+            useTemplate(writer, Constants.PDF_TEMPLATE_FILE_PATH);
+
+            document.add(getCheckHead());
+            document.add(getCheckBody(purchases));
+            document.add(pdfTableSeparator());
+            document.add(getCheckTail(tailArgs));
+
+            document.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return outputStream;
+    }
+
+    private PdfPTable getCheckHead() {
         PdfPTable table = getPdfTable(TableMenu.getCellWidth());
 
         for (TableMenu value : TableMenu.values()) {
             table.addCell(value.toString());
         }
-        return targetType.cast(table);
+        return table;
     }
 
-    @Override
-    public <T> T getCheckBody(List<Purchase> purchases, Class<T> targetType) {
+    private PdfPTable getCheckBody(List<Purchase> purchases) {
         PdfPTable table = getPdfTable(TableMenu.getCellWidth());
 
         for (int i = 0; i < purchases.size(); i++) {
@@ -41,12 +83,11 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
                 table.addCell(Constants.STRING_ONE_SPACE);
             }
         }
-        return targetType.cast(table);
+        return table;
     }
 
 
-    @Override
-    public <T> T getCheckTail(String[] tailArgs, Class<T> targetType) {
+    private PdfPTable getCheckTail(String[] tailArgs) {
         PdfPTable table = getPdfTable(TableTail.getCellWidth());
 
         table.addCell(TableTail.TOTAL.toString());
@@ -56,52 +97,8 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
         table.addCell(TableTail.PAYMENT.toString());
         table.addCell(tailArgs[TableTail.PAYMENT.ordinal()]);
 
-        return targetType.cast(table);
+        return table;
     }
-
-    @Override
-    public String getCheck(List<Purchase> purchases, String[] tailArgs) {
-
-        try {
-            Document document = new Document();
-
-            PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream(Constants.DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH));
-            document.open();
-
-            document.setMargins(Constants.PDF_DOC_MARGIN_LEFT,
-                    Constants.PDF_DOC_MARGIN_RIGHT,
-                    Constants.PDF_DOC_MARGIN_TOP,
-                    Constants.PDF_DOC_MARGIN_BOTTOM);
-
-            document.newPage();
-            useTemplate(writer, Constants.PDF_TEMPLATE_FILE_PATH);
-
-            document = fillDocument(purchases, tailArgs, document);
-
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return Constants.PDF_CHECK_SUCCESSFULLY_CREATED + Arguments.CHECK_PDF_OUTPUT_PATH_FILE;
-    }
-
-    public Document fillDocument(List<Purchase> purchases, String[] tailArgs, Document document) {
-        try {
-
-            document.add(getCheckHead(PdfPTable.class));
-            document.add(pdfTableSeparator());
-            document.add(getCheckBody(purchases, PdfPTable.class));
-            document.add(pdfTableSeparator());
-            document.add(getCheckTail(tailArgs, PdfPTable.class));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return document;
-    }
-
 
     private void useTemplate(PdfWriter writer, String templateFileName) throws IOException {
         FileInputStream template = new FileInputStream(templateFileName);

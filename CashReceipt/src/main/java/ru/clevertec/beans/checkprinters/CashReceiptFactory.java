@@ -1,8 +1,4 @@
-package ru.clevertec.factories;
-
-import ru.clevertec.beans.CashReceiptCreatorPdf;
-import ru.clevertec.beans.CashReceiptCreatorTxt;
-import ru.clevertec.interfaces.CashReceiptCreator;
+package ru.clevertec.beans.checkprinters;
 
 public enum CashReceiptFactory {
 
@@ -17,8 +13,13 @@ public enum CashReceiptFactory {
         public CashReceiptCreator createNewInstance() {
             return new CashReceiptCreatorPdf();
         }
+    },
+    CONSOLE{
+        @Override
+        public CashReceiptCreator createNewInstance() {
+            return new CashReceiptCreatorConsole();
+        }
     };
-
 
     public abstract CashReceiptCreator createNewInstance();
 }
