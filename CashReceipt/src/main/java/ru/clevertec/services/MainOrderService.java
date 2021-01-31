@@ -13,6 +13,8 @@ import ru.clevertec.enums.Arguments;
 import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.jdbc.DBService;
+import ru.clevertec.observer.Publisher;
+import ru.clevertec.observer.entities.State;
 
 import java.util.Map;
 
@@ -22,6 +24,7 @@ public class MainOrderService {
     private final IMainOrder mainOrder;
     private final FileIO fileIO;
     private DiscountCard myCard;
+    private Publisher publisher = new Publisher(State.PDF_CHECK_PRINTED, State.TXT_CHECK_PRINTED, State.CONSOLE_CHECK_PRINTED);
 
     {
         mainOrder = ControlConstants.MAIN_ORDER_FACTORY.createMainOrder();
@@ -65,6 +68,7 @@ public class MainOrderService {
 
         cashReceiptManager.createCheck(mainOrder.getPurchases(), getTailArgs());
         cashReceiptManager.printCheck();
+        publisher.notify(State.TXT_CHECK_PRINTED, "Check was printed in TXT file");
 
     }
 
@@ -74,5 +78,9 @@ public class MainOrderService {
                 Utility.percentToString(myCard.getDiscount()),
                 Utility.priceToString(mainOrder.getFinalCost(myCard))
         };
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
     }
 }

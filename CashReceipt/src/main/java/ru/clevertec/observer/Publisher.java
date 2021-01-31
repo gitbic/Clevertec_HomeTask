@@ -1,4 +1,4 @@
-package ru.clevertec.observer.publisher;
+package ru.clevertec.observer;
 
 import ru.clevertec.observer.entities.State;
 import ru.clevertec.observer.listeners.EventListener;
@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EventManager {
+public class Publisher {
     Map<State, List<EventListener>> listeners = new HashMap<>();
 
-    public EventManager(State... states) {
+    public Publisher(State... states) {
         for (State state : states) {
             this.listeners.put(state, new ArrayList<>());
         }
