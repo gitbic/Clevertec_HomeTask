@@ -1,4 +1,5 @@
 import ru.clevertec.enums.Arguments;
+import ru.clevertec.enums.CashReceiptType;
 import ru.clevertec.jdbc.DBController;
 import ru.clevertec.jdbc.DBService;
 import ru.clevertec.services.MainOrderService;
@@ -18,7 +19,9 @@ public class CheckRunner {
         MainOrderService mainOrderService = new MainOrderService(dbService);
         mainOrderService.findDiscountCardForOrder();
         mainOrderService.createMainOrder();
-        mainOrderService.printCheck();
+        mainOrderService.printCheck(CashReceiptType.CONSOLE);
+        mainOrderService.printCheck(CashReceiptType.TXT);
+        mainOrderService.printCheck(CashReceiptType.PDF);
 
 //        MailService mailService = new MailService();
 //        mailService.createEmail();

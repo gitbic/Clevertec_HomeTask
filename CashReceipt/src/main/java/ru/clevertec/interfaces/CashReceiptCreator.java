@@ -5,7 +5,7 @@ import ru.clevertec.beans.Purchase;
 
 import java.util.List;
 
-public interface CashReceipt {
+public interface CashReceiptCreator {
 
     <T> T getCheckHead(Class<T> targetType);
 

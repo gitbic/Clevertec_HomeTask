@@ -9,7 +9,7 @@ public final class Constants {
     public static final String DEFAULT_CHECK_TXT_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.txt";
     public static final String DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.pdf";
     public static final String DEFAULT_CARD_INPUT_FILE_PATH = RESOURCES_PATH + "card.csv";
-    public static final String PDF_TEMPLATE_PATH_FILE = RESOURCES_PATH + "templates.pdf";
+    public static final String PDF_TEMPLATE_FILE_PATH = RESOURCES_PATH + "templates.pdf";
 
     public static final int QUANTITY_FOR_DISCOUNT = 5;
     public static final double DEFAULT_DISCOUNT_PERCENT = 10;
@@ -31,6 +31,8 @@ public final class Constants {
     public static final int PDF_TEMPLATE_PAGE_NUMBER = 1;
     public static final int PDF_TEMPLATE_PAGE_COORD_X = 0;
     public static final int PDF_TEMPLATE_PAGE_COORD_Y = 0;
+    public static final int PDF_NUMBER_OF_COLUMN_PURCHASE_WITHOUT_DISCOUNT = 4;
+    public static final String PDF_CHECK_SUCCESSFULLY_CREATED = "PDF document successfully created: ";
 
     public static final String NO_ARGUMENTS = "no arguments";
     public static final String NO_RESULTS = "no results";

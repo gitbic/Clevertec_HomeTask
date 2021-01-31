@@ -9,9 +9,10 @@ import ru.clevertec.constants.Constants;
 import ru.clevertec.constants.ErrorMsg;
 import ru.clevertec.constants.ControlConstants;
 import ru.clevertec.enums.Arguments;
+import ru.clevertec.enums.CashReceiptType;
 import ru.clevertec.factories.CashReceiptFactory;
 import ru.clevertec.factories.PurchaseFactory;
-import ru.clevertec.interfaces.CashReceipt;
+import ru.clevertec.interfaces.CashReceiptCreator;
 import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.jdbc.DBService;
 
@@ -69,11 +70,11 @@ public class MainOrderService {
                 Utility.priceToString(mainOrder.getFinalCost(myCard))
         };
 
-        CashReceipt cashReceipt = cashReceiptFactory.createNewInstance();
-        return cashReceipt.getCheck(mainOrder.getPurchases(), tailArgs);
+        CashReceiptCreator cashReceiptCreator = cashReceiptFactory.createNewInstance();
+        return cashReceiptCreator.getCheck(mainOrder.getPurchases(), tailArgs);
     }
 
-    public void printCheck() {
+    public void printCheck(CashReceiptType cashReceiptType) {
         String cashReceiptTxt = createCheck(CashReceiptFactory.TXT);
         fileIO.write(Arguments.CHECK_TXT_OUTPUT_PATH_FILE.getValue(), cashReceiptTxt);
         System.out.println(cashReceiptTxt);

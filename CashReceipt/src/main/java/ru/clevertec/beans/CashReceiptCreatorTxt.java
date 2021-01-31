@@ -1,16 +1,14 @@
 package ru.clevertec.beans;
 
-import com.itextpdf.text.DocumentException;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
-import ru.clevertec.interfaces.CashReceipt;
+import ru.clevertec.interfaces.CashReceiptCreator;
 
-import java.lang.reflect.Proxy;
 import java.util.Formatter;
 import java.util.List;
 
-public class CashReceiptTxt implements CashReceipt {
+public class CashReceiptCreatorTxt implements CashReceiptCreator {
 
     private final static String MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
 

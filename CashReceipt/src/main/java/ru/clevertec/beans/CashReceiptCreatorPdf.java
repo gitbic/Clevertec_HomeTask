@@ -5,16 +5,17 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
 import ru.clevertec.constants.Constants;
+import ru.clevertec.enums.Arguments;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
-import ru.clevertec.interfaces.CashReceipt;
+import ru.clevertec.interfaces.CashReceiptCreator;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class CashReceiptPdf implements CashReceipt {
+public class CashReceiptCreatorPdf implements CashReceiptCreator {
 
     @Override
     public <T> T getCheckHead(Class<T> targetType) {
@@ -36,7 +37,7 @@ public class CashReceiptPdf implements CashReceipt {
                 table.addCell(csvString);
             }
 
-            if (csvStrings.length == 4) {
+            if (csvStrings.length == Constants.PDF_NUMBER_OF_COLUMN_PURCHASE_WITHOUT_DISCOUNT) {
                 table.addCell(Constants.STRING_ONE_SPACE);
             }
         }
@@ -61,8 +62,6 @@ public class CashReceiptPdf implements CashReceipt {
     @Override
     public String getCheck(List<Purchase> purchases, String[] tailArgs) {
 
-
-
         try {
             Document document = new Document();
 
@@ -76,7 +75,7 @@ public class CashReceiptPdf implements CashReceipt {
                     Constants.PDF_DOC_MARGIN_BOTTOM);
 
             document.newPage();
-            useTemplate(writer, Constants.PDF_TEMPLATE_PATH_FILE);
+            useTemplate(writer, Constants.PDF_TEMPLATE_FILE_PATH);
 
             document = fillDocument(purchases, tailArgs, document);
 
@@ -85,7 +84,7 @@ public class CashReceiptPdf implements CashReceipt {
             e.printStackTrace();
         }
 
-        return "PDF document successfully created: " + Constants.DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH;
+        return Constants.PDF_CHECK_SUCCESSFULLY_CREATED + Arguments.CHECK_PDF_OUTPUT_PATH_FILE;
     }
 
     public Document fillDocument(List<Purchase> purchases, String[] tailArgs, Document document) {

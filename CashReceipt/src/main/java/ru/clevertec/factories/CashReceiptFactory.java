@@ -1,24 +1,24 @@
 package ru.clevertec.factories;
 
-import ru.clevertec.beans.CashReceiptPdf;
-import ru.clevertec.beans.CashReceiptTxt;
-import ru.clevertec.interfaces.CashReceipt;
+import ru.clevertec.beans.CashReceiptCreatorPdf;
+import ru.clevertec.beans.CashReceiptCreatorTxt;
+import ru.clevertec.interfaces.CashReceiptCreator;
 
 public enum CashReceiptFactory {
 
     TXT {
         @Override
-        public CashReceipt createNewInstance() {
-            return new CashReceiptTxt();
+        public CashReceiptCreator createNewInstance() {
+            return new CashReceiptCreatorTxt();
         }
     },
     PDF {
         @Override
-        public CashReceipt createNewInstance() {
-            return new CashReceiptPdf();
+        public CashReceiptCreator createNewInstance() {
+            return new CashReceiptCreatorPdf();
         }
     };
 
 
-    public abstract CashReceipt createNewInstance();
+    public abstract CashReceiptCreator createNewInstance();
 }
