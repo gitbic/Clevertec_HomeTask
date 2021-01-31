@@ -8,19 +8,17 @@ public class DBController {
 
     public Connection getConnection() throws SQLException {
 
-        Connection connection = null;
-
         try {
-            connection = DriverManager.getConnection(PostgresqlPropertiesStorage.DB_URL,
+            return DriverManager.getConnection(
+                    PostgresqlPropertiesStorage.DB_URL + PostgresqlPropertiesStorage.DB_NAME,
                     PostgresqlPropertiesStorage.DB_USERNAME,
                     PostgresqlPropertiesStorage.DB_PASSWORD);
+
         } catch (SQLException e) {
             System.err.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_FAILED,
                     PostgresqlPropertiesStorage.DB_NAME));
-            e.printStackTrace();
+            throw new SQLException(e);
         }
-
-        return connection;
     }
 
     private void checkDriverRegistered() {

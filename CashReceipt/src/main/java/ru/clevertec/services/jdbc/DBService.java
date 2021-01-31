@@ -3,8 +3,8 @@ package ru.clevertec.services.jdbc;
 import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
 import ru.clevertec.beans.Product;
-import ru.clevertec.builders.product.Builder;
-import ru.clevertec.builders.product.ProductBuilder;
+import ru.clevertec.patterns.builders.product.Builder;
+import ru.clevertec.patterns.builders.product.ProductBuilder;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.Arguments;
 
@@ -17,6 +17,23 @@ public class DBService {
     public DBService(DBController dbController) {
         this.dbController = dbController;
     }
+
+    private static final int ONE_CHANGES = 1;
+    private static final int CARD_ARRAY_POSITION_NUMBER = 0;
+    private static final int CARD_ARRAY_POSITION_DISCOUNT = 1;
+    private static final int PRODUCT_ARRAY_POSITION_ID = 0;
+    private static final int PRODUCT_ARRAY_POSITION_NAME = 1;
+    private static final int PRODUCT_ARRAY_POSITION_PRICE = 2;
+    private static final int PRODUCT_ARRAY_POSITION_IS_DISCOUNT = 3;
+
+    private static final int CARD_TABLE_POSITION_NUMBER = 1;
+    private static final int CARD_TABLE_POSITION_DISCOUNT = 2;
+    private static final int PRODUCT_TABLE_POSITION_ID = 1;
+    private static final int PRODUCT_TABLE_POSITION_NAME = 2;
+    private static final int PRODUCT_TABLE_POSITION_PRICE = 3;
+    private static final int PRODUCT_TABLE_POSITION_IS_DISCOUNT = 4;
+
+    private static final int PARAMETER_INDEX_FIRST = 1;
 
     public void initializeTables() {
         dropTable(SqlQueries.DISCOUNT_CARDS_TABLE_NAME);
@@ -34,7 +51,8 @@ public class DBService {
 
         for (String line : lines) {
             String[] elements = line.split(Constants.CSV_DELIMITER);
-            insertCardIntoTable(elements[0], Double.parseDouble(elements[1]));
+            insertCardIntoTable(elements[CARD_ARRAY_POSITION_NUMBER],
+                    Double.parseDouble(elements[CARD_ARRAY_POSITION_DISCOUNT]));
         }
     }
 
@@ -46,11 +64,11 @@ public class DBService {
 
         for (String line : lines) {
             String[] elements = line.split(Constants.CSV_DELIMITER);
-            boolean isDiscountProduct = elements[3].equals(Constants.MARK_FOR_DISCOUNT_PRODUCT);
+            boolean isDiscountProduct = elements[PRODUCT_ARRAY_POSITION_IS_DISCOUNT].equals(Constants.MARK_FOR_DISCOUNT_PRODUCT);
 
-            insertProductIntoTable(Integer.parseInt(elements[0]),
-                    elements[1],
-                    new BigDecimal(elements[2]),
+            insertProductIntoTable(Integer.parseInt(elements[PRODUCT_ARRAY_POSITION_ID]),
+                    elements[PRODUCT_ARRAY_POSITION_NAME],
+                    new BigDecimal(elements[PRODUCT_ARRAY_POSITION_PRICE]),
                     isDiscountProduct);
         }
     }
@@ -64,7 +82,7 @@ public class DBService {
                     "WHERE id = ?";
 
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
-            statement.setInt(1, studentId);
+            statement.setInt(PARAMETER_INDEX_FIRST, studentId);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -73,10 +91,10 @@ public class DBService {
             while (resultSet.next()) {
                 Builder productBuilder = new ProductBuilder();
 
-                productBuilder.setId(resultSet.getInt(1));
-                productBuilder.setName(resultSet.getString(2));
-                productBuilder.setPrice(resultSet.getBigDecimal(3));
-                productBuilder.setDiscountForQuantity(resultSet.getBoolean(4));
+                productBuilder.setId(resultSet.getInt(PRODUCT_TABLE_POSITION_ID));
+                productBuilder.setName(resultSet.getString(PRODUCT_TABLE_POSITION_NAME));
+                productBuilder.setPrice(resultSet.getBigDecimal(PRODUCT_TABLE_POSITION_PRICE));
+                productBuilder.setDiscountForQuantity(resultSet.getBoolean(PRODUCT_TABLE_POSITION_IS_DISCOUNT));
 
                 product = productBuilder.getProduct();
             }
@@ -97,15 +115,15 @@ public class DBService {
                     "WHERE card_number = ?";
 
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
-            statement.setString(1, cardNumber);
+            statement.setString(PARAMETER_INDEX_FIRST, cardNumber);
 
             ResultSet resultSet = statement.executeQuery();
 
             DiscountCard discountCard = null;
 
             while (resultSet.next()) {
-                String number = resultSet.getString(1);
-                double discount = resultSet.getDouble(2);
+                String number = resultSet.getString(CARD_TABLE_POSITION_NUMBER);
+                double discount = resultSet.getDouble(CARD_TABLE_POSITION_DISCOUNT);
                 discountCard = new DiscountCard(number, discount);
             }
 
@@ -124,10 +142,10 @@ public class DBService {
                     "WHERE id = ?";
 
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
-            statement.setInt(1, id);
+            statement.setInt(PARAMETER_INDEX_FIRST, id);
 
             int changes = statement.executeUpdate();
-            return changes == 1;
+            return changes == ONE_CHANGES;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,13 +169,13 @@ public class DBService {
                     "values (?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
-            statement.setInt(1, id);
-            statement.setString(2, name);
-            statement.setBigDecimal(3, price);
-            statement.setBoolean(4, isDiscountProduct);
+            statement.setInt(PRODUCT_TABLE_POSITION_ID, id);
+            statement.setString(PRODUCT_TABLE_POSITION_NAME, name);
+            statement.setBigDecimal(PRODUCT_TABLE_POSITION_PRICE, price);
+            statement.setBoolean(PRODUCT_TABLE_POSITION_IS_DISCOUNT, isDiscountProduct);
 
             int changes = statement.executeUpdate();
-            return changes == 1;
+            return changes == ONE_CHANGES;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -177,11 +195,11 @@ public class DBService {
                     "values (?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
-            statement.setString(1, cardNumber);
-            statement.setDouble(2, discount);
+            statement.setString(CARD_TABLE_POSITION_NUMBER, cardNumber);
+            statement.setDouble(CARD_TABLE_POSITION_DISCOUNT, discount);
 
             int changes = statement.executeUpdate();
-            return changes == 1;
+            return changes == ONE_CHANGES;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -209,6 +227,4 @@ public class DBService {
             System.out.println(JdbcConstants.TABLE_CREATED);
         }
     }
-
-
 }

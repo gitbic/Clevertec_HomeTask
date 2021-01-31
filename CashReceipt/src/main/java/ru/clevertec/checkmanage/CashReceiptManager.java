@@ -3,16 +3,14 @@ package ru.clevertec.checkmanage;
 import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.Arguments;
-import ru.clevertec.observer.Publisher;
-import ru.clevertec.observer.entities.State;
+import ru.clevertec.patterns.observer.Publisher;
+import ru.clevertec.patterns.observer.entities.State;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
 public enum CashReceiptManager {
-
-
 
     TXT(new CashReceiptCreatorTxt()) {
         @Override

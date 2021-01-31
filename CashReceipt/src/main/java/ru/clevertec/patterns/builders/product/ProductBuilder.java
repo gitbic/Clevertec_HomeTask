@@ -1,4 +1,4 @@
-package ru.clevertec.builders.product;
+package ru.clevertec.patterns.builders.product;
 
 import ru.clevertec.beans.Product;
 

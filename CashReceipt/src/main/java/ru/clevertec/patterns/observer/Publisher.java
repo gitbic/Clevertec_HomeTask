@@ -1,7 +1,7 @@
-package ru.clevertec.observer;
+package ru.clevertec.patterns.observer;
 
-import ru.clevertec.observer.entities.State;
-import ru.clevertec.observer.listeners.EventListener;
+import ru.clevertec.patterns.observer.entities.State;
+import ru.clevertec.patterns.observer.listeners.EventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

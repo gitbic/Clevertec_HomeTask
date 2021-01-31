@@ -1,12 +1,11 @@
 import ru.clevertec.checkmanage.CashReceiptManager;
 import ru.clevertec.enums.Arguments;
+import ru.clevertec.patterns.observer.listeners.EmailListener;
+import ru.clevertec.patterns.observer.listeners.EventListener;
+import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBController;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.services.mailer.MailService;
-import ru.clevertec.observer.entities.State;
-import ru.clevertec.observer.listeners.EmailListener;
-import ru.clevertec.observer.listeners.EventListener;
-import ru.clevertec.services.MainOrderService;
 
 public class CheckRunner {
 
@@ -21,8 +20,8 @@ public class CheckRunner {
         dbService.fillProductsTableFromFile();
 
         EventListener listener = new EmailListener(new MailService());
-        CashReceiptManager.TXT.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
-        CashReceiptManager.PDF.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
+//        CashReceiptManager.TXT.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
+//        CashReceiptManager.PDF.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
 
         MainOrderService mainOrderService = new MainOrderService(dbService);
         mainOrderService.findDiscountCardForOrder();

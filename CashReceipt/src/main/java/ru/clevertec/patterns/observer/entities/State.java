@@ -1,4 +1,4 @@
-package ru.clevertec.observer.entities;
+package ru.clevertec.patterns.observer.entities;
 
 import ru.clevertec.services.mailer.CashReceiptType;
 
