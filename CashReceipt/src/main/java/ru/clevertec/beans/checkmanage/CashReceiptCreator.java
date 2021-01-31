@@ -1,4 +1,4 @@
-package ru.clevertec.beans.checkprinters;
+package ru.clevertec.beans.checkmanage;
 
 import ru.clevertec.beans.Purchase;
 
@@ -8,7 +8,5 @@ import java.util.List;
 public interface CashReceiptCreator {
 
     ByteArrayOutputStream createCheck(List<Purchase> purchases, String[] tailArgs);
-
-    void printCheck(ByteArrayOutputStream byteArrayOutputStream);
 
 }

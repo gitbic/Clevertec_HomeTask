@@ -1,4 +1,4 @@
-import ru.clevertec.beans.checkprinters.CashReceiptFactory;
+import ru.clevertec.beans.checkmanage.CashReceiptManager;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.jdbc.DBController;
 import ru.clevertec.jdbc.DBService;
@@ -19,9 +19,9 @@ public class CheckRunner {
         MainOrderService mainOrderService = new MainOrderService(dbService);
         mainOrderService.findDiscountCardForOrder();
         mainOrderService.createMainOrder();
-        mainOrderService.printCheck(CashReceiptFactory.CONSOLE);
-        mainOrderService.printCheck(CashReceiptFactory.TXT);
-        mainOrderService.printCheck(CashReceiptFactory.PDF);
+        mainOrderService.printCheck(CashReceiptManager.CONSOLE);
+        mainOrderService.printCheck(CashReceiptManager.TXT);
+        mainOrderService.printCheck(CashReceiptManager.PDF);
 
 //        MailService mailService = new MailService();
 //        mailService.createEmail();

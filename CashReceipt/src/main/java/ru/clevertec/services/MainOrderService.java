@@ -5,8 +5,7 @@ import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
 import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Utility;
-import ru.clevertec.beans.checkprinters.CashReceiptCreator;
-import ru.clevertec.beans.checkprinters.CashReceiptFactory;
+import ru.clevertec.beans.checkmanage.CashReceiptManager;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.constants.ControlConstants;
 import ru.clevertec.constants.ErrorMsg;
@@ -15,7 +14,6 @@ import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.jdbc.DBService;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 public class MainOrderService {
@@ -63,12 +61,10 @@ public class MainOrderService {
         }
     }
 
-    public void printCheck(CashReceiptFactory cashReceiptFactory) {
+    public void printCheck(CashReceiptManager cashReceiptManager) {
 
-        CashReceiptCreator cashReceiptCreator = cashReceiptFactory.createNewInstance();
-        ByteArrayOutputStream byteArrayOS = cashReceiptCreator.createCheck(mainOrder.getPurchases(), getTailArgs());
-        cashReceiptCreator.printCheck(byteArrayOS);
-
+        cashReceiptManager.createCheck(mainOrder.getPurchases(), getTailArgs());
+        cashReceiptManager.printCheck();
 
     }
 

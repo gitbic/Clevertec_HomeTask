@@ -1,4 +1,4 @@
-package ru.clevertec.beans.checkprinters;
+package ru.clevertec.beans.checkmanage;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -6,27 +6,15 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
 import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;
-import ru.clevertec.enums.Arguments;
 import ru.clevertec.enums.TableMenu;
 import ru.clevertec.enums.TableTail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
 public class CashReceiptCreatorPdf implements CashReceiptCreator {
-
-    @Override
-    public void printCheck(ByteArrayOutputStream byteArrayOutputStream) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(Arguments.CHECK_PDF_OUTPUT_PATH_FILE.getValue());
-            byteArrayOutputStream.writeTo(fileOutputStream);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public ByteArrayOutputStream createCheck(List<Purchase> purchases, String[] tailArgs)  {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -36,7 +24,6 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
 
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
 
-//            new FileOutputStream(Arguments.CHECK_PDF_OUTPUT_PATH_FILE.getValue()));
             document.open();
 
             document.setMargins(Constants.PDF_DOC_MARGIN_LEFT,
