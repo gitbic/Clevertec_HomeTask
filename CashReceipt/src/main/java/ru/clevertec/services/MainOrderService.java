@@ -5,7 +5,7 @@ import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
 import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Utility;
-import ru.clevertec.beans.checkmanage.CashReceiptManager;
+import ru.clevertec.checkmanage.CashReceiptManager;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.constants.ControlConstants;
 import ru.clevertec.constants.ErrorMsg;

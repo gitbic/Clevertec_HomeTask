@@ -1,4 +1,4 @@
-package ru.clevertec.beans.checkmanage;
+package ru.clevertec.checkmanage;
 
 import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;

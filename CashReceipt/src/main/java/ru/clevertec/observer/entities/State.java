@@ -1,5 +1,7 @@
 package ru.clevertec.observer.entities;
 
 public enum  State {
-    WATER_LEAK, KETTLE_WARMED_UP, ROBOT_DISCHARGED
+    PDF_CHECK_PRINTED,
+    TXT_CHECK_PRINTED,
+    CONSOLE_CHECK_PRINTED;
 }

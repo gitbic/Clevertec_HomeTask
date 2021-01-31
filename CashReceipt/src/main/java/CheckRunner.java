@@ -1,4 +1,4 @@
-import ru.clevertec.beans.checkmanage.CashReceiptManager;
+import ru.clevertec.checkmanage.CashReceiptManager;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.jdbc.DBController;
 import ru.clevertec.jdbc.DBService;

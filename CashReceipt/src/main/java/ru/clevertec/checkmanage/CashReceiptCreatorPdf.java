@@ -1,4 +1,4 @@
-package ru.clevertec.beans.checkmanage;
+package ru.clevertec.checkmanage;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

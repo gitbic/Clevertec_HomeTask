@@ -2,13 +2,14 @@ package ru.clevertec.mailer;
 
 import ru.clevertec.enums.Arguments;
 
-public enum CashReceiptSource {
+public enum CashReceiptType {
     TXT(Arguments.CHECK_TXT_OUTPUT_PATH_FILE.getValue()),
-    PDF(Arguments.CHECK_PDF_OUTPUT_PATH_FILE.getValue());
+    PDF(Arguments.CHECK_PDF_OUTPUT_PATH_FILE.getValue()),
+    CONSOLE(Arguments.CHECK_TXT_OUTPUT_PATH_FILE.getValue());
 
     private final String sourceFilePath;
 
-    CashReceiptSource(String sourceFilePath) {
+    CashReceiptType(String sourceFilePath) {
         this.sourceFilePath = sourceFilePath;
     }
 

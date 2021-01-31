@@ -15,10 +15,8 @@ public class MailService implements IMailService {
 
 
     @Override
-    public void createEmail() {
-        String sourceFilePath = CashReceiptSource
-                .valueOf(MailPropertiesStorage.MAIL_ATTACHMENT_SOURCE.toUpperCase())
-                .getSourceFilePath();
+    public void createEmail(CashReceiptType cashReceiptType) {
+        String sourceFilePath = cashReceiptType.getSourceFilePath();
 
         email = EmailBuilder.startingBlank()
                 .from(MailPropertiesStorage.FROM_ADDRESS)
