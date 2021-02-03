@@ -8,13 +8,13 @@ public final class Product {
     private final int id;
     private final String name;
     private final BigDecimal price;
-    private boolean discountForQuantity;
+    private boolean isDiscountForQuantity;
 
-    public Product(int id, String name, double value) {
+    public Product(int id, String name, BigDecimal price, boolean isDiscountForQuantity) {
         this.id = id;
         this.name = name;
-        this.price = BigDecimal.valueOf(value);
-        discountForQuantity = value >= Constants.PRICE_FOR_DISCOUNT;
+        this.price = price;
+        this.isDiscountForQuantity = isDiscountForQuantity;
     }
 
     public int getId() {
@@ -30,15 +30,26 @@ public final class Product {
     }
 
     public boolean isDiscountForQuantity() {
-        return discountForQuantity;
+        return isDiscountForQuantity;
     }
 
+
     public void setDiscountForQuantity(boolean discountForQuantity) {
-        this.discountForQuantity = discountForQuantity;
+        this.isDiscountForQuantity = discountForQuantity;
     }
 
     @Override
     public String toString() {
         return name + Constants.CSV_DELIMITER + Utility.priceToString(price);
+    }
+
+
+    public String printToString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + Utility.priceToString(price) +
+                ", isDiscountForQuantity=" + isDiscountForQuantity +
+                '}';
     }
 }
