@@ -60,8 +60,8 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
     private PdfPTable getCheckBody(List<Purchase> purchases) {
         PdfPTable table = getPdfTable(TableMenu.getCellWidth());
 
-        for (int i = 0; i < purchases.size(); i++) {
-            String[] csvStrings = purchases.get(i).toString().split(Constants.CSV_DELIMITER);
+        for (Purchase purchase : purchases) {
+            String[] csvStrings = purchase.toString().split(Constants.CSV_DELIMITER);
             for (String csvString : csvStrings) {
                 table.addCell(csvString);
             }

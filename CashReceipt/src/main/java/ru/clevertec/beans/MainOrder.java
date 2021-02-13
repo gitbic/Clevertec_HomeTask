@@ -45,8 +45,8 @@ public final class MainOrder implements IMainOrder {
     public BigDecimal getTotalCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
 
-        for (int i = 0; i < purchases.size(); i++) {
-            totalCost = totalCost.add(purchases.get(i).getCost());
+        for (Purchase purchase : purchases) {
+            totalCost = totalCost.add(purchase.getCost());
         }
 
         return totalCost;
