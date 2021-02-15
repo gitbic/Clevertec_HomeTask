@@ -30,6 +30,8 @@ public class CheckRunner {
         mainOrderService.printCheck(CashReceiptManager.TXT);
         mainOrderService.printCheck(CashReceiptManager.PDF);
 
+        mainOrderService.tos();
+
     }
 }
 

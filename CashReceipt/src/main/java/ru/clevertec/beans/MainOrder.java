@@ -1,11 +1,14 @@
 package ru.clevertec.beans;
 
-import ru.clevertec.NewLinkedList;
+
 import ru.clevertec.annotations.LogThisMethod;
 import ru.clevertec.enums.LoggingLevel;
 import ru.clevertec.interfaces.IMainOrder;
+import ru.clevertec.utils.customList.ThreadSafeCustomLinkedList;
+import ru.clevertec.utils.customList.ToStringThread;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -13,7 +16,7 @@ public final class MainOrder implements IMainOrder {
     private final List<Purchase> purchases;
 
     public MainOrder() {
-        this.purchases = new NewLinkedList<>();
+        this.purchases = new ThreadSafeCustomLinkedList<>();
     }
 
     @LogThisMethod()
@@ -68,15 +71,24 @@ public final class MainOrder implements IMainOrder {
     public BigDecimal getFinalCost(DiscountCard discountCard) {
         return getTotalCost().subtract(getDiscountCost(discountCard));
     }
-
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Purchase purchase : purchases) {
-            sb.append(purchase);
-            sb.append(System.lineSeparator());
-        }
-        return sb.toString();
-    }
+        StringBuffer stringBuffer = new StringBuffer();
+        Iterator<Purchase> iterator = purchases.iterator();
 
+        Thread thread1 = new ToStringThread<Purchase>(iterator, stringBuffer);
+        Thread thread2 = new ToStringThread<Purchase>(iterator, stringBuffer);
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return stringBuffer.toString();
+    }
 }

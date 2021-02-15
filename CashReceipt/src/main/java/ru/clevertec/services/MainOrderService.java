@@ -71,4 +71,8 @@ public class MainOrderService {
         };
     }
 
+    public void tos() {
+        System.out.println(mainOrder.toString());
+    }
+
 }
