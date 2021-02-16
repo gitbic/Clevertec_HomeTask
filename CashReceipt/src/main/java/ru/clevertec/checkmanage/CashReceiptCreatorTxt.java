@@ -38,8 +38,8 @@ public class CashReceiptCreatorTxt implements CashReceiptCreator {
     private String getCheckBody(List<Purchase> purchases) {
         Formatter f = new Formatter();
 
-        for (int k = 0; k < purchases.size(); k++) {
-            String[] elements = purchases.get(k).toString().split(Constants.CSV_DELIMITER);
+        for (Purchase purchase : purchases) {
+            String[] elements = purchase.toString().split(Constants.CSV_DELIMITER);
 
             for (int i = 0; i < elements.length; i++) {
                 f.format(TableMenu.values()[i].getFormatForCell(), elements[i]);

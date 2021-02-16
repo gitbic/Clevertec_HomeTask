@@ -6,7 +6,6 @@ import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Utility;
 import ru.clevertec.checkmanage.CashReceiptManager;
 import ru.clevertec.constants.Constants;
-import ru.clevertec.constants.ControlConstants;
 import ru.clevertec.constants.ErrorMsg;
 import ru.clevertec.enums.Arguments;
 import ru.clevertec.factories.PurchaseFactory;
@@ -21,13 +20,9 @@ public class MainOrderService {
     private final IMainOrder mainOrder;
     private DiscountCard myCard;
 
-    {
-        mainOrder = ControlConstants.MAIN_ORDER_FACTORY.createMainOrder();
-        myCard = null;
-    }
-
-    public MainOrderService(DBService dbService) {
+    public MainOrderService(DBService dbService, IMainOrder mainOrder) {
         this.dbService = dbService;
+        this.mainOrder = mainOrder;
     }
 
     public void findDiscountCardForOrder() {
@@ -65,10 +60,11 @@ public class MainOrderService {
 
     private String[] getTailArgs() {
         return new String[]{
-                Utility.priceToString(mainOrder.getTotalCost()),
+                Utility.priceToString(mainOrder.getTotalCostUsingThreads()),
                 Utility.percentToString(myCard.getDiscount()),
                 Utility.priceToString(mainOrder.getFinalCost(myCard))
         };
     }
+
 
 }

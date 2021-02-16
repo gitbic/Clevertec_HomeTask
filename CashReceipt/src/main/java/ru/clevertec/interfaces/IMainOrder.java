@@ -18,6 +18,8 @@ public interface IMainOrder {
 
     BigDecimal getTotalCost();
 
+    BigDecimal getTotalCostUsingThreads();
+
     BigDecimal getDiscountCost(DiscountCard discountCard);
 
     BigDecimal getFinalCost(DiscountCard discountCard);
