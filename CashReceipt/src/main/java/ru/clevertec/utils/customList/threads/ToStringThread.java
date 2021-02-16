@@ -1,4 +1,4 @@
-package ru.clevertec.utils.customList;
+package ru.clevertec.utils.customList.threads;
 
 import java.util.Iterator;
 
