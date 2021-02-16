@@ -1,12 +1,9 @@
 package ru.clevertec.utils.customList;
 
-import ru.clevertec.CustomLinkedList;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -178,17 +175,17 @@ public class ThreadSafeCustomLinkedList<E> implements List<E> {
         try {
             lock.writeLock().lock();
             return new ListIterator<E>() {
-                final int size = customLinkedList.size();
-                final AtomicInteger index = new AtomicInteger(0);
+                final private int size = customLinkedList.size();
                 final Iterator<E> iterator = customLinkedList.listIterator();
+                private int index = 0;
 
                 @Override
                 public boolean hasNext() {
                     try {
                         lock.writeLock().lock();
-                        return index.get() < size;
+                        return index < size;
                     } finally {
-                        index.getAndAdd(1);
+                        index++;
                         lock.writeLock().unlock();
                     }
                 }
