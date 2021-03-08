@@ -22,14 +22,12 @@ public class mainController extends HttpServlet {
         elements.add("Second element");
 
         req.setAttribute("elements", elements);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.BUY_PRODUCT);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index.jsp");
         requestDispatcher.forward(req, resp);
 
 
 
-//        String productName =req.getParameter("productName");
-//        String productNumber =req.getParameter("productNumber");
-//        System.out.println("productName = " + productName);
+
     }
 
 

@@ -35,18 +35,6 @@
 <%--</html>--%>
 
 
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-<%--<%@ taglib prefix="prefix" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Create Users</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<b> Welcome to my shop </b>--%>
-<%--<a href="/pages/chooseProduct.jsp">Buy product</a>--%>
-<%--</body>--%>
-<%--</html>--%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="prefix" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -61,17 +49,21 @@
     </tr>
     </thead>
     <tbody>
-    <form action="/shopping/main" method="GET">
-    <td><input type="submit" value="Create"></td>
+<%--    <form action="/shopping/main" method="GET">--%>
+<%--        <td><input type="submit" value="Submit"></td>--%>
 
-    <prefix:forEach var="element" items="${elements}">
+        <prefix:forEach var="element" items="${elements}">
         <tr>
             <td>${element}</td>
         </tr>
-    </prefix:forEach>
-        ${pageContext.request.contextPath}
+        </prefix:forEach>
+<%--        ${pageContext.request.contextPath}--%>
     </tbody>
-    <a href="/pages/buyProduct.jsp">Create</a>
+    <div>
+        <a href="/pages/buyProduct.jsp">Byu Product</a>
+        <a href="/pages/chooseCard.jsp">Choose card</a>
+        <a href="/pages/printCheck.jsp">Print check</a>
+    </div>
 </table>
 </body>
 </html>

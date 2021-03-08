@@ -2,24 +2,34 @@
 <%@ taglib prefix="prefix" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>Create Users</title>
 </head>
 <body>
 <table>
     <thead>
     <tr>
-        <th>Element</th>
+        <th>productName</th>
+        <th>productNumber</th>
     </tr>
     </thead>
     <tbody>
-    <prefix:forEach var="element" items="${elements}">
+    <form action="/shopping/buy" method="GET">
         <tr>
-            <td>${element}</td>
-        </tr>
-    </prefix:forEach>
+            <td>
+                <select name="productName">
+                    <option>Пункт 1</option>
+                    <option>Пункт 2</option>
+                </select>
+            </td>
 
+            <td><input type="text" name="productNumber" placeholder="productNumber"></td>
+            <td><input type="submit" value="Create"></td>
+        </tr>
+
+        ${pageContext.request.contextPath}
+    </form>
     </tbody>
-    <a href="/index.jsp">Create</a>
+
 </table>
 </body>
 </html>
