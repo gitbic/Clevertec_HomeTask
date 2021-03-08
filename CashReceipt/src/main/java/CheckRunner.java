@@ -36,7 +36,7 @@ public class CheckRunner {
 
         MainOrderService mainOrderService = new MainOrderService(dbService, mainOrder);
         mainOrderService.findDiscountCardForOrder();
-        mainOrderService.createMainOrder();
+        mainOrderService.createMainOrderFromArgument();
         mainOrderService.printCheck(CashReceiptManager.CONSOLE);
         mainOrderService.printCheck(CashReceiptManager.TXT);
         mainOrderService.printCheck(CashReceiptManager.PDF);

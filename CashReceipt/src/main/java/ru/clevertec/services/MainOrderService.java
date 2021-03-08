@@ -20,6 +20,7 @@ public class MainOrderService {
     private final IMainOrder mainOrder;
     private DiscountCard myCard;
 
+
     public MainOrderService(DBService dbService, IMainOrder mainOrder) {
         this.dbService = dbService;
         this.mainOrder = mainOrder;
@@ -37,19 +38,23 @@ public class MainOrderService {
         }
     }
 
-    public void createMainOrder() {
+    public void addPurchaseToMainOrder(int productID, int productNumber) {
+        Product product = dbService.getProductById(productID);
+
+        if (product == null) {
+            System.err.println(String.format(ErrorMsg.FSTRING_PRODUCT_NOT_FOUND, productID));
+        } else {
+            mainOrder.addPurchaseToList(PurchaseFactory.createPurchase(product, productNumber));
+        }
+    }
+
+    public void createMainOrderFromArgument() {
         for (Map.Entry<Integer, Integer> position : Arguments.readOrder().entrySet()) {
+
             int productId = position.getKey();
             int productNumber = position.getValue();
 
-            Product product = dbService.getProductById(productId);
-
-            if (product == null) {
-                System.err.println(String.format(ErrorMsg.FSTRING_PRODUCT_NOT_FOUND, productId));
-                continue;
-            }
-
-            mainOrder.addPurchaseToList((PurchaseFactory.createPurchase(product, productNumber)));
+            addPurchaseToMainOrder(productId, productNumber);
         }
     }
 
