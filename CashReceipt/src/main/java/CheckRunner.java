@@ -31,7 +31,6 @@ public class CheckRunner {
 //        CashReceiptManager.TXT.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
 //        CashReceiptManager.PDF.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
 
-
         List<Purchase> purchases = new ThreadSafeCustomLinkedList<>();
         IMainOrder mainOrder = MainOrderFactory.NO_PROXY.createMainOrder(purchases);
 

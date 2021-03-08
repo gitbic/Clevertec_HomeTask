@@ -10,13 +10,11 @@ configurations{
 group 'ru.clevertec'
 version '1.0-SNAPSHOT'
 
-
 repositories {
     jcenter()
     mavenCentral()
     mavenLocal()
 }
-
 test {
     useJUnitPlatform()
 }
@@ -33,7 +31,6 @@ dependencies {
     compile 'ru.clevertec:json-serializer:1.0'
     compile 'ru.clevertec:new-linked-list:1.0'
 }
-
 
 jar {
     manifest {
@@ -55,11 +52,11 @@ task copyResourceFiles(type: Copy) {
     into 'build/libs/resources'
 }
 
-task runApp {
+task buildApp {
     source.pdfTemplate = 'https://github.com/stebadmitriy/files/raw/main/Clevertec_Template.pdf'
     dependsOn downloadPdf
     dependsOn copyResourceFiles
     copyResourceFiles.mustRunAfter(downloadPdf)
 }
 
-build.dependsOn runApp
+build.dependsOn buildApp

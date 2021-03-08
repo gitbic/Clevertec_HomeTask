@@ -5,6 +5,7 @@ import ru.clevertec.beans.Purchase;
 import ru.clevertec.dynproxy.MainOrderInvocationHandler;
 import ru.clevertec.interfaces.IMainOrder;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.List;
 
@@ -17,8 +18,10 @@ public enum MainOrderFactory {
 
             ClassLoader classLoader = mainOrder.getClass().getClassLoader();
             Class<?>[] interfaces = mainOrder.getClass().getInterfaces();
+            InvocationHandler invocationHandler = new MainOrderInvocationHandler(mainOrder);
+
             IMainOrder proxyMainOrder = (IMainOrder) Proxy.newProxyInstance(
-                    classLoader, interfaces, new MainOrderInvocationHandler(mainOrder));
+                    classLoader, interfaces, invocationHandler);
 
             return proxyMainOrder;
         }
