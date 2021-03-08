@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {URL.BUY_PRODUCT})
-public class buyProductController extends HttpServlet {
+@WebServlet(urlPatterns = {URL.MAIN_URL})
+public class mainController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,8 +22,15 @@ public class buyProductController extends HttpServlet {
         elements.add("Second element");
 
         req.setAttribute("elements", elements);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/pages/buyProduct.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.BUY_PRODUCT);
         requestDispatcher.forward(req, resp);
 
+
+
+//        String productName =req.getParameter("productName");
+//        String productNumber =req.getParameter("productNumber");
+//        System.out.println("productName = " + productName);
     }
+
+
 }

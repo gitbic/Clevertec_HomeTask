@@ -19,7 +19,7 @@
     </prefix:forEach>
 
     </tbody>
-    <a href="/index.jsp" class="c">Create</a>
+    <a href="/index.jsp">Create</a>
 </table>
 </body>
 </html>
