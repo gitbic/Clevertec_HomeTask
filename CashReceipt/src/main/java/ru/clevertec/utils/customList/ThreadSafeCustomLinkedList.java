@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import static ru.clevertec.CustomLinkedList.UNSUPPORTED_OPERATION;
+import static ru.clevertec.utils.customList.CustomLinkedList.UNSUPPORTED_OPERATION;
 
 public class ThreadSafeCustomLinkedList<E> implements List<E> {
 

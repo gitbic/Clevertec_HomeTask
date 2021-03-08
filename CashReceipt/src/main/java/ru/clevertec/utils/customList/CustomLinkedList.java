@@ -1,7 +1,5 @@
 package ru.clevertec.utils.customList;
 
-import ru.clevertec.Node;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -11,8 +9,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CustomLinkedList<E> implements List<E> {
     private int size;
-    private ru.clevertec.Node<E> firstNode;
-    private ru.clevertec.Node<E> lastNode;
+    private Node<E> firstNode;
+    private Node<E> lastNode;
 
     public static final String UNSUPPORTED_OPERATION = "Unsupported operation.";
 
@@ -22,10 +20,10 @@ public class CustomLinkedList<E> implements List<E> {
 
     @Override
     public boolean add(E thisElement) {
-        ru.clevertec.Node<E> previousNode = lastNode;
-        ru.clevertec.Node<E> nextNode = null;
+        Node<E> previousNode = lastNode;
+        Node<E> nextNode = null;
 
-        ru.clevertec.Node<E> newNode = new ru.clevertec.Node<E>(thisElement, previousNode, nextNode);
+        Node<E> newNode = new Node<E>(thisElement, previousNode, nextNode);
 
         if (size == 0) {
             firstNode = newNode;
@@ -48,21 +46,21 @@ public class CustomLinkedList<E> implements List<E> {
             add(thisElement);
         } else {
 
-            ru.clevertec.Node<E> previousNode;
-            ru.clevertec.Node<E> nextNode;
-            ru.clevertec.Node<E> newNode;
+            Node<E> previousNode;
+            Node<E> nextNode;
+            Node<E> newNode;
 
             if (index == 0) {
                 previousNode = null;
                 nextNode = firstNode;
-                newNode = new ru.clevertec.Node<>(thisElement, previousNode, nextNode);
+                newNode = new Node<>(thisElement, previousNode, nextNode);
                 nextNode.setPreviousNode(newNode);
                 firstNode = newNode;
             } else {
-                ru.clevertec.Node<E> nodeByIndex = findNodeByIndex(index);
+                Node<E> nodeByIndex = findNodeByIndex(index);
                 previousNode = nodeByIndex.getPreviousNode();
                 nextNode = nodeByIndex;
-                newNode = new ru.clevertec.Node<>(thisElement, previousNode, nextNode);
+                newNode = new Node<>(thisElement, previousNode, nextNode);
                 previousNode.setNextNode(newNode);
                 nextNode.setPreviousNode(newNode);
             }
@@ -85,7 +83,7 @@ public class CustomLinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
 
-        ru.clevertec.Node<E> node = null;
+        Node<E> node = null;
 
         if (size == 1) {
             node = firstNode;
@@ -104,8 +102,8 @@ public class CustomLinkedList<E> implements List<E> {
 
         } else {
             node = findNodeByIndex(index);
-            ru.clevertec.Node<E> previousNode = node.getPreviousNode();
-            ru.clevertec.Node<E> nextNode = node.getNextNode();
+            Node<E> previousNode = node.getPreviousNode();
+            Node<E> nextNode = node.getNextNode();
 
             previousNode.setNextNode(nextNode);
             nextNode.setPreviousNode(previousNode);
@@ -121,7 +119,7 @@ public class CustomLinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
 
-        ru.clevertec.Node<E> node;
+        Node<E> node;
 
         if (size == 1) {
             node = firstNode;
@@ -150,7 +148,7 @@ public class CustomLinkedList<E> implements List<E> {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
 
-        ru.clevertec.Node<E> node = firstNode;
+        Node<E> node = firstNode;
 
         for (int i = 0; i < size - 1; i++) {
             sb.append(node.getElement().toString());
@@ -163,8 +161,8 @@ public class CustomLinkedList<E> implements List<E> {
         return sb.toString();
     }
 
-    private ru.clevertec.Node<E> findNodeByIndex(int index) {
-        ru.clevertec.Node<E> nodeByIndex = null;
+    private Node<E> findNodeByIndex(int index) {
+        Node<E> nodeByIndex = null;
 
         if (index <= size / 2 - 1) {
             nodeByIndex = firstNode;
@@ -255,7 +253,7 @@ public class CustomLinkedList<E> implements List<E> {
         ReadWriteLock lock = new ReentrantReadWriteLock();
 
         return new ListIterator<E>() {
-            ru.clevertec.Node<E> currentNode = firstNode;
+            Node<E> currentNode = firstNode;
 
             @Override
             public boolean hasNext() {
