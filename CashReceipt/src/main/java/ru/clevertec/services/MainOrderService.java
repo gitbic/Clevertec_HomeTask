@@ -27,7 +27,7 @@ public class MainOrderService {
     public MainOrderService(DBService dbService, IMainOrder mainOrder) {
         this.dbService = dbService;
         this.mainOrder = mainOrder;
-        discountCard = new DiscountCard("1111", 0);
+        discountCard = new DiscountCard("absent", 0);
     }
 
     public void findDiscountCardForOrder() {
@@ -92,17 +92,18 @@ public class MainOrderService {
     }
 
     public void printCheck(CashReceiptManager cashReceiptManager) {
-        cashReceiptManager.createCheck(mainOrder.getPurchases(), getTailArgs());
+        cashReceiptManager.createCheck(mainOrder.getPurchases(), getPurchasesCost());
         cashReceiptManager.printCheck();
     }
 
-    private String[] getTailArgs() {
+    public String[] getPurchasesCost() {
         return new String[]{
                 Utility.priceToString(mainOrder.getTotalCostUsingThreads()),
                 Utility.percentToString(discountCard.getDiscount()),
                 Utility.priceToString(mainOrder.getFinalCost(discountCard))
         };
     }
+
 
 
 }

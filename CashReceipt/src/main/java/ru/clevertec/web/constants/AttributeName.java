@@ -12,4 +12,6 @@ public class AttributeName {
     public static final String CARD_NUMBER = "cardNumber";
     public static final String DISCOUNT_CARD = "discountCard";
     public static final String DISCOUNT_FOR_PRODUCT = "discountForProduct";
+    public static final String TOTAL_COST = "totalCost";
+    public static final String FINAL_COST = "finalCost";
 }

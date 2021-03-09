@@ -10,10 +10,13 @@
     <title>Purchases</title>
 </head>
 <body>
-<p>Discount card number: ${discountCard.number} discount: ${discountCard.discount}%</p>
 
+<prefix:if test="${purchases.size() > 0}">
+    <p>Discount card number: ${discountCard.number} discount: ${discountCard.discount}%</p>
+</prefix:if>
 <table>
     <thead>
+
     <tr>
         <th>id</th>
         <th>name</th>
@@ -46,6 +49,12 @@
     </tbody>
 </table>
 
+<p></p>
+<prefix:if test="${purchases.size() > 0}">
+    <p><b>Total cost</b> ${totalCost}</p>
+    <p><b>Discount card</b> ${discountCard.discount}%</p>
+    <p><b>Final cost</b> ${finalCost}</p>
+</prefix:if>
 
 </body>
 </html>

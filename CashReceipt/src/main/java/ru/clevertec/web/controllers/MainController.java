@@ -33,11 +33,14 @@ public class MainController extends HttpServlet {
 
         List<Purchase> purchases = mainOrderService.getPurchases();
         DiscountCard discountCard = mainOrderService.getDiscountCard();
+        String[] purchasesCost = mainOrderService.getPurchasesCost();
 
         req.setAttribute(AttributeName.PURCHASES, purchases);
         req.setAttribute(AttributeName.DISCOUNT_CARD, discountCard);
         req.setAttribute(AttributeName.QUANTITY_FOR_DISCOUNT, Constants.QUANTITY_FOR_DISCOUNT);
         req.setAttribute(AttributeName.DISCOUNT_FOR_PRODUCT, Constants.DEFAULT_DISCOUNT_PERCENT);
+        req.setAttribute(AttributeName.TOTAL_COST, purchasesCost[0]);
+        req.setAttribute(AttributeName.FINAL_COST, purchasesCost[2]);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.INDEX_PAGE_URL);
         requestDispatcher.forward(req, resp);
