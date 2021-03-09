@@ -48,7 +48,7 @@ public class MainOrderService {
 
         if (index >= 0) {
             Purchase purchase = purchases.get(index);
-            purchase.setNumber(newPurchase.getNumber());
+            purchase.setNumber(purchase.getNumber() + newPurchase.getNumber());
         } else {
             mainOrder.addPurchaseToList(newPurchase);
         }
