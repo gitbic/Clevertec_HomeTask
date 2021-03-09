@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {URL.MAIN_URL})
+@WebServlet(urlPatterns = {URL.MAIN_URL_PATTERN})
 public class mainController extends HttpServlet {
     DBController dbController = new DBController();
     DBService dbService = new DBService(dbController);

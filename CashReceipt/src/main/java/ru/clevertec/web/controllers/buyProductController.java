@@ -1,7 +1,9 @@
 package ru.clevertec.web.controllers;
 
-import ru.clevertec.services.jdbc.DBController;
+import ru.clevertec.beans.Product;
+import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
+import ru.clevertec.web.constants.Constant;
 import ru.clevertec.web.constants.URL;
 
 import javax.servlet.RequestDispatcher;
@@ -11,22 +13,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(urlPatterns = {URL.BUY_PRODUCT})
+@WebServlet(urlPatterns = {URL.BUY_PRODUCT_URL_PATTERN})
 public class buyProductController extends HttpServlet {
-    DBController dbController = new DBController();
-    DBService dbService = new DBService(dbController);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String productName =req.getParameter("productName");
-        String productNumber =req.getParameter("productNumber");
-        System.out.println("productName = " + productName);
 
-        System.out.println(productName);
+        DBService dbService = (DBService) getServletContext().getAttribute(Constant.DB_SERVICE_ATTRIBUTE_NAME);
+        MainOrderService mainOrderService = (MainOrderService) getServletContext().getAttribute(Constant.MAIN_ORDER_SERVICE_ATTRIBUTE_NAME);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.MAIN_URL);
+        List<Product> products = dbService.getProducts();
+
+        req.setAttribute("products", products);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.BUY_PRODUCT_PAGE_URL);
         requestDispatcher.forward(req, resp);
-
     }
 }

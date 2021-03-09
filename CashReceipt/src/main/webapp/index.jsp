@@ -50,8 +50,6 @@
     </thead>
     <tbody>
 <%--    <form action="/shopping/main" method="GET">--%>
-<%--        <td><input type="submit" value="Submit"></td>--%>
-
         <prefix:forEach var="element" items="${elements}">
         <tr>
             <td>${element}</td>
@@ -60,7 +58,8 @@
 <%--        ${pageContext.request.contextPath}--%>
     </tbody>
     <div>
-        <a href="/pages/buyProduct.jsp">Byu Product</a>
+<%--        <a href="/pages/buyProduct.jsp">Byu Product</a>--%>
+        <a href="/shopping/buy">Byu Product</a>
         <a href="/pages/chooseCard.jsp">Choose card</a>
         <a href="/pages/printCheck.jsp">Print check</a>
     </div>
