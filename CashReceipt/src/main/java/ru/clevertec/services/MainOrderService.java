@@ -13,6 +13,7 @@ import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.services.jdbc.DBService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +41,17 @@ public class MainOrderService {
         }
     }
 
-    public void addPurchaseToMainOrder(Purchase purchase) {
-        mainOrder.addPurchaseToList(purchase);
+    public void addPurchaseToMainOrder(Purchase newPurchase) {
+
+        List<Purchase> purchases = mainOrder.getPurchases();
+        int index = Collections.binarySearch(purchases, newPurchase);
+
+        if (index >= 0) {
+            Purchase purchase = purchases.get(index);
+            purchase.setNumber(newPurchase.getNumber());
+        } else {
+            mainOrder.addPurchaseToList(newPurchase);
+        }
     }
 
     public void createMainOrderFromCLIArgument() {
@@ -58,7 +68,7 @@ public class MainOrderService {
             }
 
             Purchase purchase = PurchaseFactory.createPurchase(product, productNumber);
-            mainOrder.addPurchaseToList(purchase);
+            addPurchaseToMainOrder(purchase);
         }
     }
 

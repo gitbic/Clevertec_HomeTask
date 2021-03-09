@@ -4,11 +4,11 @@ import ru.clevertec.constants.Constants;
 
 import java.math.BigDecimal;
 
-public final class Product {
+public final class Product implements Comparable<Product> {
     private final int id;
     private final String name;
     private final BigDecimal price;
-    private boolean isDiscountForQuantity;
+    private final boolean isDiscountForQuantity;
 
     public Product(int id, String name, BigDecimal price, boolean isDiscountForQuantity) {
         this.id = id;
@@ -33,16 +33,15 @@ public final class Product {
         return isDiscountForQuantity;
     }
 
-
-    public void setDiscountForQuantity(boolean discountForQuantity) {
-        this.isDiscountForQuantity = discountForQuantity;
-    }
-
     @Override
     public String toString() {
         return name + Constants.CSV_DELIMITER + Utility.priceToString(price);
     }
 
+    @Override
+    public int compareTo(Product o) {
+        return this.id - o.id;
+    }
 
     public String printToString() {
         return "Product{" +

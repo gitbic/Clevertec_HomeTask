@@ -13,14 +13,21 @@
 <table>
     <thead>
     <tr>
-        <th>purchase</th>
+        <th>productId</th>
+        <th>productName</th>
+        <th>productPrice</th>
+<%--        <th>productIsDiscount</th>--%>
+        <th>productNumber</th>
     </tr>
     </thead>
     <tbody>
-    ${purchases.size()}
+
     <prefix:forEach var="purchase" items="${purchases}">
         <tr>
+            <td>${purchase.product.id}</td>
             <td>${purchase.product.name}</td>
+            <td>${purchase.product.price}</td>
+<%--            <td>${purchase.product.is_discount}</td>--%>
             <td>${purchase.number}</td>
         </tr>
     </prefix:forEach>
