@@ -9,19 +9,20 @@ public class DBController {
     public Connection getConnection() throws SQLException {
 
         try {
+            Class.forName(PostgresqlPropertiesStorage.TOMCAT_CLAZZ);
             return DriverManager.getConnection(
                     PostgresqlPropertiesStorage.DB_URL + PostgresqlPropertiesStorage.DB_NAME,
                     PostgresqlPropertiesStorage.DB_USERNAME,
                     PostgresqlPropertiesStorage.DB_PASSWORD);
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.err.println(String.format(JdbcConstants.FMT_DATABASE_CONNECTION_FAILED,
                     PostgresqlPropertiesStorage.DB_NAME));
             throw new SQLException(e);
         }
     }
 
-    private void checkDriverRegistered() {
+    public void checkDriverRegistered() {
         boolean driverFound = true;
 
         try {

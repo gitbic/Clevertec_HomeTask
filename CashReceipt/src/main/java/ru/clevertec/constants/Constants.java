@@ -9,6 +9,7 @@ public final class Constants {
     public static final String DEFAULT_CHECK_TXT_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.txt";
     public static final String DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.pdf";
     public static final String DEFAULT_CARD_INPUT_FILE_PATH = RESOURCES_PATH + "card.csv";
+//    public static final String DEFAULT_CARD_INPUT_FILE_PATH = "d:\\repo\\Clevertec\\Clevertec_HomeTask\\CashReceipt\\src\\main\\resources\\card.csv";
     public static final String PDF_TEMPLATE_FILE_PATH = RESOURCES_PATH + "templates.pdf";
 
     public static final int QUANTITY_FOR_DISCOUNT = 5;

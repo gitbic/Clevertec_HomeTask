@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 public class PostgresqlPropertiesStorage {
     public static ResourceBundle properties = ResourceBundle.getBundle(Constants.POSTGRESQL_CONNECTION_PROPERTIES);
+    public static final String TOMCAT_CLAZZ = "org.postgresql.Driver";
 
     public static final String DB_URL = properties.getString("db.url");
     public static final String DB_NAME = properties.getString("db.name");

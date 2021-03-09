@@ -3,7 +3,7 @@ plugins {
     id "ru.clevertec.file-downloader" version "1.0-SNAPSHOT"
 }
 
-configurations{
+configurations {
     javaagent
 }
 
