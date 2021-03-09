@@ -8,13 +8,13 @@ public final class Product implements Comparable<Product> {
     private final int id;
     private final String name;
     private final BigDecimal price;
-    private final boolean isDiscountForQuantity;
+    private final boolean discountForQuantity;
 
     public Product(int id, String name, BigDecimal price, boolean isDiscountForQuantity) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.isDiscountForQuantity = isDiscountForQuantity;
+        this.discountForQuantity = isDiscountForQuantity;
     }
 
     public int getId() {
@@ -30,7 +30,7 @@ public final class Product implements Comparable<Product> {
     }
 
     public boolean isDiscountForQuantity() {
-        return isDiscountForQuantity;
+        return discountForQuantity;
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class Product implements Comparable<Product> {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + Utility.priceToString(price) +
-                ", isDiscountForQuantity=" + isDiscountForQuantity +
+                ", isDiscountForQuantity=" + discountForQuantity +
                 '}';
     }
 }

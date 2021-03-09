@@ -32,7 +32,6 @@ public class MainController extends HttpServlet {
         List<Purchase> purchases = mainOrderService.getPurchases();
 
         req.setAttribute(AttributeName.PURCHASES, purchases);
-//        req.setAttribute("isDiscount", pu);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.INDEX_PAGE_URL);
         requestDispatcher.forward(req, resp);
 

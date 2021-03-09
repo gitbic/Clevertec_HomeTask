@@ -1,6 +1,7 @@
 package ru.clevertec.web.controllers;
 
 import ru.clevertec.beans.Product;
+import ru.clevertec.constants.Constants;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.constants.AttributeName;
@@ -32,6 +33,7 @@ public class BuyProductController extends HttpServlet {
         List<Product> products = dbService.getProducts();
 
         req.setAttribute(AttributeName.PRODUCTS, products);
+        req.setAttribute("quantityForDiscount", Constants.QUANTITY_FOR_DISCOUNT);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.BUY_PRODUCT_PAGE_URL);
         requestDispatcher.forward(req, resp);
     }

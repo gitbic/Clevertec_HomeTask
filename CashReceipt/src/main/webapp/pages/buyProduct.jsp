@@ -8,21 +8,35 @@
 <table>
     <thead>
     <tr>
-        <th>productName</th>
-        <th>productNumber</th>
+        <th>product</th>
+        <th>number</th>
     </tr>
     </thead>
     <tbody>
+    <p>Discount on marked products with a quantity greater than or equal to <b>${quantityForDiscount}</b> pieces</p>
+
     <form action="/shopping/purchase" method="GET">
         <tr>
             <td>
                 <select name="productName">
                     <prefix:forEach var="product" items="${products}">
-                        <option value="${product.id}">${product.name} - \$${product.price}</option>
+                        <option value="${product.id}">
+                                ${product.name} - \$${product.price}
+                                    <prefix:if test="${product.discountForQuantity}">
+                                        - DISCONT
+                                    </prefix:if>
+                        </option>
                     </prefix:forEach>
                 </select>
             </td>
-            <td><input type="text" name="productNumber" placeholder="productNumber"></td>
+
+            <td>
+                <select name="productNumber">
+                    <prefix:forEach var="i" begin="1" end="10">
+                        <option value="${i}">${i}</option>
+                    </prefix:forEach>
+                </select>
+            </td>
             <td><input type="submit" value="buy"></td>
         </tr>
 <%--        ${pageContext.request.contextPath}--%>
