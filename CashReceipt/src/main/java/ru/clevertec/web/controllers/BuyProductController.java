@@ -22,7 +22,7 @@ public class BuyProductController extends HttpServlet {
     MainOrderService mainOrderService;
 
     @Override
-    public void init() throws ServletException {
+    public void init(){
         dbService = (DBService) getServletContext().getAttribute(AttributeName.DB_SERVICE);
         mainOrderService = (MainOrderService) getServletContext().getAttribute(AttributeName.MAIN_ORDER_SERVICE);
     }
@@ -33,7 +33,7 @@ public class BuyProductController extends HttpServlet {
         List<Product> products = dbService.getProducts();
 
         req.setAttribute(AttributeName.PRODUCTS, products);
-        req.setAttribute("quantityForDiscount", Constants.QUANTITY_FOR_DISCOUNT);
+        req.setAttribute(AttributeName.QUANTITY_FOR_DISCOUNT, Constants.QUANTITY_FOR_DISCOUNT);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.BUY_PRODUCT_PAGE_URL);
         requestDispatcher.forward(req, resp);
     }

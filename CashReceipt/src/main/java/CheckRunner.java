@@ -9,8 +9,8 @@ import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBController;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.services.mailer.MailService;
-import ru.clevertec.utils.customList.ThreadSafeCustomLinkedList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +32,7 @@ public class CheckRunner {
 //        CashReceiptManager.TXT.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
 //        CashReceiptManager.PDF.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
 
-        List<Purchase> purchases = new ThreadSafeCustomLinkedList<>();
+        List<Purchase> purchases = new ArrayList<>();
         IMainOrder mainOrder = MainOrderFactory.NO_PROXY.createMainOrder(purchases);
         MainOrderService mainOrderService = new MainOrderService(dbService, mainOrder);
 

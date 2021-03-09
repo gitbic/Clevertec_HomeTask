@@ -2,8 +2,8 @@
 <%@ taglib prefix="prefix" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <a href="/shopping/buy">Buy Product</a>
-<%--    <a href="/pages/chooseCard.jsp">Choose card</a>--%>
-<%--    <a href="/pages/printCheck.jsp">Print check</a>--%>
+<a href="/shopping/card">Choose card</a>
+<%--<a href="/shopping/pdf">Print check</a>--%>
 
 
 <head>

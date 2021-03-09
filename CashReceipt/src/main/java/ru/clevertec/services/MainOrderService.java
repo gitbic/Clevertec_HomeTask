@@ -27,6 +27,7 @@ public class MainOrderService {
     public MainOrderService(DBService dbService, IMainOrder mainOrder) {
         this.dbService = dbService;
         this.mainOrder = mainOrder;
+        myCard = new DiscountCard("1111", 0);
     }
 
     public void findDiscountCardForOrder() {

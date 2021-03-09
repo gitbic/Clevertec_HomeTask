@@ -1,8 +1,6 @@
 package ru.clevertec.web.controllers;
 
-import ru.clevertec.beans.Product;
-import ru.clevertec.beans.Purchase;
-import ru.clevertec.factories.PurchaseFactory;
+import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.constants.AttributeName;
@@ -15,9 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(urlPatterns = {URL.CREATE_PURCHASE_URL_PATTERN})
-public class CreatePurchaseController extends HttpServlet {
+@WebServlet(urlPatterns = {URL.CHOOSE_CARD_URL_PATTERN})
+public class ChooseCardController extends HttpServlet {
     DBService dbService;
     MainOrderService mainOrderService;
 
@@ -30,15 +29,9 @@ public class CreatePurchaseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int productId = Integer.parseInt(req.getParameter(AttributeName.PRODUCT_NAME));
-        int productNumber = Integer.parseInt(req.getParameter(AttributeName.PRODUCT_NUMBER));
-
-        Product product = dbService.getProductById(productId);
-        Purchase purchase = PurchaseFactory.createPurchase(product, productNumber);
-        mainOrderService.addPurchaseToMainOrder(purchase);
-
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.MAIN_URL_PATTERN);
+        List<DiscountCard> cards = dbService.getCards();
+        req.setAttribute(AttributeName.CARDS, cards);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.CHOOSE_CARD_PAGE_URL);
         requestDispatcher.forward(req, resp);
-
     }
 }

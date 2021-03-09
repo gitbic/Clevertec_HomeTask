@@ -21,7 +21,7 @@ public class MainController extends HttpServlet {
     MainOrderService mainOrderService;
 
     @Override
-    public void init() throws ServletException {
+    public void init(){
         dbService = (DBService) getServletContext().getAttribute(AttributeName.DB_SERVICE);
         mainOrderService = (MainOrderService) getServletContext().getAttribute(AttributeName.MAIN_ORDER_SERVICE);
     }
@@ -34,19 +34,6 @@ public class MainController extends HttpServlet {
         req.setAttribute(AttributeName.PURCHASES, purchases);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.INDEX_PAGE_URL);
         requestDispatcher.forward(req, resp);
-
-
-//        System.out.println("product id 1 = " + dbService.getProductById(28));
-//        System.out.println("product111");
-//
-//        List<String> elements = new ArrayList<>();
-//        elements.add("First element");
-//        elements.add("Second element");
-//
-//
-//        req.setAttribute("elements", elements);
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index.jsp");
-//        requestDispatcher.forward(req, resp);
 
 
     }
