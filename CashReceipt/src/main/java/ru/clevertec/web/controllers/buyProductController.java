@@ -1,5 +1,7 @@
 package ru.clevertec.web.controllers;
 
+import ru.clevertec.services.jdbc.DBController;
+import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.constants.URL;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +14,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {URL.BUY_PRODUCT})
 public class buyProductController extends HttpServlet {
+    DBController dbController = new DBController();
+    DBService dbService = new DBService(dbController);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

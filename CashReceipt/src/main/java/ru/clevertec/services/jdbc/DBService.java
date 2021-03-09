@@ -3,13 +3,15 @@ package ru.clevertec.services.jdbc;
 import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.FileIO;
 import ru.clevertec.beans.Product;
-import ru.clevertec.patterns.builders.product.Builder;
-import ru.clevertec.patterns.builders.product.ProductBuilder;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.enums.Arguments;
+import ru.clevertec.patterns.builders.product.Builder;
+import ru.clevertec.patterns.builders.product.ProductBuilder;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBService {
     DBController dbController;
@@ -35,6 +37,8 @@ public class DBService {
 
     private static final int PARAMETER_INDEX_FIRST = 1;
 
+    public static final String GET_CARDS_QUERY = "SELECT * FROM discount_cards";
+    public static final String GET_PRODUCTS_QUERY = "SELECT * FROM products";
     public static final String GET_PRODUCT_BY_ID_QUERY = "SELECT * FROM products WHERE id = ?";
     public static final String GET_CARD_BY_NUMBER_QUERY = "SELECT * FROM discount_cards WHERE card_number = ?";
     public static final String DELETE_PRODUCT_BY_ID_QUERY = "DELETE FROM products WHERE id = ?";
@@ -82,6 +86,21 @@ public class DBService {
         }
     }
 
+    public List<Product> getProducts() {
+
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PRODUCTS_QUERY)) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            return getProductsFromResultSet(resultSet);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public Product getProductById(int studentId) {
         try (Connection connection = dbController.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_PRODUCT_BY_ID_QUERY)) {
@@ -90,25 +109,32 @@ public class DBService {
 
             ResultSet resultSet = statement.executeQuery();
 
-            Product product = null;
+            List<Product> products = getProductsFromResultSet(resultSet);
 
-            while (resultSet.next()) {
-                Builder productBuilder = new ProductBuilder();
-
-                productBuilder.setId(resultSet.getInt(PRODUCT_TABLE_POSITION_ID));
-                productBuilder.setName(resultSet.getString(PRODUCT_TABLE_POSITION_NAME));
-                productBuilder.setPrice(resultSet.getBigDecimal(PRODUCT_TABLE_POSITION_PRICE));
-                productBuilder.setDiscountForQuantity(resultSet.getBoolean(PRODUCT_TABLE_POSITION_IS_DISCOUNT));
-
-                product = productBuilder.getProduct();
-            }
-
-            return product;
+            return products.size() == 0
+                    ? null
+                    : products.get(0);
 
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private List<Product> getProductsFromResultSet(ResultSet resultSet) throws SQLException {
+        List<Product> products = new ArrayList<>();
+
+        while (resultSet.next()) {
+            Builder productBuilder = new ProductBuilder();
+
+            productBuilder.setId(resultSet.getInt(PRODUCT_TABLE_POSITION_ID));
+            productBuilder.setName(resultSet.getString(PRODUCT_TABLE_POSITION_NAME));
+            productBuilder.setPrice(resultSet.getBigDecimal(PRODUCT_TABLE_POSITION_PRICE));
+            productBuilder.setDiscountForQuantity(resultSet.getBoolean(PRODUCT_TABLE_POSITION_IS_DISCOUNT));
+
+            products.add(productBuilder.getProduct());
+        }
+        return products;
     }
 
     public DiscountCard getCardByNumber(String cardNumber) {
@@ -119,15 +145,11 @@ public class DBService {
 
             ResultSet resultSet = statement.executeQuery();
 
-            DiscountCard discountCard = null;
+            List<DiscountCard> discountCards = getCardsFromResultSet(resultSet);
 
-            while (resultSet.next()) {
-                String number = resultSet.getString(CARD_TABLE_POSITION_NUMBER);
-                double discount = resultSet.getDouble(CARD_TABLE_POSITION_DISCOUNT);
-                discountCard = new DiscountCard(number, discount);
-            }
-
-            return discountCard;
+            return discountCards.size() == 0
+                    ? null
+                    : discountCards.get(0);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,6 +157,30 @@ public class DBService {
         }
     }
 
+    public List<DiscountCard> getCards() {
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_CARDS_QUERY)) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            return getCardsFromResultSet(resultSet);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private List<DiscountCard> getCardsFromResultSet(ResultSet resultSet) throws SQLException {
+        List<DiscountCard> discountCards = new ArrayList<>();
+
+        while (resultSet.next()) {
+            String number = resultSet.getString(CARD_TABLE_POSITION_NUMBER);
+            double discount = resultSet.getDouble(CARD_TABLE_POSITION_DISCOUNT);
+            discountCards.add(new DiscountCard(number, discount));
+        }
+        return discountCards;
+    }
 
     public boolean deleteProductById(int id) {
         try (Connection connection = dbController.getConnection();

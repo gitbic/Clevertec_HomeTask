@@ -27,6 +27,7 @@ public class CheckRunner {
         dbService.fillCardTableFromFile();
         dbService.fillProductsTableFromFile();
 
+
         EventListener listener = new EmailListener(new MailService());
 //        CashReceiptManager.TXT.getPublisher().subscribe(State.TXT_CHECK_PRINTED, listener);
 //        CashReceiptManager.PDF.getPublisher().subscribe(State.PDF_CHECK_PRINTED, listener);
@@ -34,6 +35,7 @@ public class CheckRunner {
         List<Purchase> purchases = new ThreadSafeCustomLinkedList<>();
         IMainOrder mainOrder = MainOrderFactory.NO_PROXY.createMainOrder(purchases);
         MainOrderService mainOrderService = new MainOrderService(dbService, mainOrder);
+
 
         mainOrderService.findDiscountCardForOrder();
         mainOrderService.createMainOrderFromArgument();

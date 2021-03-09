@@ -16,14 +16,8 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {URL.MAIN_URL})
 public class mainController extends HttpServlet {
-    DBController dbController;
-    DBService dbService;
-
-    @Override
-    public void init() throws ServletException {
-        dbController = new DBController();
-        dbService = new DBService(dbController);
-    }
+    DBController dbController = new DBController();
+    DBService dbService = new DBService(dbController);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
