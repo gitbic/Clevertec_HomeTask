@@ -6,4 +6,5 @@ public class URL {
     public static final String CREATE_PURCHASE_URL_PATTERN = "/shopping/purchase";
 
     public static final String BUY_PRODUCT_PAGE_URL = "/pages/buyProduct.jsp";
+    public static final String INDEX_PAGE_URL = "/index.jsp";
 }

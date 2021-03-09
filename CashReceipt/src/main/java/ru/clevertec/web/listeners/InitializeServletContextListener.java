@@ -6,12 +6,12 @@ import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBController;
 import ru.clevertec.services.jdbc.DBService;
-import ru.clevertec.utils.customList.ThreadSafeCustomLinkedList;
-import ru.clevertec.web.constants.Constant;
+import ru.clevertec.web.constants.AttributeName;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebListener
@@ -25,11 +25,11 @@ public class InitializeServletContextListener implements ServletContextListener 
 //        dbService.fillCardTableFromFile();
 //        dbService.fillProductsTableFromFile();
 
-        List<Purchase> purchases = new ThreadSafeCustomLinkedList<>();
+        List<Purchase> purchases = new ArrayList<>();
         IMainOrder mainOrder = MainOrderFactory.NO_PROXY.createMainOrder(purchases);
         MainOrderService mainOrderService = new MainOrderService(dbService, mainOrder);
 
-        sce.getServletContext().setAttribute(Constant.DB_SERVICE_ATTRIBUTE_NAME, dbService);
-        sce.getServletContext().setAttribute(Constant.MAIN_ORDER_SERVICE_ATTRIBUTE_NAME, mainOrderService);
+        sce.getServletContext().setAttribute(AttributeName.DB_SERVICE, dbService);
+        sce.getServletContext().setAttribute(AttributeName.MAIN_ORDER_SERVICE, mainOrderService);
     }
 }

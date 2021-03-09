@@ -3,6 +3,7 @@ package ru.clevertec.services;
 
 import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.Product;
+import ru.clevertec.beans.Purchase;
 import ru.clevertec.beans.Utility;
 import ru.clevertec.checkmanage.CashReceiptManager;
 import ru.clevertec.constants.Constants;
@@ -12,6 +13,7 @@ import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.interfaces.IMainOrder;
 import ru.clevertec.services.jdbc.DBService;
 
+import java.util.List;
 import java.util.Map;
 
 public class MainOrderService {
@@ -38,24 +40,30 @@ public class MainOrderService {
         }
     }
 
-    public void addPurchaseToMainOrder(int productID, int productNumber) {
-        Product product = dbService.getProductById(productID);
-
-        if (product == null) {
-            System.err.println(String.format(ErrorMsg.FSTRING_PRODUCT_NOT_FOUND, productID));
-        } else {
-            mainOrder.addPurchaseToList(PurchaseFactory.createPurchase(product, productNumber));
-        }
+    public void addPurchaseToMainOrder(Purchase purchase) {
+        mainOrder.addPurchaseToList(purchase);
     }
 
-    public void createMainOrderFromArgument() {
+    public void createMainOrderFromCLIArgument() {
         for (Map.Entry<Integer, Integer> position : Arguments.readOrder().entrySet()) {
 
             int productId = position.getKey();
             int productNumber = position.getValue();
 
-            addPurchaseToMainOrder(productId, productNumber);
+            Product product = dbService.getProductById(productId);
+
+            if (product == null) {
+                System.err.println(String.format(ErrorMsg.FSTRING_PRODUCT_NOT_FOUND, productId));
+                continue;
+            }
+
+            Purchase purchase = PurchaseFactory.createPurchase(product, productNumber);
+            mainOrder.addPurchaseToList(purchase);
         }
+    }
+
+    public List<Purchase> getPurchases() {
+        return mainOrder.getPurchases();
     }
 
     public void printCheck(CashReceiptManager cashReceiptManager) {

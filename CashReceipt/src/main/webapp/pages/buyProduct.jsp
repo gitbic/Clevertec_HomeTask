@@ -25,7 +25,7 @@
             <td><input type="text" name="productNumber" placeholder="productNumber"></td>
             <td><input type="submit" value="buy"></td>
         </tr>
-        ${pageContext.request.contextPath}
+<%--        ${pageContext.request.contextPath}--%>
     </form>
     </tbody>
 </table>

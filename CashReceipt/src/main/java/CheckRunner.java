@@ -38,7 +38,7 @@ public class CheckRunner {
 
 
         mainOrderService.findDiscountCardForOrder();
-        mainOrderService.createMainOrderFromArgument();
+        mainOrderService.createMainOrderFromCLIArgument();
         mainOrderService.printCheck(CashReceiptManager.CONSOLE);
         mainOrderService.printCheck(CashReceiptManager.TXT);
         mainOrderService.printCheck(CashReceiptManager.PDF);
