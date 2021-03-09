@@ -44,11 +44,17 @@ public class MainOrderService {
     public void addPurchaseToMainOrder(Purchase newPurchase) {
 
         List<Purchase> purchases = mainOrder.getPurchases();
+        Collections.sort(purchases);
         int index = Collections.binarySearch(purchases, newPurchase);
 
         if (index >= 0) {
-            Purchase purchase = purchases.get(index);
-            purchase.setNumber(purchase.getNumber() + newPurchase.getNumber());
+            Purchase oldPurchase = purchases.get(index);
+            int productNumber = oldPurchase.getNumber() + newPurchase.getNumber();
+            Product product = oldPurchase.getProduct();
+            Purchase purchase = PurchaseFactory.createPurchase(product, productNumber);
+
+            mainOrder.removePurchaseFromList(index);
+            mainOrder.addPurchaseToList(purchase);
         } else {
             mainOrder.addPurchaseToList(newPurchase);
         }
