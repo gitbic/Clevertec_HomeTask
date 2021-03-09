@@ -10,6 +10,8 @@
     <title>Purchases</title>
 </head>
 <body>
+<p>Discount card number: ${discountCard.number} discount: ${discountCard.discount}%</p>
+
 <table>
     <thead>
     <tr>
@@ -17,8 +19,8 @@
         <th>name</th>
         <th>price</th>
         <th>number</th>
-        <th>discountQ</th>
         <th>cost</th>
+        <th>discount</th>
 
     </tr>
     </thead>
@@ -30,8 +32,14 @@
             <td>${purchase.product.name}</td>
             <td>${purchase.product.price}</td>
             <td>${purchase.number}</td>
-            <td>${purchase.product.discountForQuantity}</td>
             <td>${purchase.getCost()}</td>
+
+            <prefix:if test="${purchase.product.discountForQuantity}">
+                <prefix:if test="${purchase.number >= quantityForDiscount}">
+                    <td>${discountForProduct}%</td>
+                </prefix:if>
+            </prefix:if>
+
 
         </tr>
     </prefix:forEach>

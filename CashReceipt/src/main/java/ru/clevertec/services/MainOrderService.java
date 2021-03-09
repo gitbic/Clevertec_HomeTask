@@ -21,25 +21,33 @@ public class MainOrderService {
 
     private final DBService dbService;
     private final IMainOrder mainOrder;
-    private DiscountCard myCard;
+    private DiscountCard discountCard;
 
 
     public MainOrderService(DBService dbService, IMainOrder mainOrder) {
         this.dbService = dbService;
         this.mainOrder = mainOrder;
-        myCard = new DiscountCard("1111", 0);
+        discountCard = new DiscountCard("1111", 0);
     }
 
     public void findDiscountCardForOrder() {
         String cardNumber = Arguments.CARD_NUMBER.getValue();
-        myCard = dbService.getCardByNumber(cardNumber);
+        discountCard = dbService.getCardByNumber(cardNumber);
 
-        if (myCard == null) {
-            myCard = new DiscountCard(Constants.EMPTY_STRING, Constants.ZERO_DISCOUNT_PERCENT);
+        if (discountCard == null) {
+            discountCard = new DiscountCard(Constants.EMPTY_STRING, Constants.ZERO_DISCOUNT_PERCENT);
             if (!cardNumber.equals(Constants.EMPTY_STRING)) {
                 System.err.println(String.format(ErrorMsg.FSTRING_CARD_NOT_FOUND, cardNumber));
             }
         }
+    }
+
+    public DiscountCard getDiscountCard() {
+        return discountCard;
+    }
+
+    public void setupDiscountCard(DiscountCard discountCard) {
+        this.discountCard = discountCard;
     }
 
     public void addPurchaseToMainOrder(Purchase newPurchase) {
@@ -91,8 +99,8 @@ public class MainOrderService {
     private String[] getTailArgs() {
         return new String[]{
                 Utility.priceToString(mainOrder.getTotalCostUsingThreads()),
-                Utility.percentToString(myCard.getDiscount()),
-                Utility.priceToString(mainOrder.getFinalCost(myCard))
+                Utility.percentToString(discountCard.getDiscount()),
+                Utility.priceToString(mainOrder.getFinalCost(discountCard))
         };
     }
 

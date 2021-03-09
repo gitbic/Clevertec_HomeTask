@@ -10,4 +10,6 @@ public class AttributeName {
     public static final String PRODUCT_NUMBER = "productNumber";
     public static final String QUANTITY_FOR_DISCOUNT = "quantityForDiscount";
     public static final String CARD_NUMBER = "cardNumber";
+    public static final String DISCOUNT_CARD = "discountCard";
+    public static final String DISCOUNT_FOR_PRODUCT = "discountForProduct";
 }

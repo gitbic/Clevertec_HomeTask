@@ -1,10 +1,12 @@
 package ru.clevertec.web.controllers;
 
+import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.URL;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +28,11 @@ public class SetupCardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cardNumber = req.getParameter(AttributeName.CARD_NUMBER);
-        mainOrderService.findDiscountCardForOrder();
+        DiscountCard discountCard = dbService.getCardByNumber(cardNumber);
+
+        mainOrderService.setupDiscountCard(discountCard);
+
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.MAIN_URL_PATTERN);
+        requestDispatcher.forward(req, resp);
     }
 }

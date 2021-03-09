@@ -13,31 +13,19 @@
     </thead>
     <tbody>
 
-    <form action="/shopping/purchase" method="GET">
+    <form action="/shopping/setupCard" method="GET">
         <tr>
             <td>
-                <select name="productName">
-                    <prefix:forEach var="product" items="${products}">
-                        <option value="${product.id}">
-                                ${product.name} - \$${product.price}
-                            <prefix:if test="${product.discountForQuantity}">
-                                - DISCONT
-                            </prefix:if>
+                <select name="cardNumber">
+                    <prefix:forEach var="card" items="${cards}">
+                        <option value="${card.number}">
+                                card ${card.number} - discount %${card.discount}
                         </option>
                     </prefix:forEach>
                 </select>
             </td>
-
-            <td>
-                <select name="productNumber">
-                    <prefix:forEach var="i" begin="1" end="10">
-                        <option value="${i}">${i}</option>
-                    </prefix:forEach>
-                </select>
-            </td>
-            <td><input type="submit" value="buy"></td>
+            <td><input type="submit" value="choose"></td>
         </tr>
-        <%--        ${pageContext.request.contextPath}--%>
     </form>
     </tbody>
 </table>
