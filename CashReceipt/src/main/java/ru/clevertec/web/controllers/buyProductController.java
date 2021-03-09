@@ -17,16 +17,21 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {URL.BUY_PRODUCT_URL_PATTERN})
 public class buyProductController extends HttpServlet {
+    DBService dbService;
+    MainOrderService mainOrderService;
+
+    @Override
+    public void init() throws ServletException {
+        dbService = (DBService) getServletContext().getAttribute(Constant.DB_SERVICE_ATTRIBUTE_NAME);
+        mainOrderService = (MainOrderService) getServletContext().getAttribute(Constant.MAIN_ORDER_SERVICE_ATTRIBUTE_NAME);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        DBService dbService = (DBService) getServletContext().getAttribute(Constant.DB_SERVICE_ATTRIBUTE_NAME);
-        MainOrderService mainOrderService = (MainOrderService) getServletContext().getAttribute(Constant.MAIN_ORDER_SERVICE_ATTRIBUTE_NAME);
-
         List<Product> products = dbService.getProducts();
 
-        req.setAttribute("products", products);
+        req.setAttribute(Constant.PRODUCTS_ATTRIBUTE_NAME, products);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.BUY_PRODUCT_PAGE_URL);
         requestDispatcher.forward(req, resp);
     }

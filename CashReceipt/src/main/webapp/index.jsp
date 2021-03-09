@@ -39,7 +39,7 @@
 <%@ taglib prefix="prefix" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>Purchases</title>
 </head>
 <body>
 <table>
