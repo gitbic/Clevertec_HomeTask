@@ -53,8 +53,7 @@ public class MainOrderService {
     public void addPurchaseToMainOrder(Purchase newPurchase) {
 
         List<Purchase> purchases = mainOrder.getPurchases();
-        Collections.sort(purchases);
-        int index = Collections.binarySearch(purchases, newPurchase);
+        int index = findPurchaseIndexInMainOrder(newPurchase);
 
         if (index >= 0) {
             Purchase oldPurchase = purchases.get(index);
@@ -87,6 +86,18 @@ public class MainOrderService {
         }
     }
 
+    public void deletePurchaseFromMainOrder(Purchase purchase) {
+        int index = findPurchaseIndexInMainOrder(purchase);
+        mainOrder.removePurchaseFromList(index);
+    }
+
+    private int findPurchaseIndexInMainOrder(Purchase purchase) {
+        List<Purchase> purchases = mainOrder.getPurchases();
+        Collections.sort(purchases);
+        int index = Collections.binarySearch(purchases, purchase);
+        return index;
+    }
+
     public List<Purchase> getPurchases() {
         return mainOrder.getPurchases();
     }
@@ -103,7 +114,6 @@ public class MainOrderService {
                 Utility.priceToString(mainOrder.getFinalCost(discountCard))
         };
     }
-
 
 
 }

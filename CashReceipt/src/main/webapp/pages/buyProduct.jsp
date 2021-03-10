@@ -15,7 +15,7 @@
     <tbody>
     <p>Discount on marked products with a quantity greater than or equal to <b>${quantityForDiscount}</b> pieces</p>
 
-    <form action="/shopping/purchase" method="GET">
+    <form action=${URL["CREATE_PURCHASE_URL_PATTERN"]} method="GET">
         <tr>
             <td>
                 <select name="productName">

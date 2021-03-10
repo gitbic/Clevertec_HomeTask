@@ -13,7 +13,7 @@
     </thead>
     <tbody>
 
-    <form action="/shopping/setupCard" method="GET">
+    <form action=${URL["SETUP_CARD_URL_PATTERN"]} method="GET">
         <tr>
             <td>
                 <select name="cardNumber">

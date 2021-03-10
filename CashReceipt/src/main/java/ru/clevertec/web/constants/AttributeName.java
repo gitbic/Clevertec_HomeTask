@@ -14,4 +14,5 @@ public class AttributeName {
     public static final String DISCOUNT_FOR_PRODUCT = "discountForProduct";
     public static final String TOTAL_COST = "totalCost";
     public static final String FINAL_COST = "finalCost";
+    public static final String DELETE_PURCHASE = "deletePurchase";
 }
