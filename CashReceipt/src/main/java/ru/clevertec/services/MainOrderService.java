@@ -23,7 +23,6 @@ public class MainOrderService {
     private final IMainOrder mainOrder;
     private DiscountCard discountCard;
 
-
     public MainOrderService(DBService dbService, IMainOrder mainOrder) {
         this.dbService = dbService;
         this.mainOrder = mainOrder;
@@ -96,6 +95,14 @@ public class MainOrderService {
         Collections.sort(purchases);
         int index = Collections.binarySearch(purchases, purchase);
         return index;
+    }
+
+    public Purchase findPurchaseInMainOrder(Purchase purchase) {
+        int index = findPurchaseIndexInMainOrder(purchase);
+
+        return index >= 0
+                ? mainOrder.getPurchaseFromList(index)
+                : null;
     }
 
     public List<Purchase> getPurchases() {

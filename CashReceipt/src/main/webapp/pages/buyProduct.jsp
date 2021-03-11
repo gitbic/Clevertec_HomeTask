@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <p>Discount on marked products with a quantity greater than or equal to <b>${quantityForDiscount}</b> pieces</p>
+    <p>Скидка распространяется на помеченные продукты, купленные в количестве <b>${quantityForDiscount}</b> и более штук</p>
 
     <form action=${URL["CREATE_PURCHASE_URL_PATTERN"]} method="GET">
         <tr>

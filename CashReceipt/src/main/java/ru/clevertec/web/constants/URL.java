@@ -12,4 +12,5 @@ public class URL {
     public static final String CHOOSE_CARD_PAGE_URL = "/pages/chooseCard.jsp";
     public static final String BUY_PRODUCT_PAGE_URL = "/pages/buyProduct.jsp";
     public static final String INDEX_PAGE_URL = "/index.jsp";
+
 }
