@@ -22,15 +22,11 @@ public class MaxProductNumberFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-
         int productId = Integer.parseInt(request.getParameter(AttributeName.PRODUCT_NAME));
         int productNumber = Integer.parseInt(request.getParameter(AttributeName.PRODUCT_NUMBER));
 
         Product product = dbService.getProductById(productId);
         Purchase purchase = PurchaseFactory.createPurchase(product, productNumber);
-        System.out.println(product);
-        System.out.println(purchase);
-
         Purchase oldPurchase = mainOrderService.findPurchaseInMainOrder(purchase);
 
         if (oldPurchase != null) {
@@ -38,7 +34,6 @@ public class MaxProductNumberFilter implements Filter {
         }
 
         if (productNumber > Constant.MAX_PRODUCT_NUMBER) {
-
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(URL.MAIN_URL_PATTERN);
             requestDispatcher.forward(request, response);
         } else {
