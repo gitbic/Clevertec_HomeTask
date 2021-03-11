@@ -6,6 +6,7 @@ import ru.clevertec.constants.Constants;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.constants.AttributeName;
+import ru.clevertec.web.constants.Constant;
 import ru.clevertec.web.constants.URL;
 
 import javax.servlet.RequestDispatcher;
@@ -39,8 +40,8 @@ public class MainController extends HttpServlet {
         req.setAttribute(AttributeName.DISCOUNT_CARD, discountCard);
         req.setAttribute(AttributeName.QUANTITY_FOR_DISCOUNT, Constants.QUANTITY_FOR_DISCOUNT);
         req.setAttribute(AttributeName.DISCOUNT_FOR_PRODUCT, Constants.DEFAULT_DISCOUNT_PERCENT);
-        req.setAttribute(AttributeName.TOTAL_COST, purchasesCost[0]);
-        req.setAttribute(AttributeName.FINAL_COST, purchasesCost[2]);
+        req.setAttribute(AttributeName.TOTAL_COST, purchasesCost[Constant.TOTAL_COST_INDEX]);
+        req.setAttribute(AttributeName.FINAL_COST, purchasesCost[Constant.FINAL_COST_INDEX]);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.INDEX_PAGE_URL);
         requestDispatcher.forward(req, resp);

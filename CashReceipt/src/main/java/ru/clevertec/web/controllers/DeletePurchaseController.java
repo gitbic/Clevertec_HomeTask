@@ -22,7 +22,7 @@ public class DeletePurchaseController extends HttpServlet {
     MainOrderService mainOrderService;
 
     @Override
-    public void init(){
+    public void init() {
         dbService = (DBService) getServletContext().getAttribute(AttributeName.DB_SERVICE);
         mainOrderService = (MainOrderService) getServletContext().getAttribute(AttributeName.MAIN_ORDER_SERVICE);
     }
@@ -32,8 +32,11 @@ public class DeletePurchaseController extends HttpServlet {
 
         int productId = Integer.parseInt(req.getParameter(AttributeName.DELETE_PURCHASE));
         Product product = new Product(productId, null, null, false);
-        Purchase purchase = new Purchase(product, 1);
-        mainOrderService.deletePurchaseFromMainOrder(purchase);
+        Purchase purchase = new Purchase(product, 0);
+
+        if (mainOrderService.isExistPurchaseInMainOrder(purchase)) {
+            mainOrderService.deletePurchaseFromMainOrder(purchase);
+        }
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(URL.MAIN_URL_PATTERN);
         requestDispatcher.forward(req, resp);

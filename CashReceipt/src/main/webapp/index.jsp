@@ -3,7 +3,6 @@
 <html>
 <a href=${URL["BUY_PRODUCT_URL_PATTERN"]}>Buy Product</a>
 <a href=${URL["CHOOSE_CARD_URL_PATTERN"]}>Choose card</a>
-<%--<a href="/shopping/pdf">Print check</a>--%>
 
 
 <head>

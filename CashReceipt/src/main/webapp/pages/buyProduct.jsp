@@ -15,7 +15,7 @@
     <tbody>
     <p>Скидка распространяется на помеченные продукты, купленные в количестве <b>${quantityForDiscount}</b> и более штук</p>
 
-    <form action=${URL["CREATE_PURCHASE_URL_PATTERN"]} method="GET">
+        <form action=${URL["CREATE_PURCHASE_URL_PATTERN"]} method="GET">
         <tr>
             <td>
                 <select name="productName">

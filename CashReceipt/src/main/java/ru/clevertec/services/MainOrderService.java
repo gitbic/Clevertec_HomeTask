@@ -93,8 +93,13 @@ public class MainOrderService {
     private int findPurchaseIndexInMainOrder(Purchase purchase) {
         List<Purchase> purchases = mainOrder.getPurchases();
         Collections.sort(purchases);
-        int index = Collections.binarySearch(purchases, purchase);
-        return index;
+        return Collections.binarySearch(purchases, purchase);
+    }
+
+    public boolean isExistPurchaseInMainOrder(Purchase purchase) {
+        int index = findPurchaseIndexInMainOrder(purchase);
+
+        return index >= 0;
     }
 
     public Purchase findPurchaseInMainOrder(Purchase purchase) {
