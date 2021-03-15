@@ -5,6 +5,8 @@ import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
+import ru.clevertec.web.builders.DBServiceBuilder;
+import ru.clevertec.web.builders.MainOrderServiceBuilder;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.Constant;
 import ru.clevertec.web.constants.URL;
@@ -25,8 +27,8 @@ public class MainController extends HttpServlet {
 
     @Override
     public void init(){
-        dbService = (DBService) getServletContext().getAttribute(AttributeName.DB_SERVICE);
-        mainOrderService = (MainOrderService) getServletContext().getAttribute(AttributeName.MAIN_ORDER_SERVICE);
+        dbService = DBServiceBuilder.getInstance();
+        mainOrderService = MainOrderServiceBuilder.getInstance();
     }
 
     @Override

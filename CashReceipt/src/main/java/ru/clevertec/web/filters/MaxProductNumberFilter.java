@@ -5,6 +5,8 @@ import ru.clevertec.beans.Purchase;
 import ru.clevertec.factories.PurchaseFactory;
 import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
+import ru.clevertec.web.builders.DBServiceBuilder;
+import ru.clevertec.web.builders.MainOrderServiceBuilder;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.Constant;
 import ru.clevertec.web.constants.URL;
@@ -43,9 +45,8 @@ public class MaxProductNumberFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        ServletContext servletContext = filterConfig.getServletContext();
-        dbService = (DBService) servletContext.getAttribute(AttributeName.DB_SERVICE);
-        mainOrderService = (MainOrderService) servletContext.getAttribute(AttributeName.MAIN_ORDER_SERVICE);
+        dbService = DBServiceBuilder.getInstance();
+        mainOrderService = MainOrderServiceBuilder.getInstance();
     }
 
     @Override
