@@ -3,8 +3,6 @@ package ru.clevertec.web.controllers;
 import ru.clevertec.beans.Product;
 import ru.clevertec.beans.Purchase;
 import ru.clevertec.services.MainOrderService;
-import ru.clevertec.services.jdbc.DBService;
-import ru.clevertec.web.builders.DBServiceBuilder;
 import ru.clevertec.web.builders.MainOrderServiceBuilder;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.URL;
@@ -19,13 +17,10 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {URL.DELETE_PURCHASE_URL_PATTERN})
 public class DeletePurchaseController extends HttpServlet {
-
-    DBService dbService;
-    MainOrderService mainOrderService;
+    private MainOrderService mainOrderService;
 
     @Override
     public void init() {
-        dbService = DBServiceBuilder.getInstance();
         mainOrderService = MainOrderServiceBuilder.getInstance();
     }
 

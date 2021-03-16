@@ -18,8 +18,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {URL.SETUP_CARD_URL_PATTERN})
 public class SetupCardController extends HttpServlet {
-    DBService dbService;
-    MainOrderService mainOrderService;
+    private DBService dbService;
+    private MainOrderService mainOrderService;
 
     @Override
     public void init(){

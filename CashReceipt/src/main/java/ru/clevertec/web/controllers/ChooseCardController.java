@@ -1,10 +1,8 @@
 package ru.clevertec.web.controllers;
 
 import ru.clevertec.beans.DiscountCard;
-import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.builders.DBServiceBuilder;
-import ru.clevertec.web.builders.MainOrderServiceBuilder;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.URL;
 
@@ -19,13 +17,11 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {URL.CHOOSE_CARD_URL_PATTERN})
 public class ChooseCardController extends HttpServlet {
-    DBService dbService;
-    MainOrderService mainOrderService;
+    private DBService dbService;
 
     @Override
-    public void init(){
+    public void init() {
         dbService = DBServiceBuilder.getInstance();
-        mainOrderService = MainOrderServiceBuilder.getInstance();
     }
 
     @Override

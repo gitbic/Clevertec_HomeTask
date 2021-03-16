@@ -4,8 +4,6 @@ import ru.clevertec.beans.DiscountCard;
 import ru.clevertec.beans.Purchase;
 import ru.clevertec.constants.Constants;
 import ru.clevertec.services.MainOrderService;
-import ru.clevertec.services.jdbc.DBService;
-import ru.clevertec.web.builders.DBServiceBuilder;
 import ru.clevertec.web.builders.MainOrderServiceBuilder;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.Constant;
@@ -22,12 +20,10 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {URL.MAIN_URL_PATTERN})
 public class MainController extends HttpServlet {
-    DBService dbService;
-    MainOrderService mainOrderService;
+    private MainOrderService mainOrderService;
 
     @Override
     public void init(){
-        dbService = DBServiceBuilder.getInstance();
         mainOrderService = MainOrderServiceBuilder.getInstance();
     }
 

@@ -2,10 +2,8 @@ package ru.clevertec.web.controllers;
 
 import ru.clevertec.beans.Product;
 import ru.clevertec.constants.Constants;
-import ru.clevertec.services.MainOrderService;
 import ru.clevertec.services.jdbc.DBService;
 import ru.clevertec.web.builders.DBServiceBuilder;
-import ru.clevertec.web.builders.MainOrderServiceBuilder;
 import ru.clevertec.web.constants.AttributeName;
 import ru.clevertec.web.constants.URL;
 
@@ -20,13 +18,11 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {URL.BUY_PRODUCT_URL_PATTERN})
 public class BuyProductController extends HttpServlet {
-    DBService dbService;
-    MainOrderService mainOrderService;
+    private DBService dbService;
 
     @Override
-    public void init(){
+    public void init() {
         dbService = DBServiceBuilder.getInstance();
-        mainOrderService = MainOrderServiceBuilder.getInstance();
     }
 
     @Override

@@ -20,8 +20,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {URL.CREATE_PURCHASE_URL_PATTERN})
 public class CreatePurchaseController extends HttpServlet {
-    DBService dbService;
-    MainOrderService mainOrderService;
+    private DBService dbService;
+    private MainOrderService mainOrderService;
 
     @Override
     public void init(){
