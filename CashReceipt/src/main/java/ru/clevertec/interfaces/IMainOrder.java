@@ -10,9 +10,9 @@ public interface IMainOrder {
 
     void addPurchaseToList(Purchase purchase);
 
-    Purchase getPurchaseFromList(int i);
+    Purchase getPurchaseFromList(int index);
 
-    void removePurchaseFromList(int i);
+    void removePurchaseFromList(int index);
 
     List<Purchase> getPurchases();
 

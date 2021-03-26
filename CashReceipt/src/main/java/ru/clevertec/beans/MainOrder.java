@@ -27,14 +27,14 @@ public final class MainOrder implements IMainOrder {
 
     @LogThisMethod()
     @Override
-    public Purchase getPurchaseFromList(int i) {
-        return purchases.get(i);
+    public Purchase getPurchaseFromList(int index) {
+        return purchases.get(index);
     }
 
     @LogThisMethod()
     @Override
-    public void removePurchaseFromList(int i) {
-        purchases.remove(i);
+    public void removePurchaseFromList(int index) {
+        purchases.remove(index);
     }
 
     @LogThisMethod(loggingLevel = LoggingLevel.WARN)
